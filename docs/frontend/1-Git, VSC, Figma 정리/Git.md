@@ -28,6 +28,7 @@
             git pull (origin main) <!--레포지토리 내용 가져오기 -->
             git add .<!-- 수정 및 추가한 작업에 대하여 저장 -->
             git commit -m "Text"<!-- 저장한것에 대하여 일 혹은 수정작업 이름 작성 -->
+            git commit --date "1 day ago" -m "커밋 메세지" <!-- 지난 날에 대한 commit을 작성한다. -->
             git push (origin main)<!-- 레포지토리에 올리기 -->
         ```
     3. Git Dev
