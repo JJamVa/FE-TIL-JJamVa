@@ -4,7 +4,12 @@ description: Create a doc page with rich content.
 
 # intro
 
-merrybmc의 TIL 기록 블로그입니다. 😀
+JJamVa의 Front-End 블로그입니다.
+
+:::info
+프론트엔드 개발자가 필요한 유용한 사이트
+오류 잡아주는 사이트: https://validator.w3.org/
+:::
 
 
 <!-- win + shift + s 하고 git 아무 issue에 들어가서 복붙 해보면 자동으로 링크가 생성-->
