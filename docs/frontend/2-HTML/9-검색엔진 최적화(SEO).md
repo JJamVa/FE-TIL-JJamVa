@@ -1,0 +1,11 @@
+# 검색엔진 최적화(SEO)
+
+## Search Engine Optimization
+```html
+<meta name="description" content="제주 ICT 코딩 컴퓨터학원, 연구원, 출판사">
+```
+
+- 검색 엔진 최적화를 위해 위와 같은 속성/속성값을 지정할 수 있다.
+
+## 검색 엔진이란?
+- 웹이나 컴퓨터 시스템에 저장된 정보를 찾아주는 프로그램을 의미
