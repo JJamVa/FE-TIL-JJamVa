@@ -11,13 +11,13 @@ function HomepageHeader() {
   return (
     <header className={styles.heroBanner}>
       <div className='container'>
-        <h1 className='hero__title'>Today I Learned</h1>
+        <h1 className='hero__title'>JJamVa's World</h1>
         <p className='hero__title__2'>
-          🚕 {'\u00A0'}안전지대 탈출하기{'\u00A0'} 🚗
+          ඞ {'\u00A0'}Imposter{'\u00A0'} ඞ
         </p>
         <div className={styles.buttons}>
           <Link className='button button--primary button--lg' to='/docs/frontend/intro'>
-            Go to Docs
+            Let's Among Us
           </Link>
         </div>
       </div>
@@ -34,7 +34,7 @@ export default function Home(): JSX.Element {
       <main className={styles.imgs}>
         <img
           src='
-        https://media.tenor.com/Qu46-3ANACUAAAAC/judy-hopps-driving.gif'
+          https://gifsec.com/wp-content/uploads/2022/09/among-us-gif-13.gif'
         />
       </main>
     </Layout>

@@ -2,9 +2,9 @@
 description: Create a doc page with rich content.
 ---
 
-# intro
+# Summary
 
-JJamVa의 Front-End 블로그입니다.
+## JJamVa의 Front-End 블로그입니다.
 
 :::info
 프론트엔드 개발자가 필요한 유용한 사이트
@@ -24,7 +24,6 @@ Can I Use(compatibility Check Site): https://caniuse.com/
 Snippet Setting Site: https://snippet-generator.app/
 
 PNG to change SVG Converter: https://convertio.co/kr/png-svg/
-
 :::
 
 
