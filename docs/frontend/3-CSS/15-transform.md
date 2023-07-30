@@ -82,13 +82,13 @@ transform 속성을 사용하는 것이 성능에 좋다. */
 
 - 지연 시간을 설정
 
-```
+:::note
 delay의 값으로 음수 값도 지원이 가능하다.
 
 시작 시간 = 전체 시간 - |음수의 값|
-```
+:::
 
-```
+:::danger
 text-decoration:underline; 은 transition을 사용할 수 없다.
 line, style 등 속성은 transition을 사용할 수 없다.
-```
+:::
