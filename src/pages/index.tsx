@@ -32,6 +32,7 @@ export default function Home(): JSX.Element {
       <HomepageHeader />
 
       <main className={styles.imgs}>
+        {/* https://gifsec.com/among-us-gifs/ */}
         <img
           src='
           https://gifsec.com/wp-content/uploads/2022/09/among-us-gif-13.gif'
