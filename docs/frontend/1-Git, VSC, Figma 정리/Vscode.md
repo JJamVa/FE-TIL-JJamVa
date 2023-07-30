@@ -45,4 +45,8 @@
 }
 ```
 
+:::note
+Make a Snippet VSCODE ROOT: Manage -> User snippets -> Choose a language Json File -> Use Site & Make it -> Copy&Paste -> Save
+:::
+
 ---

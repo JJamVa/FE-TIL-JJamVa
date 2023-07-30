@@ -45,7 +45,7 @@ const config = {
     ({
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: `merrybmc's TIL`,
+        title: `JJamVa Front-End`,
         logo: {
           alt: 'My Site Logo',
           src: 'https://jjalbang.today/jjv1In.gif',
@@ -55,7 +55,7 @@ const config = {
             type: 'doc',
             docId: 'frontend/intro',
             position: 'left',
-            label: 'frontend',
+            label: 'Front-End List',
           },
           // {
           //   type: 'doc',
@@ -76,7 +76,7 @@ const config = {
           //       label: 'CS',
           //     },
           {
-            href: 'https://github.com/merrybmc',
+            href: 'https://github.com/JJamVa',
             label: 'GitHub',
             position: 'right',
           },
@@ -95,7 +95,7 @@ const config = {
           //   ],
           // },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} merrybmc, Built with Docusaurus. `,
+        copyright: `Copyright © ${new Date().getFullYear()} JJamVa, Built with Docusaurus. `,
       },
       prism: {
         theme: lightCodeTheme,
