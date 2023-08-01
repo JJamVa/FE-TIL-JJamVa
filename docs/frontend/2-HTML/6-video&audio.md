@@ -96,8 +96,6 @@
     /* 화면 비율을 가로 16 세로 9의 비율 */
     /* padding-top의 값을 56.25%를 준 이유는 (9/16) * 100 한 값이 56.25이다. */
 } 
-
-
 .video-next-level {
     position: absolute;
     top: 0;
