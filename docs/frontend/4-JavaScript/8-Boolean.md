@@ -4,6 +4,26 @@
 
 - `Boolean(값)`: 값에 대한 `true`,`false`를 반환한다.
 
+```js
+Boolean("hello"); // true
+Boolean(""); // false
+Boolean(" "); // true
+Boolean(0); // false
+Boolean(1); // true
+Boolean(-1); // true
+Boolean(100); // true
+Boolean(null); // false
+Boolean(undefined); // false
+Boolean(NaN); // false
+
+Boolean([1, 2, 3]); // true
+Boolean([]); // true
+Boolean({ one: 1 }); // true
+Boolean({}); // true
+```
+
+## 논리 연산
+
 | 표현  |      의미       |
 | :---: | :-------------: |
 | true  |      참, 1      |

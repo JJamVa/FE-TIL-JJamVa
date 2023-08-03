@@ -96,3 +96,13 @@ console.log(2e10)// 20000000000
 console.log(9999e10000 === Infinity)// true
 console.log("aa"*2)//NaN
 ```
+
+:::danger
+```js
+console.log(NaN === NaN)
+// 이것은 어떤 결과가 나올까?
+// 정답은 false
+```
+상세이유는 추후에 적기
+
+:::
