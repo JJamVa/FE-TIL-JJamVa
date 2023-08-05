@@ -26,11 +26,3 @@
 그럼 위의 코드에서 width는 96 \* 0.25rem = 24rem이며,
 height는 10 \* 0.25rem = 2.5rem이다.
 :::
-
-### Background-Color:
-```css
-<div class="bg-red">
-    RED
-</div>
-/* div 태그의 배경이 빨간색 */
-```
