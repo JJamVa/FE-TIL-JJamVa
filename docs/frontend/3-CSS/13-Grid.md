@@ -32,7 +32,7 @@
 
 ## Grid에 사용되는 함수
 
-### repeat()
+### `repeat()`
 
 - row/column 방향으로 사이즈 표현을 조금 더 쉽게 해주는 CSS 함수다.
 - `repeat(반복횟수, 반복할 값)`: 첫 번째 값은 반복할 횟수를 의미. 두 번째 값은 비율(fr)이나 고정값(px,em,rem...)을 적어주면 된다.
@@ -46,48 +46,48 @@
 }
 ```
 
-### minmax()
+### `minmax()`
 
 - grid에서 최소와 최대 사이의 범위를 설정하는 함수.
 - `minmax(최소값, 최대값)` : min보다 크거나 같고, max보다 작거나 같은 범위
 
-### auto-fill & auto-fit
+### `auto-fill` & `auto-fit`
 
 - `repeat()`을 사용할 때, 반복되는 카운트를 고정하지 않고 부모 컨테이너의 너비에 따라 최대한 배치를 할 수 있는 속성값이다.
 - `auto-fill`: fill은 채우다의 의미로 컨테이너에 요소를 채우는 속성 값. 빈 공간이 생길 수도 있음.
 - `auto-fit`: fit은 끼우다의 의미로 컨테이너 안에 요소를 채워 공간이 남을 경우 각각의 요소들이 공간을 차지한다.
 
-### gap
+### `gap`
 
 - 셀과 셀사이의 간격을 설정할 떄 사용하는 속성.
 - 복잡한 레이아웃 안에 margin 대신에 편리하게 사용 가능.
 - flex와 동일한 속성이다.
 
-### align-content
+### `align-content`
 
 - grid 콘텐츠의 수직(열) 정렬
 - grid 콘텐츠의 세로 높이가 grid 컨테이너보다 작아야함.
 - `stretch(default 값)`, `center`, `start`, `end`, `space-around`, `space-between`, `space-evenly`
 
-### justify-content
+### `justify-content`
 
 - grid 콘텐츠의 수평(행) 정렬
 - grid 콘텐츠의 가로 너비가 grid 컨테이너보다 작아야함.
 - `stretch(default 값)`, `center`, `start`, `end`, `space-around`, `space-between`, `space-evenly`
 
-### align-items
+### `align-items`
 
 - 직계 자식에 대한 수직(열) 동일하게 정렬
 - `stretch`, `center`, `start`, `end`
 
-### justify-items
+### `justify-items`
 
 - 직계 자식에 대한 수평(열) 동일하게 정렬
 - `stretch`, `center`, `start`, `end`
 
 ## grid-item에 사용하는 속성
 
-### grid-area
+### `grid-area`
 
 ### `grid-column-start`, `grid-column-end`, `grid-row-start`, `grid-row-end`
 
@@ -133,25 +133,25 @@ section {
 }
 ```
 
-### z-index
+### `z-index`
 - `position`에 사용했던 z-index와 동일하다.
 - 여러 개의 레이아웃이 겹쳐 있을 때, `z-index:상수값`을 통하여 레이아웃의 우선순위를 정할 수 있다.
 
 
-### align-self
+### `align-self`
 
 - 아이템 개별로 수직(열)정렬을 지정
 - `stretch(default 값)`, `center`, `start`, `end`
 
-### justify-self
+### `justify-self`
 
 - 아이템 개별로 수평(행) 정렬을 지정
 - `stretch(default 값)`, `center`, `start`, `end`
 
-### place-self
+### `place-self`
 - `align-self``justify-self`를 함께 사용하는 단축 속성
 
-### order
+### `order`
 - 아이템 배치 순서를 정함.
 
 ```
@@ -161,7 +161,7 @@ content vs items vs self (구분하는 것은 중요!)
 - self는 아이템의 개별을 의미
 ```
 
-### grid
+### `grid`
 - `grid-template-rows`, `grid-template-columns`, `grid-template-areas`, `grid-auto-rows` `grid-auto-columns`, `grid-auto-flow` 의 단축속성이다.
 
 ```css

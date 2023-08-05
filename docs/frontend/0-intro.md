@@ -7,11 +7,11 @@ description: Create a doc page with rich content.
 ## JJamVa의 Front-End 블로그입니다.
 
 :::info
-프론트엔드 개발자가 필요한 유용한 사이트
+Useful Site to Front-End Developer
 
-오류 잡아주는 사이트: https://validator.w3.org/
+Error Catch CSS: https://validator.w3.org/
 
-이미지 맵: https://www.image-map.net/
+Image Map: https://www.image-map.net/
 
 JQuery: code.jquery.com
 

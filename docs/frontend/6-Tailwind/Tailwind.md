@@ -20,7 +20,7 @@
 /* div 태그는 width가 96이고, height가 10이다. */
 ```
 
-:::danger
+:::info
 길이 단위는 1당 0.25rem이다.
 
 그럼 위의 코드에서 width는 96 \* 0.25rem = 24rem이며,
