@@ -90,8 +90,8 @@
 .cont-video {
     position: relative;
     padding-top: 56.25%;
-		/* padding-top, padding-bottom 속성의 % 값은 부모 요소의 너비에 비례합니다. */
-		/* 예를 들어 부모의 너비가 1200px 이라면 자식요소의 padding-top=50% 의 값은 600px 과 같습니다. */
+		/* padding-top, padding-bottom 속성의 % 값은 부모 요소의 너비에 비례 */
+		/* 예를 들어 부모의 너비가 1200px 이라면 자식요소의 padding-top=50% 의 값은 600px. */
     aspect-ratio: 16 / 9
     /* 화면 비율을 가로 16 세로 9의 비율 */
     /* padding-top의 값을 56.25%를 준 이유는 (9/16) * 100 한 값이 56.25이다. */
@@ -102,6 +102,5 @@
     left: 0;
     width: 100%;
     height: 100%;
-
 }
 ```

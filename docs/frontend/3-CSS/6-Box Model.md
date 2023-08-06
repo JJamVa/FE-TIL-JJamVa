@@ -26,7 +26,7 @@
 
 ## padding
 
-- 단축 속성이며, `padding-top` `padding-right` `padding-bottom` `padding-left` 순서로 작성해야함.(시계 방향 위->오른쪽->아래->왼쪽)
+- 단축 속성이며, `padding-top` `padding-right` `padding-bottom` `padding-left` 순서(시계방향)로 작성.
 
 ```css
 p {
@@ -42,7 +42,7 @@ p {
 - padding과 순서, 사용 방법은 같다.
 - `margin: auto`를 하면 가운데 정렬이다.(위, 아래 정렬은 되지 않음)
 
-## margin 병합 현상(Margin Collapsing)
+## margin 병합 현상(**Margin Collapsing**)
 
 - element와 element 사이의 서로 겹치게 margin 값을 주었을 때, margin값을 더 큰 것만 적용되는 현상
 - 부모 요소와 자식 요소에서도 자식 margin 값이 부모 높이보다 더 큰 값을 주었을 떄, 영향을 주지 않는다.
@@ -52,8 +52,10 @@ p {
   3. 부모 요소에 `border`값 적용
   4. 부모 요소에 `display:flow-root`를 사용(IE 지원 불가)
 
-:::note
+:::caution
+
 margin 병합 현상에 대해 인지하고 구현을 하였다면 구현에 대해 상관없다.
+
 :::
 
 ## border
@@ -73,7 +75,7 @@ margin 병합 현상에 대해 인지하고 구현을 하였다면 구현에 대
 - `visible`: 박스보다 클 떄, 컨텐츠를 자르지 않는다.
 - `hidden`: 내용 크기만큼 맞추고 나머지를 자른다.(스크롤바 x)
 - `scroll`: 내용 크기만큼 자르고 스크롤 제공
-- `auto`: 자동으로 콘텐츠를 넘칠 경우 스크롤바 노출
+- `auto`: 자동으로 콘텐츠를 넘칠 경우 스크롤바(x,y축) 노출
 
 ## border-radius
 

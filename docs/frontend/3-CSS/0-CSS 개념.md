@@ -30,6 +30,6 @@
 | initial |       브라우저 속성에 영향을 받음.        |
 |  unset  |    상속 상태면 inherit 아니면 initial     |
 
-:::danger
- width,height,margin,padding,border은 상속되지 않는다. 또한 button,input과 같은 form 태그 또한 상속받지 않는다.
+:::tip
+ width,height,margin,padding,border은 상속되지 않는다. <br/>또한 button,input과 같은 form 태그 또한 상속받지 않는다.
 :::

@@ -37,7 +37,7 @@
 - `margin`, `padding` 등 다양한 요소들이 있다.
 - 초기값을 0으로 줘도 되지만 기본적으로 브라우저에서 지정한 값들이 존재한다.
 - `inherit`, `auto` 등 속성에 대해 값을 부여해도 가능하지만, `unset`을 이용하여 브라우저가 스스로 `inherit`을 받을지, `auto`를 받을 지 판단한다.
-- `background-color`와 같이 `transparents`가 기본 값인 것을 인지.
+- `background-color`와 같이 속성 기본값은 `transparents`.
   - box요소에서 background-color를 입력하였을 떄, 전체가 부모 요소에 적용한 색깔이 보인다. 이유는 자식 요소에서 background-color에 대한 기본 값이 `transparent`이기 때문이다.
 
 ### 코드 접근성 방법
