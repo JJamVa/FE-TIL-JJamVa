@@ -108,7 +108,7 @@ grid-area: 1/1/2/4;
 
 grid-area: 1/1/1 / span 3;
 /* table할 때, rowspan, colspan과 똑같은 기능이다. 쉽게 설명하자면 추가적으로 공간을 할당하는 것이다. */
-/* 1/span3은 y축 1번째 좌표 시작점부터 3칸의 공간을 차지하겠다 라는 의미와 같다. */
+/* 1/1/1/span3은 y축 1번째 좌표 시작점부터 3칸의 공간을 차지하겠다 라는 의미와 같다. */
 ```
 
 ### `grid-template-areas` / `grid-area`
@@ -119,7 +119,7 @@ grid-area: 1/1/1 / span 3;
     "header header header"
     "hi hi aside"
     "footer footer footer";
-    /* grid-template-areas 속성을 이용하여
+  /* grid-template-areas 속성을 이용하여
     셀들에 대한 위치 지정 */
 }
 
@@ -134,9 +134,9 @@ section {
 ```
 
 ### `z-index`
+
 - `position`에 사용했던 z-index와 동일하다.
 - 여러 개의 레이아웃이 겹쳐 있을 때, `z-index:상수값`을 통하여 레이아웃의 우선순위를 정할 수 있다.
-
 
 ### `align-self`
 
@@ -149,19 +149,24 @@ section {
 - `stretch(default 값)`, `center`, `start`, `end`
 
 ### `place-self`
-- `align-self``justify-self`를 함께 사용하는 단축 속성
+
+- ` align-self``justify-self  `를 함께 사용하는 단축 속성
 
 ### `order`
+
 - 아이템 배치 순서를 정함.
 
-```
-content vs items vs self (구분하는 것은 중요!)
+:::info
+`content` vs `items` vs `self` (구분하는 것은 중요!)
+
 - content는 말그대로 grid 컨텐츠 단위의 기준을 의미한다.
 - items는 grid컨텐츠 안에 있는 직계 자식 기준을 의미한다.
 - self는 아이템의 개별을 의미
-```
+
+:::
 
 ### `grid`
+
 - `grid-template-rows`, `grid-template-columns`, `grid-template-areas`, `grid-auto-rows` `grid-auto-columns`, `grid-auto-flow` 의 단축속성이다.
 
 ```css

@@ -1,7 +1,7 @@
 # Float
 
 - 한 요소가 보통 흐름으로부터 빠져 텍스트 및 인라인 요소가 그 주위를 감싸 해당 요소에 좌 우측에 배치
-- `left`, `right`, `none`-> default값
+- `left`, `right`, `none(default값)`
 
 :::note
 float은 블록 레이아웃 사용을 의미함
@@ -18,12 +18,12 @@ inline, inline-block 요소에 float속성을 주면 block으로 계산되어 �
 ```
 
 :::danger
-자식 요소들이 모두 float 속성을 가진다면, 컨테이너 요소의 높이에 자식 요소들의 높이가 포함되지 않음.
-
+자식 요소들이 모두 float 속성을 가진다면, 컨테이너 요소의 높이에 자식 요소들의 높이가 포함되지 않음.<br/>
 해결방법
 1. 부모에게 높이값을 주기
 2. overflow: hidden 사용
 3. clear-fix 방법
+   
 :::
 
 ```css
