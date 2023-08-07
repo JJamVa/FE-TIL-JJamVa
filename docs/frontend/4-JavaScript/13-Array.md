@@ -68,10 +68,10 @@ console.log(arr2[0].length); //3
 
 ```js
 var arr = [[1, 2, 3, 4], [9, 7, 3], [11]];
-console.log(arr); //3
-console.log(arr[0]); //4
-console.log(arr[1]); //3
-console.log(arr[2]); //1
+console.log(arr.length); //3
+console.log(arr[0].length); //4
+console.log(arr[1].length); //3
+console.log(arr[2].length); //1
 ```
 
 arr 제일 큰 배열에서 보면 원소가 `[1,2,3,4]`, `[9,7,3]`, `[11]`가 원소이기 때문에
