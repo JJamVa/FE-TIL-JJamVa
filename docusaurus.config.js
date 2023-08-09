@@ -6,12 +6,12 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Today I Learned',
+  title: `JJamVa's TIL`,
   tagline: 'Dinosaurs are cool',
   favicon: 'img/favicon.ico',
   url: 'https://merrybmc.github.io',
   baseUrl: '/JJamVa/',
-  organizationName: 'merrybmc',
+  organizationName: 'JJamVa',
   projectName: 'JJamVa',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
