@@ -9,10 +9,10 @@ const config = {
   title: `JJamVa's TIL`,
   tagline: 'Dinosaurs are cool',
   favicon: 'img/favicon.ico',
-  url: 'https://merrybmc.github.io',
-  baseUrl: '/JJamVa/',
+  url: 'https://jjamva.github.io',
+  baseUrl: '/FE-TIL-JJamVa/',
   organizationName: 'JJamVa',
-  projectName: 'JJamVa',
+  projectName: 'FE-TIL-JJamVa',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   i18n: {
