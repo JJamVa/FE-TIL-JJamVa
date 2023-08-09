@@ -114,12 +114,10 @@
 </div>
 </details>
 
-## `align-items`, `align-content`
+## `align-items`
 
 - `align-items`: 교차 축을 기준으로 정렬
   - `justify-content`의 수직 방향 정렬이라고 생각하면 좋다.
-- `align-content`: 컨테이너의 교차 축의 아이템들이 여러 줄일 때 사용 가능
-  - `flex-wrap:wrap`인 상태에서 사용가능
 
 <details>
 <summary>align-items 실습</summary>
@@ -193,6 +191,11 @@ stretch와 flex-start의 차이점
 
 </div>
 </details>
+
+## `align-content`
+
+- `align-content`: 컨테이너의 교차 축의 아이템들이 여러 줄일 때 사용 가능
+  - `flex-wrap:wrap`인 상태에서 사용가능
 
 <details>
 <summary>align-content 실습</summary>
@@ -455,7 +458,6 @@ flex: row wrap;
 
 위의 사진을 보면 전체화면에서 화면을 축소하였을 때, 1번 박스와 3번 박스는 원본 크기가 그대로 유지된 것을 볼 수 있다.<br/>
 1번, 3번 박스안의 css 중 **flex-shrink:0**을 통해 flex-basis의 값을 유지할 수 있었다.
-
 
 :::
 

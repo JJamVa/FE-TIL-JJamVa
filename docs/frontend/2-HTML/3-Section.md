@@ -42,11 +42,11 @@
 :::caution
 `<article>` vs `<section>` vs `<div>`
 
-독립적으로 사용한다면 article!
+독립적으로 사용한다면 `article`!
 
-웹페이지의 문맥 연결성이 필요하다면 section!
+웹페이지의 문맥 연결성이 필요하다면 `section`!
 
-단순 스타일링을 위한 것이라면 div!
+단순 스타일링을 위한 것이라면 `div`!
 :::
 
 ### aside

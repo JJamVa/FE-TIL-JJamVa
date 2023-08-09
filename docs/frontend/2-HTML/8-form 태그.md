@@ -6,7 +6,7 @@
 
 ## `method` 속성
 
-### post
+### Post
 
 - 양식 데이터를 요청 본문(body)으로 전송
 - 브라우저에 캐싱이 되지 않고, 기록도 남지 않음
@@ -24,7 +24,7 @@
 
 ### Get
 
-- `https://example.com?name=홍길동&age=20`에서 age=20에서 key와 value형태로 데이터를 보낸다.
+- `https://example.com?name=홍길동&age=20`에서 age=20은 key와 value형태로 데이터를 보낸다.
 - 양식 데이터를 action URL과 `?` 구분자 뒤에 이어 붙여서 전송.
 - GET 방식의 HTTP 요청은 브라우저에 의해 캐시 저장됨.
 - 보통 쿼리 문자열에 포함되어 전송되므로 길이 제한

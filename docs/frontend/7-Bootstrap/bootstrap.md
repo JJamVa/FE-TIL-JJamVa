@@ -19,6 +19,6 @@
 - 왼쪽 `Install via package manager`는 터미널에 두 개의 명령을 통해 패키지 파일을 설치받는다.
 - 오른쪽 `Include via CDN`은 생성한 HTML 파일에 `<header>`영역에 `<link>` 태그 문장, `<body>`영역 `<script>`태그 문장을 넣는다.
 
-:::tip
+:::caution
 한국어로 되어있는 부트스트랩 홈페이지에 태그들을 받아오면 class이름이 다르게 되어있다.
 :::
