@@ -11,7 +11,7 @@ const config = {
   favicon: 'img/favicon.ico',
   url: 'https://jjamva.github.io',
   baseUrl: '/FE-TIL-JJamVa/',
-  organizationName: 'jjamva',
+  organizationName: 'JJamva',
   projectName: 'FE-TIL-JJamVa',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
