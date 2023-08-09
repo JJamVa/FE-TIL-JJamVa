@@ -9,7 +9,7 @@ const config = {
   title: `JJamVa's TIL`,
   tagline: 'Dinosaurs are cool',
   favicon: 'img/favicon.ico',
-  url: 'https://jjamva.github.io',
+  url: 'https://jjamva.github.io/FE-TIL-JJamVa/',
   baseUrl: '/FE-TIL-JJamVa/',
   organizationName: 'jjamva',
   projectName: 'FE-TIL-JJamVa',
