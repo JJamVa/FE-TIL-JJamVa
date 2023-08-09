@@ -10,7 +10,7 @@ const config = {
   tagline: 'Dinosaurs are cool',
   favicon: 'img/favicon.ico',
   url: 'https://jjamva.github.io',
-  baseUrl: '/FE-TIL-JJamVa/',
+  baseUrl: '/',
   organizationName: 'jjamva',
   projectName: 'FE-TIL-JJamVa',
   onBrokenLinks: 'throw',
