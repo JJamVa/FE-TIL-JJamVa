@@ -10,9 +10,11 @@ const config = {
   tagline: 'Dinosaurs are cool',
   favicon: 'img/favicon.ico',
   url: 'https://jjamva.github.io',
-  baseUrl: '/',
-  organizationName: 'JJamVa',
+  baseUrl: '/FE-TIL-JJamVa/',
+  organizationName: 'jjamva',
   projectName: 'FE-TIL-JJamVa',
+  deploymentBranch: 'gh-pages',
+  trailingSlash: false,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   i18n: {
