@@ -4,7 +4,7 @@ description: Create a doc page with rich content.
 
 # Summary
 
-## JJamVa의 Front-End 블로그입니다.
+## JJamVa의 Front-End TIL 입니다.
 
 :::info
 Useful Site to Front-End Developer
