@@ -92,10 +92,12 @@ arr3.join(" world"); //'JJamva'
 :::
 
 :::danger
+
 ```js
-var a = [010,2222,1111]
-console.log(a.join(''))
+var a = [010, 2222, 1111];
+console.log(a.join(""));
 ```
+
 출력의 결과는 '822221111'로 나온다.<br/>
 
 010의 형태가 8진법의 형태라 8이라는 값이 나온다.<br/>
@@ -110,7 +112,7 @@ console.log(a.join(''))
 - `배열.splice(요소를 위치시키고자 하는 인덱스, 제거할 요소의 개수, 배열에 추가할 요소)`
   - 요소를 삽입하고 싶다면 `배열에 추가할 요소` 매개변수를 작성
   - 요소를 삭제하고 싶다면 `배열에 추가할 요소` 매개변수를 작성하지 않으면 된다.
-- `splice()`를 이용하면 **원본의 데이터를 수정**.  
+- `splice()`를 이용하면 **원본의 데이터를 수정**.
 
 ```js
 // splice를 이용하여 요소를 삽입
@@ -143,6 +145,8 @@ console.log(cafe);
 - 배열 내 요소를 오름차순으로 정렬(default)하는데 이 과정에서 **요소를 문자열로 취급해 재정렬**.
 - 배열이 반환되지만 복사본이 만들어지는 것이 아니라 배열 자체가 변경.
 
+
+
 ```js
 let data = [1, 11, 2, 111, 22];
 data.sort((a, b) => a - b); //오름차순 [1,2,11,22,111]
@@ -162,24 +166,94 @@ data.sort((a, b) => {
 
 :::
 
-:::danger
+<details>
+<summary>parameter값이 없는 sort()</summary>
+<div markdown="1">
 
 ```js
 let alpha_data = ["a", "z", "b", "e", "ab"];
 alpha_data.sort();
-
+console.log(alpha_data);
+//['a', 'ab', 'b', 'e', 'z']
 let num_data = [1, 11, 2, 111, 22];
 num_data.sort();
+console.log(num_data);
+//[1, 11, 111, 2, 22]
 ```
 
-alpha_data = ['a', 'ab', 'b', 'e', 'z']<br/>
-num_data = [1, 11, 111, 2, 22]<br/>
+:::tip
 
-결과를 보면 내가 의도한 결과가 나오지 않는데 이유는 뭘까? <br/>
-
-- 상세한 정렬을 하지 않을 경우, 원소들 끼리의 크기 비교가 아닌 **사전식**으로 정렬이 된다.
+상세한 정렬을 하지 않을 경우, 원소들 끼리의 크기 비교가 아닌 **사전 순서식**으로 정렬
 
 :::
+
+</div>
+</details>
+
+<details>
+<summary>문자열 정렬</summary>
+<div markdown="1">
+
+:::note
+
+```js
+var a = ["c", "bbb", "aaaaa", "abc", "bca"];
+a.sort((a, b) => a - b);
+// ["c", "bbb", "aaaaa", "abc", "bca"]
+```
+
+
+문자열로 구성된 배열에서 `sort((a,b) => a - b)기능이 동작되지 않는다.<br/>
+왜 동작이 되지 않을까?<br/>
+
+이유는 숫자의 연산과 같은 경우 반환값이 `음수`, `양수`, `0`으로 사용.<br/>
+문자열의 경우 연산의 결과가 숫자로 표현되지않기 때문에 정렬에 의미가 없다.
+
+그럼 숫자 연산에 대한 반환값을 문자열에 일일이 적용하면 정렬이 가능할까? 라는 생각이 든다.
+
+```js
+var a = ["c", "bbb", "aaaaa", "abc", "bca"];
+a.sort((a, b) => {
+  if (a < b) {
+    return -1;
+  } else if (a > b) {
+    return 1;
+    //return true를 대신 사용해도 가능
+    //true의 값은 1을 의미
+  } else {
+    return 0;
+    //return false를 대신 사용해도 가능
+    //false의 값은 0을 의미
+  }
+});
+console.log(a)
+// ['aaaaa', 'abc', 'bbb', 'bca', 'c']
+```
+
+출력보면 문자열에 대한 오름차순 정렬이 되었다.<br/>
+내림차순을 정렬하려면 조건문의 부등호 방향만 바꿔주면 된다.
+
+:::
+
+:::tip
+`localeCompare()` 메소드 사용
+- 문자열을 비교하여 순서를 정할 때 사용하는 메소드
+
+```js
+var a = ["c", "bbb", "aaaaa", "abc", "bca"];
+a.sort((a, b) => a.localeCompare(b));
+console.log(a)
+// ['aaaaa', 'abc', 'bbb', 'bca', 'c']
+
+a.sort((a, b) => b.localeCompare(a));
+console.log(a)
+// ['c', 'bca', 'bbb', 'abc', 'aaaaa']
+```
+
+:::
+
+</div>
+</details>
 
 ## 각 요소를 사용하여 새로운 배열을 만들 때(`map()`)
 
@@ -274,52 +348,55 @@ Array(10).fill(2).forEach((v,i) =>
 - 숫자, 문자열, boolean과 같은 원시값 뿐 아니라 json 같은 객체를 사용해서 true인 값을 판별
 
 ```js
-const arr = [1,2,3,4,5,6,7,8,9]
-arr.filter(e => e % 3 === 0)
-console.log(arr)
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+arr.filter((e) => e % 3 === 0);
+console.log(arr);
 // 3,6,9
 
 // filter는 배열의 조건문과 유사하다고 생각하면 된다.
 ```
 
 ## 요소를 누적해 실행하고 싶을 때(`reduce()`)
+
 - 배열 내의 각 요소에 주어진 reducer 함수를 실행하고, 1개의 결과값을 반환.
 - 4개의 매개변수를 갖는다. `누적값`, `현재값`, 현재 돌고 있는 요소의 index, array 전체
 - 보통 `reduce()`를 사용할 때, 누적값, 현재값만 사용한다.
 
 ```js
-const arr = [1,2,3,4,5]
+const arr = [1, 2, 3, 4, 5];
 
-arr.reduce((a,c) => a + c, 0)
+arr.reduce((a, c) => a + c, 0);
 // 15
 // a는 누적값이며, 0으로 초기값이 0으로 되어있다.
 // c는 현재값이다.
 
-const arr = ['hi','JJam','Va']
-arr.reduce((a,c) => a + c, "")
+const arr = ["hi", "JJam", "Va"];
+arr.reduce((a, c) => a + c, "");
 // hiJJamVa
-// 문자열도 가능하며, 문자열의 초기값에 맞게 설정하면 된다. 
+// 문자열도 가능하며, 문자열의 초기값에 맞게 설정하면 된다.
 ```
 
 ## 요소가 포함되어 있는지 확인(`includes()`)
-- 배열이 특정 값이 포함되어 있는지 확인. 
+
+- 배열이 특정 값이 포함되어 있는지 확인.
 - 탐색하려는 요소가 문자열일 경우 **대소문자를 구분**
 - 첫 번째 매개변수에는 **탐색하고자 하는 요소를 입력**.
 - 두 번째 매개변수에는 탐색을 시작하고자 하는 인덱스를 입력. 값이 없는 경우에는 전체 요소를 대상으로 탐색
 
 ```js
-const cafe = ['coffee', 'cake', 'tea']
-cafe.includes('bread')//false
-cafe.includes('coffee')//true
-cafe.includes('cake')//true
+const cafe = ["coffee", "cake", "tea"];
+cafe.includes("bread"); //false
+cafe.includes("coffee"); //true
+cafe.includes("cake"); //true
 ```
 
 ## 요소의 순서를 뒤집을 때(`reverse()`)
+
 - 배열 내 **요소의 순서를 거꾸로 뒤집고** 마지막 위치에 있는 인덱스의 요소가 0번째로 위치.
 - **원본 배열을 변형**시키고 그 참조를 반환한다는 특징.
 
 ```js
-const arr = [1,2,4,5,6,1,2]
-arr.reserve()
-console.log(arr) //[2,1,6,5,4,2,1]
+const arr = [1, 2, 4, 5, 6, 1, 2];
+arr.reserve();
+console.log(arr); //[2,1,6,5,4,2,1]
 ```
