@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: `JJamVa's TIL`,
   tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/among_favicon.ico',
   url: 'https://jjamva.github.io',
   baseUrl: '/FE-TIL-JJamVa/',
   organizationName: 'jjamva',
@@ -45,9 +45,9 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/Among_us.JPG',
       navbar: {
-        title: `JJamVa Front-End`,
+        title: `JJamVa FE TIL`,
         logo: {
           alt: 'My Site Logo',
           src: 'https://jjalbang.today/jjv1In.gif',
@@ -57,7 +57,7 @@ const config = {
             type: 'doc',
             docId: 'frontend/intro',
             position: 'left',
-            label: 'Front-End List',
+            label: 'FE Content List',
           },
           // {
           //   type: 'doc',
