@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: `JJamVa's TIL`,
   tagline: 'Dinosaurs are cool',
-  favicon: 'img/among_favicon.ico',
+  favicon: 'img/favicon.ico',
   url: 'https://jjamva.github.io',
   baseUrl: '/FE-TIL-JJamVa/',
   organizationName: 'jjamva',
@@ -45,7 +45,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/Among_us.JPG',
+      image: '/img/Among_us.jpg',
       navbar: {
         title: `JJamVa FE TIL`,
         logo: {
