@@ -11,9 +11,9 @@ function HomepageHeader() {
   return (
     <header className={styles.heroBanner}>
       <div className='container'>
-        <h1 className='hero__title'>JJamVa's World</h1>
+        <h1 className='hero__title'>JJamVa's TIL</h1>
         <p className='hero__title__2'>
-          ඞ {'\u00A0'}Imposter{'\u00A0'} ඞ
+          ඞ {'\u00A0'}I'm Imposter{'\u00A0'} ඞ
         </p>
         <div className={styles.buttons}>
           <Link className='button button--primary button--lg' to='/docs/frontend/intro'>

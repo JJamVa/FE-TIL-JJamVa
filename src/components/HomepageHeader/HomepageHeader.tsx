@@ -13,21 +13,18 @@ export default function HomepageHeader() {
       <Container>
         <br />
 
-        <HeroTitle>Today I Learned</HeroTitle>
+        <HeroTitle></HeroTitle>
         <HeroTitleBottom>
-          🚕 {'\u00A0'}안전지대 탈출하기{'\u00A0'} 🚗
         </HeroTitleBottom>
 
         <ButtonBox>
           <Link className='button button--primary button--lg' to='/docs/frontend/intro'>
-            Go to Docs
           </Link>
         </ButtonBox>
         <br />
         <br />
         <img
-          src='
-        https://media.tenor.com/Qu46-3ANACUAAAAC/judy-hopps-driving.gif'
+          src='https://gifsec.com/wp-content/uploads/2022/09/among-us-gif-13.gif'
         />
       </Container>
     </Header>

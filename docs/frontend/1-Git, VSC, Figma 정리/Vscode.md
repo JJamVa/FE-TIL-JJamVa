@@ -21,9 +21,9 @@
 
 1. Ctrl + P 팔레트를 연다.
 2. '>snippet' 을 입력.
-3. 사용언어에 따라 생성해야할 기본 형태 타입의 설정한다.(밑에 예시 코드)
+3. 사용언어에 따라 생성해야할 기본 형태 타입의 설정한다.
 
-```Json
+```Json title="Json 예시"
 {
 	"Print to console": {
 		"prefix": "makehtml",
@@ -46,5 +46,6 @@
 ```
 
 :::note
-Make a Snippet VSCODE ROOT: Manage -> User snippets -> Choose a language Json File -> Use Site & Make it -> Copy&Paste -> Save
+## Make a Snippet VSCODE ROOT
+Manage -> User snippets -> Choose a language Json File -> Use Site & Make it -> Copy&Paste -> Save
 :::

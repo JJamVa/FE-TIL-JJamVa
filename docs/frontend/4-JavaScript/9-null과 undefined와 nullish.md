@@ -46,11 +46,11 @@ for (const i of 반점수) {
 
 ```js
 let firstName = null;
-let lastName = 'hojun';
+let lastName = 'JJamVa';
 let nickName = "licat";
 
 console.log(firstName ?? nickName)//"licat"
-console.log(firstName ?? lastName ?? nickName)//"hojun"
+console.log(firstName ?? lastName ?? nickName)//"JJamVa"
 console.log(firstName || nickName)//"licat"
 
 let first = null

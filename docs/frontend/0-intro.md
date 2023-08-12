@@ -2,30 +2,22 @@
 description: Create a doc page with rich content.
 ---
 
-# Summary
+# Introduce
 
 ## JJamVa의 Front-End TIL 입니다.
 
-:::info
-Useful Site to Front-End Developer
+:::note
+## Useful Site to Front-End Developer
 
-Error Catch CSS: https://validator.w3.org/
-
-Image Map: https://www.image-map.net/
-
-JQuery: code.jquery.com
-
-Tailwind: https://tailwindcss.com/docs/browser-support
-
-MDN: https://developer.mozilla.org/ko/
-
-Can I Use(compatibility Check Site): https://caniuse.com/
-
-Snippet Setting Site: https://snippet-generator.app/
-
-PNG to change SVG Converter: https://convertio.co/kr/png-svg/
-
-BootStrap Site: https://getbootstrap.kr/
+`Error Catch CSS`: https://validator.w3.org/ <br/>
+`Image Map`: https://www.image-map.net/ <br/>
+`JQuery`: https://jquery.com/ <br/>
+`Tailwind`: https://tailwindcss.com/docs/browser-support <br/>
+`MDN`: https://developer.mozilla.org/ko/ <br/>
+`Can I Use(compatibility Check Site)`: https://caniuse.com/ <br/>
+`Snippet Setting Site`: https://snippet-generator.app/ <br/>
+`PNG to change SVG Converter`: https://convertio.co/kr/png-svg/ <br/>
+`BootStrap Site`: https://getbootstrap.kr/ <br/>
 :::
 
 
@@ -40,12 +32,6 @@ Why Vue.js?
 Concepts of Vue.js
 :::
 
-:::tip [참고] Evan You 에 의해 발표 (2014)
-
-구글의 Angular 개발자 출신 .
-학사 미술, 미술사 전공/석사 디자인 & 테크놀로지 전공
-구글 Angular보다 더 가볍고, 간편하게 사용할 수 있는 프레임워크를 만들기 위해 개발
-::: -->
 
 <!-- 마크다운 참고 블로그 사이트 https://khw11044.github.io/blog/blog-etc/2020-12-21-markdown-tutorial/ -->
 

@@ -203,12 +203,14 @@ span .token {
 }
 
 .hero__title {
-  color: black;
-  font-size: 4.3rem;
+  background: linear-gradient(to right, #a8c0ff, #3f2b96);
+  color: transparent;
+  -webkit-background-clip: text;
+  font-size: 5rem;
 }
 
 .hero__title__2 {
   margin: -1rem 0px 1.5rem 0.5rem;
   font-weight: 400;
-  font-size: 1.3rem;
+  font-size: 2rem;
 }

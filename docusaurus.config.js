@@ -50,7 +50,7 @@ const config = {
         title: `JJamVa FE TIL`,
         logo: {
           alt: 'My Site Logo',
-          src: 'https://jjalbang.today/jjv1In.gif',
+          src: 'https://mblogthumb-phinf.pstatic.net/MjAyMDA5MTdfMTY4/MDAxNjAwMzE4MTUzMTg0.DqpZ3y6RlY2NSt4590JQO_AYm0gnqOZE04oFCxGIpBsg.8UF4uC-4jN-8HjTyTmsPAlpc0gDJHrnUmDsgAOCNnX4g.GIF.jangma2017/%EC%96%B4%EB%AA%BD%EC%96%B4%EC%8A%A4-gif-%EA%B1%B7%EA%B8%B0%EB%AA%A8%EC%85%982.gif?type=w800',
         },
         items: [
           {
@@ -100,8 +100,8 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} JJamVa, Built with Docusaurus. `,
       },
       prism: {
-        theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        theme: lightCodeTheme
       },
     }),
 };
