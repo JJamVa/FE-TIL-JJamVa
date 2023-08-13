@@ -20,9 +20,11 @@
 
 `<img>`가 inline요소라 img의 세로 정렬이 글자의 baseline을 따르게 된다. 이러한 현상을 해결하기 위해서는
 
+```css
 img {
 vertical-align: top;
 }
+```
 
 작성하면된다.
 :::

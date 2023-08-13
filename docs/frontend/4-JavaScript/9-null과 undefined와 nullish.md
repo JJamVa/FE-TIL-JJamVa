@@ -51,7 +51,7 @@ let nickName = "licat";
 
 console.log(firstName ?? nickName)//"licat"
 console.log(firstName ?? lastName ?? nickName)//"JJamVa"
-console.log(firstName || nickName)//"licat"
+console.log(lastName ?? nickName)//"JJamVa"
 
 let first = null
 let sec = undefined
