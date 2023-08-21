@@ -5,7 +5,7 @@
 - HTML 문서의 내용을 트리형태로 구조화하여 웹페이지와 프로그래밍 언어를 연결시켜주는 역할
 - 요소와 속성, 콘텐츠를 표현하는 단위(`HTML 태그`)를 `노드(node)`
 
-```html
+```html title="HTML코드"
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -45,7 +45,7 @@ console.log(document.body.childNodes[2].data); // '\n    '
 
 - 해당하는 Id를 가진 요소에 접근
 
-```html
+```html title="HTML코드"
 <!-- 메소드의 공통 HTML -->
 <div class="wrapper">
   <h1 id="main">hello</h1>
@@ -55,7 +55,7 @@ console.log(document.body.childNodes[2].data); // '\n    '
 </div>
 ```
 
-```js
+```js title="JS코드"
 // 변수 하나당 하나의 Id의 값만 가져올 수 있음.
 let id1 = document.getElementById("main");
 let id2 = document.getElementById("sub");
@@ -69,7 +69,7 @@ console.log(id3); // Error
 
 - 해당하는 모든 요소에 접근
 
-```html
+```html title="HTML코드"
 <div class="wrapper">
   <h1 id="main">hello</h1>
   <h2 id="sub">My name is JH</h2>
@@ -79,7 +79,7 @@ console.log(id3); // Error
 </div>
 ```
 
-```js
+```js title="JS코드"
 let tag1 = document.getElementsByTagName("h1");
 console.log(tag1); // HTMLCollection [h1#main, main: h1#main]
 
@@ -92,7 +92,7 @@ console.log(tag2); // HTMLCollection(2) [h2#sub, h2, sub: h2#sub]
 
 - 해당하는 클래스를 가진 모든 요소에 접근
 
-```html
+```html title="HTML코드"
 <div class="wrapper">
   <h1 id="main">hello</h1>
   <div class="box">
@@ -102,7 +102,7 @@ console.log(tag2); // HTMLCollection(2) [h2#sub, h2, sub: h2#sub]
 </div>
 ```
 
-```js
+```js title="JS코드"
 let class1 = document.getElementsByClassName("box");
 console.log(class1); // HTMLCollection [div.box]
 // div.box는 div태그의 box라는 이름을 가진 class속성이 있다는 의미
@@ -116,7 +116,7 @@ console.log(class2); // HTMLCollection(2) [p.write.content, p.content]
 - CSS 선택자로 단일 요소에 접근
 - 태그, class, id 뿐만이 아닌 CSS 선택자도 가능
 
-```html
+```html title="HTML코드"
 <div class="wrapper">
   <h1 id="main">hello</h1>
   <h2>world</h2>
@@ -129,7 +129,7 @@ console.log(class2); // HTMLCollection(2) [p.write.content, p.content]
 </div>
 ```
 
-```js
+```js title="JS코드"
 let query1 = document.querySelector("h1");
 console.log(query1); //<h1 id="main">hello</h1>
 
@@ -149,7 +149,7 @@ console.log(query4); //<p id="last" class="write content">Fighting</p>
 
 - CSS 선택자로 여러 요소에 접근
 
-```html
+```html title="HTML코드"
 <div class="wrapper">
   <h1 id="main">hello</h1>
   <h2>world</h2>
@@ -162,7 +162,7 @@ console.log(query4); //<p id="last" class="write content">Fighting</p>
 </div>
 ```
 
-```js
+```js title="JS코드"
 let query1 = document.querySelectorAll(".box");
 console.log(query1); // NodeList(2) [div.box, div.box]
 
