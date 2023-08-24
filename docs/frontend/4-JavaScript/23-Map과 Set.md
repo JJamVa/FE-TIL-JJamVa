@@ -8,8 +8,8 @@
 let map = new Map(); //Map 생성
 ```
 
-:::tip
-Map과 Object의 차이점
+:::info
+### Map과 Object의 차이점
 
 1. Object의 key는 **문자열 타입**으로만 지정, Map의 key는 **객체, 배열, 문자열 혹은 유효한 식별자(Number, Boolean 등)** 가능
 2. Object는 크기를 Object의 메소드(`Object.keys()`,`Object.values()`, `Object.entries`)를 이용하여 직접 배열을 크기를 구해야한다.

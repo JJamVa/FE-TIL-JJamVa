@@ -280,7 +280,7 @@ console.log(content.nextElementSibling); // 현재 요소의 기준으로 다음
 
 console.log(content.previousSibling); // 현재 요소의 기준 이전 형제 노드
 // #text  text.data:"\n        "
-// 공백없이 인전한 태그일 경우 반환
+// 공백없이 인접한 태그일 경우 반환
 // <-- 주석 -->위치에서 한줄 띄워지고 공백만큼 추가가 되어 추가가 되었다.
 
 console.log(content.children); // 현재 요소의 기준으로 모든 직계자식

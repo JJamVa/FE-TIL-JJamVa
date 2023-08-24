@@ -170,9 +170,9 @@ let query2 = document.querySelectorAll(".box .write");
 console.log(query2); // NodeList(2) [p.write.content, p#last.write.content]
 ```
 
-:::tip
+:::info
 
-### HTMLCollection과 NodeList
+### HTMLCollection와 NodeList의 차이
 
 getElementBy 형태와 querySelectorAll은 조건에 맞는 모든 요소를 반환<br/>
 출력 결과 앞에 HTMLCollection나 NodeList를 출력한 경우도 있다.<br/>

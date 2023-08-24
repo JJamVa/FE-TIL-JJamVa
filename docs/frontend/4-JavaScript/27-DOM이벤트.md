@@ -272,7 +272,7 @@ document.body.addEventListener(
 
 ![image](https://github.com/JJamVa/JJamVa/assets/80045006/4c40f731-f8cc-431c-97d5-e5d614dfc3c4)
 
-이벤트 처리 순서에서 `캡처리 단계`에서 버튼보다는 body가 더 최우선이다.<br/>
+이벤트 처리 순서에서 `캡처링 단계`에서 버튼보다는 body가 더 최우선이다.<br/>
 즉, submit에 `event.stopPropagation()`가 있더라도 캡처링 단계에서 **상위 요소**가 있을 경우 출력이 되는 것을 확인할 수 있다.<br/>
 body는 `캡처링 단계`에서 이미 이벤트 리스너가 동작하였기 때문에 **submit의 event.stopPropagation() 관계 없이** `버블링 단계`에서 실행되지 않는다.
 
