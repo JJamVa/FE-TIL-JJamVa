@@ -34,7 +34,7 @@
 }
 ```
 
-```css title="Sass 전처리기 후 CSS코드"
+```css title="Sass 컴파일 후 CSS코드"
 .one,
 .two {
   background-image: ("./이미지주소");
@@ -76,7 +76,7 @@ ex) `.one .two`,`.one + .two`
 }
 ```
 
-```css title="Sass 전처리기 후 CSS코드"
+```css title="Sass 컴파일 후 CSS코드"
 .send-btn,
 .check-btn {
   width: 100px;

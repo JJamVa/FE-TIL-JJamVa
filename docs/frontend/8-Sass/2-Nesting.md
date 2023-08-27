@@ -92,7 +92,7 @@ ul {
 }
 ```
 
-```css title="Sass 전처리기 후 CSS 코드"
+```css title="Sass 컴파일 후 CSS코드"
 ul li:hover {
   background: skyblue;
   cursor: pointer;
@@ -135,7 +135,7 @@ ul {
 }
 ```
 
-```css title="Sass 전처리기 후 CSS 코드"
+```css title="Sass 컴파일 후 CSS코드"
 ul .li-yellow {
   background: yellow;
 }
@@ -188,7 +188,7 @@ ul .li-green {
 }
 ```
 
-```css title="Sass 전처리기 후 CSS 코드"
+```css title="Sass 컴파일 후 CSS코드"
 .sec {
   height: 300px;
   width: 300px;
@@ -237,7 +237,7 @@ ul .li-green {
 }
 ```
 
-```css title="Sass 전처리기 후 CSS 코드"
+```css title="Sass 컴파일 후 CSS코드"
 .one {
   background-color: black;
 }
