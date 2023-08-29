@@ -202,6 +202,32 @@ p.outerHTML = "<div></div>"; //<p>태그도 포함하여 새롭게 표현
 //출력:
 ```
 
+:::info
+
+### innerText과 textContent의 차이
+
+### innerText
+
+- 렌더링 후의 모습을 인식. 숨겨진 요소의 텍스트는 반환하지 않음
+- 사람이 읽을 수 있는 요소만 처리
+
+### textContent
+
+- 노드와 그 자손의 모든 텍스트 콘텐츠와 속성을 나타냄
+- **XSS** 공격의 위험이 없다.
+
+:::
+
+:::tip
+
+### XSS란?<br/>
+
+Cross-site scripting의 약어
+
+공격 스크립트 코드를 삽입해 치명적인 공격하는 기법이다.<br/>
+
+:::
+
 ## 더 정밀하게 배치
 
 ### `insertAdjacentHTML`
