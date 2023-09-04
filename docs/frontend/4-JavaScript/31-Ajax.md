@@ -284,7 +284,7 @@ setTimeout(() => console.log(result), 100);
 | Promise 상태 |                      의미                       |
 | :----------: | :---------------------------------------------: |
 |   Pending    |      비동기 작업이 아직 완료되지 않은 상태      |
-|  Fullfilled  | 비동기 작업이 성공적으로 완료된 상태. 값을 반환 |
+|  Fulfilled   | 비동기 작업이 성공적으로 완료된 상태. 값을 반환 |
 |   Rejected   |     비동기 작업이 실패한 상태. 오류를 반환      |
 
 ### Promise
@@ -394,9 +394,8 @@ fetch()를 통해 서버의 주소에 데이터를 가져오도록 설정<br/>
 
 ![image](https://github.com/JJamVa/JJamVa/assets/80045006/b13052e3-1fef-4c66-972d-ad4bb24ac93f)
 
-
 Response객체의 메소드 중 `ok`라는 속성이 있으며, **status(200-299)일 경우 true 아닐 경우에 false**를 가진다.<br/>
-만약 ok의 메소드가 false일 경우 `throw new Error`를 통해 콜백함수를 중단 시킨다.<br/>
+만약 ok의 메소드가 false일 경우 `throw new Error`를 통해 에러 메세지를 출력 후 콜백함수를 중단 시킨다.<br/>
 return을 이용하여 서버에서 받은 데이터 파싱(Response의 메소드)하여 다음 then 콜백함수에 전달을 한다.<br/>
 두번째 then에서는 첫번째 then이 반환한 response.text() 데이터의 값을 가지고 출력 한다.<br/>
 
@@ -418,13 +417,173 @@ fetch("./Hello.txt")
 then을 중첩해서 사용가능 하지만 return이 없을 경우 위와 같이 두번째 then에서는 undefined가 출력된다.<br/>
 꼭 then을 중첩해서 사용할 때는 return을 사용하여 다음 then에게 데이터를 전달하는 것을 권장<br/>
 
-
-
 :::
 
 :::danger
 fetch('주소')에서 로컬 파일의 정보를 가져오려고 할 경우, 해당 경로 파일 위치를 정확하게 작성해야한다.<br/>
 ex) './Hello.txt', './user/vscode/Hello.txt'
+:::
+
+</div>
+</details>
+
+## async, await
+
+- `async` : **비동기 함수**라는 것을 알리며, 함수내에 await을 사용 가능.
+- `await` : async가 사용된 함수에서만 사용 가능하며, Promise가 해결될 때까지 코드의 실행을 중지
+
+```js title="async await을 이용한 비동기 처리"
+async function message() {
+  // await을 쓰기 위해서 async작성
+  const name = await new Promise((resolve) => {
+    // 데이터를 다받기 위해 await을 통해 다음 블록을 넘어가지 않음
+    setTimeout(() => {
+      resolve("JJamVa");
+    }, 500);
+  });
+
+  const greeting = await new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Hello");
+    }, 500);
+  });
+
+  console.log(greeting + " " + name);
+}
+
+message(); //Hello JJamVa
+```
+
+## Promise.all
+
+- 여러 개의 Promise를 병렬로 실행하고, 모든 Promise가 완료될 때까지 기다렸다가 그 결과를 배열로 반환
+
+```js title="promise.all을 이용한 비동기 처리"
+async function message() {
+  //디스트럭쳐링을 통해 값을 할당
+  const [name, greeting] = await Promise.all([
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("JJamVa");
+      }, 100);
+    }),
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("Hello");
+      }, 100);
+    }),
+  ]);
+  console.log(greeting + " " + name);
+}
+message(); // Hello JJamVa
+```
+
+:::danger
+Promise.all을 이용시 만약 하나의 Promise가 실패가 될 경우, **전체가 실패**
+:::
+
+## try catch를 이용한 비동기 처리
+
+- 오류 처리 및 예외 처리를 위해 사용되는 키워드
+- `try`: 예외가 발생할 수 있는 코드
+- `catch`: 예외 처리 코드를 포함하는 코드
+
+<details>
+<summary>try catch를 이용한 비동기 처리 코드</summary>
+<div markdown="1">
+
+```json title="users.json"
+{
+  "user": [
+    {
+      "userName": "JJamVa",
+      "password": "1234"
+    },
+    {
+      "userName": "Hello",
+      "password": "World"
+    }
+  ]
+}
+```
+
+```json title="greetings.json"
+{
+  "greetings": [
+    {
+      "userName": "JJamVa",
+      "greetings": "안녕하세요!"
+    }
+  ]
+}
+```
+
+```js title="try catch를 이용한 비동기 처리 코드"
+"use strict";
+class UserStorage {
+  async userInfo(userName, password) {
+    try {
+      let response_data = await fetch("users.json");
+      if (!response_data.ok)
+        throw new Error("HTTP Status Error :", response.status);
+      let data = await response_data.json();
+      const result = await data.user.find(
+        (item) => item.userName === userName && item.password === password
+      );
+      if (!result) throw new Error("유저가 존재하지 않습니다.");
+      return result.userName;
+    } catch (error) {
+      console.error("User Not Found " + error);
+      throw error;
+    }
+  }
+
+  async greeting(user) {
+    try {
+      let response_data = await fetch("greetings.json");
+      if (!response_data.ok)
+        throw new Error("HTTP Status ERROR :", response_data.status);
+      let data = await response_data.json();
+      const result = await data.greetings.find(
+        (item) => item.userName === user
+      );
+      if (!result) throw new Error("유저의 인사말이 없습니다.");
+      return result.greetings;
+    } catch (error) {
+      console.error("User's Greeting Not Found ", error);
+      throw error;
+    }
+  }
+}
+
+const userStorage = new UserStorage();
+
+const userName = "Hello";
+const password = "World";
+
+async function userGreeting() {
+  try {
+    let user = await userStorage.userInfo(userName, password);
+    let greetings = await userStorage.greeting(user);
+    alert(`${user}님 ${greetings}`);
+  } catch (error) {
+    console.error("Error", error);
+  }
+}
+userGreeting();
+```
+
+:::note
+Promise를 이용하여 then, catch 작업한 코드에서 try catch로 수정한 코드이다.<br/>
+UserStorage Class에서 내부 함수들을 async를 이용하여 비동기 함수로 선언하였다.<br/>
+각 비동기 함수에서 fetch를 이용하여 데이터를 받아와야되기 때문이다.<br/>
+
+try안에 작성된 코드는 Promise의 객체안에 있는 속성 중 then의 역할하는 코드를 작성하였다.<br/>
+catch 영역에서는 try영역에서 코드에러가 발생하는 경우 혹은 `throw new Error`를 만났을 때 실행이 된다.<br/>
+
+각 변수 선언 후, `await`을 통해 코드를 순차적으로 안전하게 데이터를 받아오기 위해 사용하였다.<br/>
+이후 userGreeting라는 비동기 함수에서 UserStorage Class내부 비동기 함수의 반환 값을 await을 통하여 받아오고 출력한다.<br/>
+
 :::
 
 </div>
