@@ -10,10 +10,8 @@
 - 동기(Synchronous):
   - 프로세스를 순차적으로 실행
   - 프로세스 하나가 완료되기전 다른 프로세스를 실행하지 않는다.
-  - 비동기에 비해 느리게 결과 값이 나온다.
 - 비동기(Asynchronous):
   - 여러가지 프로세스가 동시에 처리
-  - 결과값이 빠르게 도출된다.
   - 프로세스가 많거나 연산 작업이 오래걸리는 경우에 사용이 적합
 
 ## 비동기와 관련 콜백 함수
@@ -526,15 +524,15 @@ class UserStorage {
       let response_data = await fetch("users.json");
       if (!response_data.ok)
         throw new Error("HTTP Status Error :", response.status);
-      let data = await response_data.json();
+      let data = await response_data.json();//Promise 객체를 Json타입으로 변환
       const result = await data.user.find(
         (item) => item.userName === userName && item.password === password
       );
-      if (!result) throw new Error("유저가 존재하지 않습니다.");
+      if (!result) throw new Error("유저가 존재하지 않습니다.");//undefined가 나올경우 예외처리
       return result.userName;
     } catch (error) {
       console.error("User Not Found " + error);
-      throw error;
+      throw error;// 에러를 출력 후, 예외처리
     }
   }
 
@@ -543,15 +541,15 @@ class UserStorage {
       let response_data = await fetch("greetings.json");
       if (!response_data.ok)
         throw new Error("HTTP Status ERROR :", response_data.status);
-      let data = await response_data.json();
+      let data = await response_data.json();//Promise 객체를 Json타입으로 변환
       const result = await data.greetings.find(
         (item) => item.userName === user
       );
-      if (!result) throw new Error("유저의 인사말이 없습니다.");
+      if (!result) throw new Error("유저의 인사말이 없습니다.");//undefined가 나올경우 예외처리
       return result.greetings;
     } catch (error) {
       console.error("User's Greeting Not Found ", error);
-      throw error;
+      throw error;// 에러를 출력 후, 예외처리
     }
   }
 }
@@ -568,6 +566,7 @@ async function userGreeting() {
     alert(`${user}님 ${greetings}`);
   } catch (error) {
     console.error("Error", error);
+    throw error;// 에러를 출력 후, 예외처리
   }
 }
 userGreeting();
@@ -580,6 +579,7 @@ UserStorage Class에서 내부 함수들을 async를 이용하여 비동기 함�
 
 try안에 작성된 코드는 Promise의 객체안에 있는 속성 중 then의 역할하는 코드를 작성하였다.<br/>
 catch 영역에서는 try영역에서 코드에러가 발생하는 경우 혹은 `throw new Error`를 만났을 때 실행이 된다.<br/>
+catch안에 console.log(error)만 작성할 경우, 에러처리가 완벽하지 않기 때문에 `throw`를 이용하여 예외처리를 해야한다.<br/>
 
 각 변수 선언 후, `await`을 통해 코드를 순차적으로 안전하게 데이터를 받아오기 위해 사용하였다.<br/>
 이후 userGreeting라는 비동기 함수에서 UserStorage Class내부 비동기 함수의 반환 값을 await을 통하여 받아오고 출력한다.<br/>
