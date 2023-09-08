@@ -77,6 +77,14 @@ root.render(
 
 :::note
 
+```jsx
+const root = ReactDOM.createRoot(document.getElementById("root"))
+```
+root라는 id를 호출하지만 index.js파일에는 root라는 id인 요소가 존재하지 않는다.<br/>
+public의 index.html에 `<div id="root">`가 존재한다.<br/>
+index.html의 id가 root인 영역에 React어플리케이션을 렌더링 한다.<br/>
+public 폴더의 파일은 정적 파일로 취급되기 때문에 따로 import를 해서 사용할 필요가 없다.
+
 React.StrictMode는 React Component를 엄격모드로 실행한다는 의미<br/>
 초기화면에 등록할 경우, 표현하고자 하는 js파일을 import를 한 후,<br/>
 render()안에 해당 Component를 작성하면 된다.

@@ -9,20 +9,38 @@
 
 ## JSX문법
 
-### 컴포넌트의 초상위 부모 요소는 1개
+### 컴포넌트의 최상위 부모 요소는 1개
 
 - `<div>`, `<>` 태그를 사용해서 최상단 태그를 생성
+- return()안에 필요한 태그가 단 한개일 경우 최상위 부모 요소를 작성할 필요 없음
 
-```js
+```jsx
+// return안 자식 요소가 2개이상일 경우
 function App() {
   return (
     <div>
       <h1>안녕</h1>
-      <h1>잘가</h1>
+      <h1>반가워</h1>
+      <h2>조심히 잘가!</h2>
     </div>
   );
 }
+
+//return 안에 자식요소가 1개일 경우
+function App() {
+  return <h1>반나서 반가워</h1>;
+}
 ```
+
+:::note
+
+#### JSX에서 왜 return()에 최상위 부모 요소는 1개이여만 할까?
+
+React의 렌더링 동작과 가상 DOM비교 및 업데이트 작업 때문이다.<br/>
+React에서 UI를 업데이트 할 때, 가상 DOM을 사용하여 변경 전과 변경 후를 비교하여<br/>
+변경된 부분만 실제 DOM에 반영하기 때문이다
+
+:::
 
 ### 주석
 
@@ -42,7 +60,7 @@ function App() {
 - `class`속성은 `className`으로 표기
   - 기존 JavaScript의 class와 CSS의 class와 중첩되기 때문
 - inline style은 **객체 형태(key:value)로 사용**
-- `{}` 중괄호 안에는 **표현식** 및 JavaScript문법이 사용가능
+- `{}` 중괄호 안에는 JavaScript 문법 중 **표현식**은 사용가능
 
 ```js
 function App() {

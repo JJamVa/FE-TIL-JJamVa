@@ -12,6 +12,7 @@ function App() {
   return (
     <React.Fragment>
       <h1>안녕하세요!</h1>
+      <h2>안녕히가세요!</h2>
     </React.Fragment>
   );
 }
@@ -28,11 +29,14 @@ function App() {
   return (
     <>
       <h1>안녕하세요!</h1>
+      <h2>안녕히가세요!</h2>
     </>
   );
 }
 ```
 
-`<>`를 사용할 경우 React모듈을 따로 추가할 필요가 없다.
+`<>`은 Fragment Short Syntax라는 의미이다.<br/>
+즉, 똑같은 Fragment 이지만 더 간략하게 표현이 가능하다.<br/>
+하지만 `<>`에서는 key 또는 다른 속성을 지원하지 않는다.
 
 :::
