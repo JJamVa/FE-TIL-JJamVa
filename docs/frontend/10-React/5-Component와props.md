@@ -94,7 +94,7 @@ export default App;
 #### 외부 Component를 사용해야할 때 주의사항
 
 1. Component의 이름은 항상 **앞글자가 대문자로 시작**해야된다.<br/>
-2. 외부 파일을 생성 후, 코드 맨밑에 `export default 'Component이름` 혹은 해당 Component 앞에 `export`를 작성해야된다.<br/>
+2. 외부 파일을 생성 후, 코드 맨밑에 `export default 'Component이름'` 혹은 해당 Component 앞에 `export`를 작성해야된다.<br/>
 3. 외부 Component를 사용 시, 해당 파일에 `import 'Component이름' from '외부 Component 경로'`
 
 :::
@@ -104,7 +104,17 @@ export default App;
 - Component에 데이터를 전달하고 해당 데이터를 사용하여 구현 가능
 - props는 JavaScript에서의 객체
 
-```jsx title="Hello.jsx props"
+```jsx title="App.js"
+import Hello from "./coponents/Hello.jsx";
+
+function App() {
+  return <Hello name="JJamVa" age="20" />;
+}
+
+export default App;
+```
+
+```jsx title="Hello.jsx"
 function Hello(props) {
   console.log(props);
   return (
@@ -117,21 +127,11 @@ function Hello(props) {
 export default Hello;
 ```
 
-```jsx title="App.js"
-import Hello from "./coponents/Hello.jsx";
-
-function App() {
-  return <Hello name="JJamVa" age="20" />;
-}
-
-export default App;
-```
-
 ![image](https://github.com/JJamVa/JJamVa/assets/80045006/cc393fec-12f1-4f79-a228-2a806ff0d14e)
 
 :::note
 위의 코드는 정삭적으로 동작하는 것을 확인하였다.<br/>
-App.js에서 데이터를 전송하여 Hello의 Coponent에 props에 전송하여 먼저 출력을 하였다.<br/>
+App.js에서 데이터를 전송하여 Hello Coponent로 props를 전달하여 출력을 하였다.<br/>
 
 ![image](https://github.com/JJamVa/JJamVa/assets/80045006/0e289499-e0e1-4034-9f82-d75835d7b08c)
 
@@ -156,6 +156,6 @@ export default Hello;
 ![image](https://github.com/JJamVa/JJamVa/assets/80045006/90083bc3-87b7-411e-b309-94ae2e712e60)
 
 위와 같이 구조분해 할당으로 값을 받은 것을 확인할 수 있다.<br/>
-`단, 데이터를 보내는 key의 값과 데이터를 받는 Component에서의 변수명이 일치해야 동작이 가능하다`<br/>
+`구조분해 할당을 이용 시, 데이터를 보내는 key의 이름과 데이터를 받는 Component에서 변수명이 일치해야 동작이 가능`<br/>
 
 :::
