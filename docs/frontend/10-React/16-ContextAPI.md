@@ -26,9 +26,8 @@ ContextAPI는 데이터가 불필요한 Component에게 전달할 필요없이<b
 ## ContextAPI에 사용하는 문법
 
 - `createContext`:
-  - Context 생성하는 함수
-  - Context객체를 반환
-  - Provider와 Consumer를 만들 수 있다.
+  - Context 생성하는 함수 및 Context 객체를 반환
+  - Provider와 Consumer를 생성 가능
 - `Provider`:
   - Context값을 제공하는 Component
   - props를 사용하여 값을 설정하고 하위 Component에서 이 값을 사용
@@ -97,7 +96,7 @@ export default Parent;
 ContextAPI를 쓰기 위해서는 `react` 라이브러리에서 모듈을 import해야한다.<br/>
 `createContext`에 name과 greeting의 전달하고자 하는 속성을 설정<br/>
 Chil1 Component에서 `<Info.**Consumer**>`를 이용하여 Info에서 정의한 createContext값을 콜백 함수로 호출하여 사용하고 있다.<br/>
-Child2 Component에서는 `<Info.**Provier**>`를 통해 변경된 값을 사용하여,<br/> 
+Child2 Component에서는 `<Info.**Provier**>`를 통해 변경된 값을 사용하여,<br/>
 `<Info.Consumer>`을 통해 변경된 ContextAPI 값을 호출하고 있다.<br/>
 `<Info.Provider>` 밖에 Child3 Component를 호출하고 있다<br/>
 즉, `<Info.Provider>`의 Context 값 변경 요청이 되지 않는다.<br/>
