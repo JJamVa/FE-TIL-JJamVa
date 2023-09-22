@@ -82,5 +82,49 @@ useEffect(() => {
 <summary>useEffect를 이용한 시간 구하기</summary>
 <div markdown="1">
 
+```jsx
+import React, { useState, useEffect } from "react";
+
+function Time() {
+  const [today, setToday] = useState(new Date());
+  const [hour, setHour] = useState(today.getHours());
+  const [min, setMin] = useState(today.getMinutes());
+  const [sec, setSec] = useState(today.getSeconds());
+
+  useEffect(() => {
+    setToday(new Date());
+    setHour(today.getHours());
+    setMin(today.getMinutes());
+    setSec(today.getSeconds());
+  }, [today]);
+
+  return (
+    <div>
+      <h1>
+        시간 : {hour}시 {min}분 {sec}초
+      </h1>
+    </div>
+  );
+}
+
+function Practice() {
+  return (
+    <div>
+      <Time />
+    </div>
+  );
+}
+
+export default Practice;
+```
+
+:::note
+
+위와 같이 코드를 작성하면 현재 시간을 출력할 수 있다.<br/>
+하지만 하나의 문제가 발생한다.
+
+
+:::
+
 </div>
 </details>
