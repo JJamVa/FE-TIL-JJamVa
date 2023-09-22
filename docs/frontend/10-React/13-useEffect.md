@@ -3,9 +3,9 @@
 ## useEffect란?
 
 - Component가 렌더링 될 때 특정 작업을 실행하는 react의 커스텀 훅
-- useEffect(함수, 배열)로 표현
+- `useEffect(콜백 함수, 의존성 배열)`로 사용
   - 함수: 특정 작업을 수행하는 코드
-  - 배열: 배열안에 값의 변화할 때마다 동작. 생략가능
+  - 의존성 배열: 배열안에 값의 변화할 때마다 동작. 생략가능
 
 ```jsx
 import {useEffect } from 'react';
@@ -29,8 +29,9 @@ useEffect(()=> {
    Component가 화면에서 제거되기 전 cleanup함수로 비동기작업 중단 및 리소스를 해제
 
 2. useEffect내에 새로운 useEffect가 호출이 될 경우<br/>
-    이전 useEffect에서 반환한 cleanup함수가 실행되기 전 새로운 useEffect가 실행<br/>
-    이전의 작업을 정리 후, 새로운 작업을 설정하는데 사용
+   이전 useEffect에서 반환한 cleanup함수가 실행되기 전 새로운 useEffect가 실행<br/>
+   이전의 작업을 정리 후, 새로운 작업을 설정하는데 사용
+
 :::
 
 ## React Component 생명주기
@@ -74,5 +75,12 @@ import { useEffect } from "react";
 
 useEffect(() => {
   console.log("Hello");
-}, [count]);
+}, [변수]);
 ```
+
+<details>
+<summary>useEffect를 이용한 시간 구하기</summary>
+<div markdown="1">
+
+</div>
+</details>

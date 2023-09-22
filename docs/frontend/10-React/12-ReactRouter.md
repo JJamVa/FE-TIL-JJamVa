@@ -194,11 +194,11 @@ function Index() {
   return <h1>Hello JJamVa</h1>;
 }
 
-function One(props) {
+function JJamVa(props) {
   return <h1>1. See you again {props.name}</h1>;
 }
 
-function Two(props) {
+function JJamHa(props) {
   return <h1>2. GoodBye {props.greeting}</h1>;
 }
 
