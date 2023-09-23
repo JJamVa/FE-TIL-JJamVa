@@ -42,7 +42,7 @@ useEffect(()=> {
 
 ## useEffect 형태
 
-### 두번째 인자값이 없을 경우
+### useEffect 두번째 인자값이 없을 경우
 
 - Component 업데이트 될 때마다 실행
 
@@ -54,7 +54,7 @@ useEffect(() => {
 });
 ```
 
-### 두번째 인자값이 빈배열일 경우
+### useEffect 두번째 인자값이 빈배열일 경우
 
 - 처음 한번 실행
 
@@ -66,7 +66,7 @@ useEffect(() => {
 }, []);
 ```
 
-### 두번째 인자값이 존재할 경우
+### useEffect 두번째 인자값이 존재할 경우
 
 - 배열안 요소가 변화될 때 마다 실행
 
@@ -87,15 +87,15 @@ import React, { useState, useEffect } from "react";
 
 function Time() {
   const [today, setToday] = useState(new Date());
-  const [hour, setHour] = useState(today.getHours());
-  const [min, setMin] = useState(today.getMinutes());
-  const [sec, setSec] = useState(today.getSeconds());
+  const hour = today.getHours();
+  const min = today.getMinutes();
+  const sec = today.getSeconds();
 
   useEffect(() => {
-    setToday(new Date());
-    setHour(today.getHours());
-    setMin(today.getMinutes());
-    setSec(today.getSeconds());
+    const interval = setInterval(() => {
+      setToday(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
   }, [today]);
 
   return (
@@ -118,11 +118,26 @@ function Practice() {
 export default Practice;
 ```
 
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/5506a17b-ca91-499e-89b9-df87dc87e006)
+
+:::info
+
+#### setInterval과 setTimeOut
+
+- `setInterval`: 설정된 주기마다 **지속적으로 함수를 반복 실행**
+- `clearInterval`에 인터벌 ID를 전달하여 중지할 작업을 지정
+
+- `setTimeout`: 일정한 시간이 경과한 후에 **한 번만 함수를 실행**
+- `clearTimeout`에 타이머 ID를 전달하여 중지할 작업을 지정
+
+:::
+
 :::note
-
-위와 같이 코드를 작성하면 현재 시간을 출력할 수 있다.<br/>
-하지만 하나의 문제가 발생한다.
-
+useEffect를 이용하여 의존성 배열에 있는 today 변수의 값이 변할때 마다 실행이 된다.<br/>
+setInterval 및 clearInterval을 사용하여 주기적으로 시간을 업데이트하고,<br/>
+useEffect의 정리 함수(cleanup 함수)를 활용하여 Component가 unmount되거나 재렌더링될 때<br/>
+이전에 설정한 Interval을 정리하는 방법이다.<br/>
+이후 useState의 상태 관리 함수를 호출하여 현재의 Date객체로 상태변환을 시켜 현재 시간을 출력한다.<br/>
 
 :::
 
