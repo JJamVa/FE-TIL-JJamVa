@@ -125,10 +125,10 @@ export default Practice;
 #### setInterval과 setTimeOut
 
 - `setInterval`: 설정된 주기마다 **지속적으로 함수를 반복 실행**
-- `clearInterval`에 인터벌 ID를 전달하여 중지할 작업을 지정
+  - `clearInterval`에 인터벌 ID를 전달하여 중지할 작업을 지정
 
 - `setTimeout`: 일정한 시간이 경과한 후에 **한 번만 함수를 실행**
-- `clearTimeout`에 타이머 ID를 전달하여 중지할 작업을 지정
+  - `clearTimeout`에 타이머 ID를 전달하여 중지할 작업을 지정
 
 :::
 

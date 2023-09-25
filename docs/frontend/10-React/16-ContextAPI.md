@@ -95,12 +95,15 @@ export default Parent;
 :::note
 ContextAPI를 쓰기 위해서는 `react` 라이브러리에서 모듈을 import해야한다.<br/>
 `createContext`에 name과 greeting의 전달하고자 하는 속성을 설정<br/>
-Chil1 Component에서 `<Info.**Consumer**>`를 이용하여 Info에서 정의한 createContext값을 콜백 함수로 호출하여 사용하고 있다.<br/>
+
+Child1 Component에서 `<Info.**Consumer**>`를 이용하여 Info에서 정의한 createContext값을 콜백 함수로 호출하여 사용하고 있다.<br/>
+
 Child2 Component에서는 `<Info.**Provier**>`를 통해 변경된 값을 사용하여,<br/>
 `<Info.Consumer>`을 통해 변경된 ContextAPI 값을 호출하고 있다.<br/>
 `<Info.Provider>` 밖에 Child3 Component를 호출하고 있다<br/>
 즉, `<Info.Provider>`의 Context 값 변경 요청이 되지 않는다.<br/>
-그럼, Child3 Component는 `createContext`의 데이터의 name, greeting 속성값을 이용이 하고있다.<br/>
+
+Child3 Component는 기존의 설정된 `createContext`의 데이터의 name, greeting 속성값을 이용하고 있다.<br/>
 
 :::
 

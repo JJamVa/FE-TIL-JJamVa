@@ -449,4 +449,70 @@ export default App;
 - 라우팅 관련 작업을 수행할 때 사용하는 함수
 - 함수 컴포넌트 내에서 라우팅을 다룰 때 유용하게 활용
 
-<!-- 추가 작업 코드 -->
+```jsx
+import React from "react";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+
+function Home() {
+  const navigate = useNavigate();
+
+  return (
+    <div>
+      <h1>Home Page</h1>
+      <button onClick={() => navigate("/about")}>About 페이지</button>
+    </div>
+  );
+}
+
+function About() {
+  const navigate = useNavigate();
+
+  return (
+    <div>
+      <h1>About Page</h1>
+      <button onClick={() => navigate(-1)}>홈</button>
+      <button onClick={() => navigate("/Link")}>Link 페이지</button>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+:::
+
+#### http://localhost:3000/
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/b6a99a7d-cddb-4b23-a017-769c3abe068e)
+
+#### http://localhost:3000/about
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/91c576d9-6cb1-48e1-ae7b-ddf3305857ed)
+
+초기 화면은 Home Component를 렌더링하고 있다.<br/>
+Home Component에서 useNavigate를 이용하여 버튼을 클릭 시, 현재 경로에서 `/about` 경로로 이동한다.<br/>
+Route에 `/about` 경로에 대한 Component 호출이 있기 때문에, 경로를 이동 후 About Component를 렌더링한다.<br/>
+
+About Component에는 `홈`버튼과 `Link페이지` 버튼이 있다.<br/>
+홈버튼을 클릭 시, 초기 화면으로 돌아온다.<br/>
+홈버튼의 `onClick={() => navigate(-1)}`의 기능은 이전 페이지로 돌아가는 기능이다.<br/>
+navigate안 변수를 작성하면 현재 경로에서 얼만큼 이동할지 경로를 설정할 수 있다.<br/>
+음수일 경우, 현재 페이지에서 뒤로 n번이동.<br/>
+양수일 경우, 현재 페이지에서 앞으로 n번이동. 단, **페이지를 앞으로 갔는 기록이 있을 경우 동작**한다.<br/>
+
+Link버튼을 클릭 시, 아무 화면도 렌더링이 되지 않는다.<br/>
+하지만 주소창을 확인 해보면 `http://localhost:3000/Link`인 것을 확인할 수 있다.<br/>
+Routes안 path에 `/link`에 대한 정보가 없기 때문에 빈화면이 출력된다.<br/>
+
+:::
