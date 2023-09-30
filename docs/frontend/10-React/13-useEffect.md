@@ -8,17 +8,18 @@
   - 의존성 배열: 배열안에 값의 변화할 때마다 동작. 생략가능
 
 ```jsx
-import {useEffect } from 'react';
+import { useEffect } from "react";
 
-useEffect(()=> {
+useEffect(
+  () => {
     // 상태 변화가 감지되어 렌더링 될 때 실행
     return () => {
-        // 렌더링 하기 전 Component를 삭제 하기 전 작업 과정
-        // cleanup 함수 실행
-    }
-},
-[count1, count2 ...] // 배열 안에 담기 요소들이 상태 변화할 때마다 감지
-)
+      // 렌더링 하기 전 Component를 삭제 하기 전 작업 과정
+      // cleanup 함수 실행
+    };
+  },
+  [변수] // 배열 안에 담기 요소들이 상태 변화할 때마다 감지
+);
 ```
 
 :::info
