@@ -114,19 +114,18 @@ useMemo를 이용하여 초기 렌더링시, calculate에 대한 연산을 memoi
 
 #### useMemo와 useEffect의 차이
 
-##### `useMemo`:
+`useMemo`:
 
 - clean-up 함수가 존재하지 않음
 - 리랜더링이나 불필요한 재실행을 막기 위해 사용
 - 상태 변화가 없으면 랜더링을 방지
 
-##### `useEffect`:
+`useEffect`:
 
 - clean-up 함수가 존재
 - 랜더링 이후 동작
 - 상태 관리에 사용
 
 :::
-
 
 <!-- 추가적으로 공부 후 작성 -->
