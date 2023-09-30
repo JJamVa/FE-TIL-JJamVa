@@ -1,6 +1,6 @@
-# Hook - useState
+# useState
 
-## useState
+## useState란?
 
 - `[상태, 상태 변경함수] = useState(초기값)`
 - state변수와 state 변수의 상태를 바꿔줄 수 있는 함수가 반환
