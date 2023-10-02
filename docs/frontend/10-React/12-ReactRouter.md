@@ -490,7 +490,7 @@ function App() {
 export default App;
 ```
 
-:::
+:::note
 
 #### http://localhost:3000/
 
