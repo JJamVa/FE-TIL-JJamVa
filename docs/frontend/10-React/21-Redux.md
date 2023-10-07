@@ -20,24 +20,25 @@
 ### Reducer
 
 - 상태 변경을 처리하는 순수한 함수
-- 현재 상태와 액션을 받아서 새로운 상태를 반환
+- 현재 state와 action을 받아서 새로운 상태를 반환
 
-### Actions
+### Action
 
 - 상태 변경을 나타내는 객체
-- `type` 속성과 선택적으로 데이터를 가진다
+- action은 `type` 속성과 선택적으로 데이터(payload)를 가진다
 - dispatch 함수를 통해 Reducer로 전달
 
 ### Dispatch
 
-- store의 dispatch 메서드를 통해 액션을 리듀서로 전달하는 역할을 한다
-- Action의 type을 dispatch하면 Reducer를 호출하여 상태를 업데이트 후, store에 저장
+- action의 type을 dispatch하면 Reducer를 호출하여 상태를 업데이트 후, store에 저장
 
 ## Redux 구현
 
 ![image](https://github.com/JJamVa/JJamVa/assets/80045006/46b3cc94-e719-4b50-90fb-e166e979f2b6)
 
-### index.js
+### store 생성 및 component에 전달
+
+- `createStore()`: Redux store를 생성하기 위해 사용하는 함수
 
 ```jsx title="index.js"
 import React from "react";
@@ -66,7 +67,10 @@ store.js에서 생성한 Reducer를 `createStore()`를 통해 저장소를 생�
 
 :::
 
-### store.js
+### Reducer 생성 및 결합
+
+- `combineReducers`: Reducer들을 조합하고, 각 Reducer가 관리하는 일부 상태를 모아 하나의 큰 상태 객체로 만드는 것
+
 
 ```jsx title="store.js"
 import { combineReducers } from "redux";
@@ -169,11 +173,15 @@ export default rootReducer;
 
 store.js에는 총 2개의 Reducer인 counterReducer와 visibleReducer가 존재한다.<br/>
 Redux의 store는 한개의 저장소만 존재해야하기 때문에 Reducer들을 결합하여야한다.<br/>
-이때 `combineReducers`를 사용해야한다.<br/>
 `combineReducers({counterReducer, visibleReducer})`를 통하여 하나의 Reducer로 정의를 하며,<br/>
 index.js에서 **store를 생성**하기 때문에 rootReducer를 export 하였다.<br/>
 
 :::
+
+### state 데이터 가져오기 및 action 전달
+
+- `useSelector`: Redux store의 상태를 읽어오며, 선택하는데 사용
+- `useDispatch`: action을 Conponent 내부에서 발생시키고, Redux store에 action의 type 및 추가 데이터를 전달
 
 ```jsx title="Button.jsx"
 import React from "react";
@@ -215,8 +223,6 @@ export default Button;
 :::note
 Button.jsx는 Redux store에 있는 data들을 사용하여 기능을 구현하는 코드이다.<br/>
 
-- `useSelector`는 Redux store에서 상태를 읽어오며, 선택하는데 사용
-
 ![image](https://github.com/JJamVa/JJamVa/assets/80045006/77d4f543-ca4c-46be-9ab2-2c3e0605718b)
 
 `console.log(useSelector((state) => state))`를 했을 때, 출력 결과물이다.<br/>
@@ -231,8 +237,6 @@ const { visible } = useSelector((state) => state.visibleReducer);
 상태가 변할때 마다 랜더링이 되어 각 state값을 새로 할당한다.<br/>
 
 ---
-
-- `useDispatch`는 action을 Conponent 내부에서 발생시키고, Redux store에 action의 type 및 추가 데이터를 전달
 
 ```jsx
 const dispatch = useDispatch();
@@ -262,9 +266,10 @@ return (
 ```
 
 위 코드에서 dispatch라는 변수에 `useDispatch()`함수를 정의한다.<br/>
-각 버튼의 onClick 이벤트 핸들러를 함수를 추가한다.<br/>
+각 버튼의 onClick 이벤트 핸들러에 dispatch 함수를 추가한다.<br/>
 만약 "1씩 증가"라는 버튼을 눌렀을 경우, `dispatch({type: "increase"})`가 실행된다.<br/>
 그럼, store.js의 counterReducer함수에게 action 객체 정보가 전달이 된다.<br/>
-이후 counterReducer함수에서 state상태가 업데이트 및 store에 저장이 되며 렌더링이 발생하여 값이 변경된다.<br/>
+이후 counterReducer함수에서 state 업데이트 및 store에 저장 한다.<br/>
+store의 저장된 이후, Component가 렌더링이 되어 상태 변경이 일어난 뒤의 값을 호출한다.
 
 :::
