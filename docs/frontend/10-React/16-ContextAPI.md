@@ -103,7 +103,7 @@ Child2 Component에서는 `<Info.**Provier**>`를 통해 변경된 값을 사용
 `<Info.Provider>` 밖에 Child3 Component를 호출하고 있다<br/>
 즉, `<Info.Provider>`의 Context 값 변경 요청이 되지 않는다.<br/>
 
-Child3 Component는 기존의 설정된 `createContext`의 데이터의 name, greeting 속성값을 이용하고 있다.<br/>
+Child3 Component는 기존의 설정된 `createContext`의 데이터인 name, greeting의 속성값을 이용하고 있다.<br/>
 
 :::
 
