@@ -34,11 +34,17 @@
 
 ## Redux 구현
 
+- 구현
+  - "1씩 증가": 값을 하나씩 증가하여 화면 출력
+  - "5씩 증가": 값을 5씩 증가하여 화면 출력
+  - "-1씩 감소": 값을 -1씩 감소하여 화면 출력
+  - "숫자 가리기/켜기": 버튼을 클릭시, 표현하고 있는 숫자 가리기/켜기
+
 ![image](https://github.com/JJamVa/JJamVa/assets/80045006/46b3cc94-e719-4b50-90fb-e166e979f2b6)
 
 ### store 생성 및 component에 전달
 
-- `createStore()`: Redux store를 생성하기 위해 사용하는 함수
+- `createStore()`: redux에서 제공하는 함수, Redux store를 생성하기 위해 사용하는 함수
 
 ```jsx title="index.js"
 import React from "react";
@@ -69,8 +75,7 @@ store.js에서 생성한 Reducer를 `createStore()`를 통해 저장소를 생�
 
 ### Reducer 생성 및 결합
 
-- `combineReducers`: Reducer들을 조합하고, 각 Reducer가 관리하는 일부 상태를 모아 하나의 큰 상태 객체로 만드는 것
-
+- `combineReducers()`: redux에서 제공하는 함수, Reducer들을 조합하여 각 Reducer가 관리하는 일부 상태를 모아 하나의 큰 상태 객체로 만드는 것
 
 ```jsx title="store.js"
 import { combineReducers } from "redux";
@@ -143,28 +148,6 @@ action안의 type이라는 객체 속성을 이용하여 state의 정보를 상�
 
 ---
 
-counterReducer에서 `else if(action.type === 'increase5')` 구문에서<br/>
-`return { ...state, count: state.count + action.payload }`이 보인다.<br/>
-
-```jsx title="Button.jsx의 increase5함수 내부 dispatch()"
-const dispatch = useDispatch();
-
-const increase5 = () => {
-  dispatch({ type: "increase5", payload: 5 });
-};
-```
-
-dispatch를 통하여 `{ type: "increase5", payload: 5 }`의 정보를 counterReducer의 action로 보낸다.<br/>
-
-- `payload`는 action객체의 type 이외에 추가할 데이터를 의미<br/>
-
-![image](https://github.com/JJamVa/JJamVa/assets/80045006/3440948d-b649-4c1a-b193-d7cd437da813)
-
-위와 같이 action에 type과 payload의 속성을 확인이 가능하다.<br/>
-counterReducer에 전달된 action 객체의 type속성으로 해당하는 state 정보를 업데이트 후, store에 저장한다.<br/>
-
----
-
 ```jsx
 const rootReducer = combineReducers({ counterReducer, visibleReducer });
 
@@ -180,8 +163,8 @@ index.js에서 **store를 생성**하기 때문에 rootReducer를 export 하였�
 
 ### state 데이터 가져오기 및 action 전달
 
-- `useSelector`: Redux store의 상태를 읽어오며, 선택하는데 사용
-- `useDispatch`: action을 Conponent 내부에서 발생시키고, Redux store에 action의 type 및 추가 데이터를 전달
+- `useSelector()`: Redux Toolkit에서 제공하는 함수, Redux store의 상태를 읽어오며, 선택하는데 사용
+- `useDispatch()`: Redux Toolkit에서 제공하는 함수, action을 Conponent 내부에서 발생시키고, Redux store에 action의 type 및 추가 데이터를 전달
 
 ```jsx title="Button.jsx"
 import React from "react";
@@ -223,17 +206,17 @@ export default Button;
 :::note
 Button.jsx는 Redux store에 있는 data들을 사용하여 기능을 구현하는 코드이다.<br/>
 
-![image](https://github.com/JJamVa/JJamVa/assets/80045006/77d4f543-ca4c-46be-9ab2-2c3e0605718b)
-
-`console.log(useSelector((state) => state))`를 했을 때, 출력 결과물이다.<br/>
-즉, useSelector는 Redux store에 있는 전체 상태 객체에서 원하는 데이터를 선택한다.<br/>
-
 ```jsx
 const { count } = useSelector((state) => state.counterReducer);
 const { visible } = useSelector((state) => state.visibleReducer);
 ```
 
-위의 코드는 각 Redux store 안에 있는 Reducer들의 state값을 구조분해 할당으로 가져온 것이다.<br/>
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/77d4f543-ca4c-46be-9ab2-2c3e0605718b)
+
+useSelector의 state에 대한 출력 결과물이다.<br/>
+즉, useSelector는 Redux store에 있는 전체 상태 객체에서 원하는 데이터를 선택한다.<br/>
+
+각 Redux store 안에 있는 Reducer들의 state값을 구조분해 할당으로 가져온 것이다.<br/>
 상태가 변할때 마다 랜더링이 되어 각 state값을 새로 할당한다.<br/>
 
 ---
@@ -253,23 +236,44 @@ const decrease = () => {
 const isVisible = () => {
   dispatch({ type: "on/off" });
 };
-
-return (
-  <div>
-    {visible && <p>{count}</p>}
-    <button onClick={increase1}>1씩 증가</button>
-    <button onClick={increase5}>5씩 증가</button>
-    <button onClick={decrease}>-1씩 감소</button>
-    <button onClick={isVisible}>숫자 {visible ? "가리기" : "켜기"}</button>
-  </div>
-);
 ```
 
-위 코드에서 dispatch라는 변수에 `useDispatch()`함수를 정의한다.<br/>
-각 버튼의 onClick 이벤트 핸들러에 dispatch 함수를 추가한다.<br/>
+`useDispatch`를 이용하여 각 이벤트 핸들러가 호출되었을 때의 Redux의 action을 store에 전달하여 해당 Reducer를 실행한다.
+
 만약 "1씩 증가"라는 버튼을 눌렀을 경우, `dispatch({type: "increase"})`가 실행된다.<br/>
-그럼, store.js의 counterReducer함수에게 action 객체 정보가 전달이 된다.<br/>
+그럼, store.js의 counterReducer함수에게 action 객체 정보를 store에 전달 후, 해당 Reducer에 전달된다.<br/>
 이후 counterReducer함수에서 state 업데이트 및 store에 저장 한다.<br/>
 store의 저장된 이후, Component가 렌더링이 되어 상태 변경이 일어난 뒤의 값을 호출한다.
+
+---
+
+```jsx title="Button.jsx의 increase5함수"
+const dispatch = useDispatch();
+
+const increase5 = () => {
+  dispatch({ type: "increase5", payload: 5 });
+};
+```
+
+dispatch를 통하여 `{ type: "increase5", payload: 5 }`의 정보를 Redux store에 전달 후, 해당 Reducer에게 action을 보낸다.<br/>
+**payload는 action객체의 type 이외에 추가할 데이터를 의미**<br/>
+
+```jsx
+const counterReducer = (state = countInitialState, action) => {
+  // if (action.type === "increase") return { ...state, count: state.count + 1 };
+  else if (action.type === "increase5"){
+    console.log(action)
+    return { ...state, count: state.count + action.payload };
+  }
+  // else if (action.type === "decrease")
+  //   return { ...state, count: state.count - 1 };
+  // else return state;
+};
+```
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/ea8837e9-6e8d-4725-995f-619472cc21ed)
+
+위와 같이 "5씩 증가" 버튼을 눌렀을 때, 해당 Reducer의 action에 type과 payload의 출력물 확인할 수 있다.<br/>
+counterReducer에 전달된 action 객체의 type속성으로 해당하는 state 정보를 업데이트 후, store에 저장한다.<br/>
 
 :::
