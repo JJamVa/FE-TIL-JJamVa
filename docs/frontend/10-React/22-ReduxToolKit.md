@@ -5,7 +5,7 @@
 - Redux를 더욱 쉽고 효율적으로 사용할 수 있도록 도와주는 공식적인 Redux 라이브러리 확장판
 - 불변성을 이용한 상태 관리 개선
 - Immer 라이브러리 사용 가능
-- 해당 React 프로젝트에서 터미널에 `npm install @reduxjs/toolkit`, `npm install react-redux` 입력하여 설치
+- 해당 React 프로젝트 경로 터미널에 `npm install @reduxjs/toolkit`, `npm install react-redux` 입력하여 설치
 
 :::tip
 

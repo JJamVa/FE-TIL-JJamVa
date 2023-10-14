@@ -4,13 +4,13 @@
 
 - JavaScript 앱의 상태 관리를 위한 라이브러리 중 하나
 - 앱의 상태를 중앙 집중식으로 관리하고 상태 변경을 예측 가능하게 만들어 앱의 복잡성을 관리
-- 해당 React 프로젝트에서 터미널에 `npm install redux`, `npm install react-redux` 입력하여 설치
+- 해당 React 프로젝트 경로 터미널에 `npm install redux`, `npm install react-redux` 입력하여 설치
 
 ## Redux Flux 패턴
 
 - Redux는 단방향으로 데이터를 전달하는 패턴 방식
 
-![image](https://github.com/JJamVa/JJamVa/assets/80045006/0177ecb5-7a1a-475c-9497-7475c285a63e)
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/d22ebaa4-789d-4fa4-9442-6a33f80afc74)
 
 ### Store
 
