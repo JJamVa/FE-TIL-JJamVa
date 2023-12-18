@@ -17,8 +17,12 @@ APP1, APP2, APP3의 Component가 있다.<br/>
 APP1에서 APP3에게 데이터를 전달한다고 가정한다.<br/>
 props를 이용하여 데이터를 전달하기 위해서는 APP1, APP2, APP3의 순서로 전달해야한다.<br/>
 하지만 ContextAPI를 이용하게 된다면 APP1에서 APP3에게 직접 전달할 수 있다.<br/>
+즉, `props drilling`의 문제점을 개선할 수 있다.<br/>
 
-ContextAPI는 데이터가 불필요한 Component에게 전달할 필요없이<br/>
+**props drilling** 이란?
+- 리액트(React)에서 데이터를 부모 컴포넌트로부터 하위 계층의 자식 컴포넌트로 전달하는 과정을 의미
+
+즉, ContextAPI는 데이터가 불필요한 Component에게 전달할 필요없이<br/>
 **데이터가 필요한 Component에게 직접 전달이 가능**하다는 장점이 있다.
 
 :::

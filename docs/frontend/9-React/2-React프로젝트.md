@@ -7,6 +7,13 @@
 3. Vscode 생성해야할 위치에 들어간 후, 터미널에 `npx create-react-app 이름` 입력
 4. React프로젝트를 생성 후, 터미널에 `npm start` 입력하여 실행
 
+:::tip
+
+`npx create-react-app 이름 --template basic-react`<br/>
+불필요한 요소의 폴더 및 파일 없이 생성
+
+:::
+
 ## React import
 
 - Component및 라이브러리를 import를 할 경우, `import 이름 from 경로 혹은 라이브러리명`
@@ -49,6 +56,20 @@ export default App;
 function App과 return 사이에서 `Component 및 JavaScript로 기능 구현`<br/>
 return은 `어떻게 화면의 레이아웃을 표현할지 Component 및 HTML 태그를 작성`<br/>
 export default App는 `App함수 모듈을 내보낼 때 사용`
+
+:::
+
+:::caution
+
+**export default와 export의 차이점**
+
+- `export default`
+  - 한 모듈안에서 하나의 `export default`만 사용 가능
+  - 내보낼 값(함수, 클래스 등)을 명시하지 않고 사용이 가능
+
+- `export`
+  - 여러개의 `export`를 사용 가능
+  - import를 통해 가져올 때, `{}`를 통해 선택적으로 가져올 수 있다.
 
 :::
 
