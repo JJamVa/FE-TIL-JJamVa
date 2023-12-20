@@ -17,5 +17,16 @@
 2. 터미널에 `npm install -g typescript` 명령어 입력하여 설치
 3. 터미널에 `tsc --init`을 입력하여, `tsconfig.json`의 초기 파일을 생성
 4. `.ts`파일을 통해 타입스크립트 코드 입력 후 저장
-5. 터미널에 `tsc`를 입력하여, `tsconfig.json`을 참조하여 `.ts`파일을 컴파일하여 `.js`파일을 해당 디렉토리에 저장
+5. 터미널에 `tsc -w`를 입력 후, 작성 파일을 저장하면 `tsconfig.json`을 참조하여 `.ts`파일을 컴파일하여 `.js`파일로 해당 디렉토리에 저장
 6. `node 파일명.js`를 실행
+
+:::tip
+
+**vsc터미널에 tsc 명령어 실행 오류 발생할 경우**
+
+1. vsc를 관리자 권한으로 실행
+2. 터미널을 킨 후, `Get-ExecutionPolicy`과 `Set-ExecutionPolicy RemoteSigned`를 입력
+
+Restricted모드에서 RemoteSigned로 변경하는 작업을 해야 실행이 가능
+
+:::
