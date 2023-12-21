@@ -73,10 +73,10 @@ func("안녕")
 이를 해결하기 위해서는 **`return` 타입을 정하는 방법**과 **parameter값에 대한 조건부 설정**을 이용하면 해결이 가능  .
 
 ```ts title="함수 parameter가 UnionType일 경우 개선"
-// return 값을 
+// parameter값이 여러 조건일 경우를 대비해서 작성
 function func(x:number | string): string : number{
-    if(typeof x === string) return x + "10";
-    else if(typeof === number) return x + 10;
+    if(typeof x === 'string') return x + "10";
+    else if(typeof === 'number') return x + 10;
 }
 
 func(10)// 20
