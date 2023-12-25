@@ -7,30 +7,31 @@
 - 특정 글자나 숫자만 가질 수 있게 제한을 두는 타입
 
 ```ts
-let value1: 1 = 1;// 가능
-let value2: '2' = 2;// 불가능
-let value3: "undefined" = undefined;//불가능
+let value1: 1 = 1; // 가능
+let value2: "2" = 2; // 불가능
+let value3: "undefined" = undefined; //불가능
 ```
 
 ## Literal Type + 유니온(|)
+
 - `|` 연산자를 통해 Literal Type의 지정해둔 특정값의 타입만 변수로 지정
 - 변수 이외 함수의 **parameter 값** 또는 **return 값** 지정도 가능
 
 ```ts title="Literal Type 변수"
-type T = 1 | 2 | 3 | 4
+type T = 1 | 2 | 3 | 4;
 
-let value1: T = 3;// 가능
-let value2: T = "4";// 불가능
+let value1: T = 3; // 가능
+let value2: T = "4"; // 불가능
 
 let body: "hand" | "foot";
-body = "hand"// 가능
+body = "hand"; // 가능
 ```
 
 ```ts title="Literal Type 함수"
 function calc(x: "더하기" | "빼기"): 2 | 0 | "잘못된 값을 입력" {
-    if (x === "더하기") return 2;
-    else if (x === "빼기") return 0;
-    else return "잘못된 값을 입력";
+  if (x === "더하기") return 2;
+  else if (x === "빼기") return 0;
+  else return "잘못된 값을 입력";
 }
 
 calc("더하기"); // 2
@@ -79,14 +80,14 @@ const string1 = "hello" as const;
 
 ```ts
 let value = {
-    name: "JJamVa"
+  name: "JJamVa",
+};
+
+function greeting(x: "JJamVa"): void {
+  console.log(x + "님 안녕하세요!");
 }
 
-function greeting(x: "JJamVa"):void{
-    console.log(x + "님 안녕하세요!");
-}
-
-greeting(value.name)
+greeting(value.name);
 ```
 
 위와 같은 코드에서 greeting함수를 실행할 때, value의 name속성을 argument값으로 넣었다.<br/>
@@ -97,21 +98,20 @@ greeting함수안 x의 parameter는 `"JJamVa"`라는 타입 속성을 명시하�
 
 ```ts
 let value = {
-    name: "JJamVa"
-} as const
+  name: "JJamVa",
+} as const;
 
-function greeting(x: "JJamVa"):void{
-    console.log(x + "님 안녕하세요!");
+function greeting(x: "JJamVa"): void {
+  console.log(x + "님 안녕하세요!");
 }
 
-greeting(value.name)
+greeting(value.name);
 ```
 
 이를 해결하고자 value에 `as const`를 이용하여 value의 name 속성을 `"JJamVa"`로 Literal Type 변경하는 방법이 있다.<br/>
 value의 name속성의 타입과 greeting의 x타입이 일치하여 에러가 발생하지 않는다.<br/>
 
 :::
-
 
 :::tip
 
@@ -120,20 +120,20 @@ value의 name속성의 타입과 greeting의 x타입이 일치하여 에러가 �
 ```ts
 // as const
 let value = {
-    name: "JJamVa",
-    age: 27
+  name: "JJamVa",
+  age: 27,
 } as const;
 
 // readonly
 type T = {
-    readonly name?: string,
-    readonly age: number
-}
+  readonly name?: string;
+  readonly age: number;
+};
 
 let value: T = {
-    name:"JJamVa",
-    age: 27
-}
+  name: "JJamVa",
+  age: 27,
+};
 ```
 
 위의 코드는 결과론적으로 똑같은 의미를 가진 코드이다.<br/>
