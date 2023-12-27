@@ -134,7 +134,7 @@ console.log(y instanceof Human);//true
 
 :::note
 
-instanceof를 통해 인스턴스가 어느 class에 상속되었는지 확인할 수 있다.<br/>
-class의 인스턴스를 Type narrowing 해야할 경우, instanceof를 사용하면 간단하다.<br/>
+instanceof를 통해 인스턴스가 **어느 class에 상속되었는지 확인**할 수 있다.<br/>
+class의 인스턴스를 Type narrowing 해야할 경우, **instanceof를 사용**하면 간단하다.<br/>
 
 :::
