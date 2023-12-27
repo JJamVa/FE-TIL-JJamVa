@@ -68,7 +68,7 @@ console.log(name);// "JJamVa"
 console.log(rest);// {age: 27, job:true}
 
 //함수 parameter 구조분해 할당
-function info({name,age,job}){
+function info({name,age,job}: O){
     console.log(`내 이름은 ${name}이며, 나이는 ${age}세, 직업을 ${job ? "가지고 있다" : "없습니다."}`)
 }
 
