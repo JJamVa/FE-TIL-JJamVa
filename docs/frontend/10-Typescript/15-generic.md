@@ -90,3 +90,26 @@ function func<MyType extends {length: number}>(x: MyType) {
 
 
 :::
+
+## class의 generic
+
+- 클래스가 다양한 타입의 데이터를 다룰 수 있도록 설정
+- 클래스를 정의할 때 클래스 내부에서 사용되는 데이터의 타입을 나중에 결정
+
+```ts
+class Human<T>{
+  name:T;
+  constructor(x:T){
+    this.name = x;
+  }
+}
+
+let myName = new Human("JJamVa");
+console.log(myName);
+```
+
+:::note
+class의 generic을 사용할 시, **class 이름<generic 타입>**과 같이 작성하면된다.<br/>
+작성 후, generic 타입을 사용할 변수 뒤에 `:타입`을 작성하면 된다.<br/>
+
+:::
