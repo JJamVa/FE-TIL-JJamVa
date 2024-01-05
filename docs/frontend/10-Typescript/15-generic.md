@@ -109,6 +109,7 @@ console.log(myName);
 ```
 
 :::note
+
 class의 generic을 사용할 시, **class 이름<generic 타입>**과 같이 작성하면된다.<br/>
 작성 후, generic 타입을 사용할 변수 뒤에 `:타입`을 작성하면 된다.<br/>
 
