@@ -105,11 +105,11 @@ let {속성} = useQuery({
 - 핵심 옵션
   - queryKey: 쿼리를 식별하는 데 사용되는 키. 캐시에서 데이터를 찾을 때 사용
   - queryFn: 데이터를 가져오는 비동기 함수
-  - gcTime: 가비지 컬렉션을 위한 시간 간격 조정. 기본값은 10분(1000 * 60 * 10)
+  - gcTime: 가비지 컬렉션을 위한 시간 간격 조정. 기본값은 10분(1000 \* 60 \* 10)
   - staleTime: 데이터가 만료되어 다시 조회되기 전까지의 시간을 설정
   - enabled: 값이 true일 경우 동기적인 함수로 실행
 
-[React Query 속성 및 옵션 문서](https://tanstack.com/query/latest/docs/react/reference/useQuery)
+[useQuery 속성 및 옵션 문서](https://tanstack.com/query/latest/docs/react/reference/useQuery)
 :::
 
 ## useQueries
@@ -176,9 +176,89 @@ useQueries 같은 경우, 여러개의 Query에 대한 정보를 담다보니 �
 ## useMutation
 - 데이터의 생성(CREATE), 수정(UPDATE), 삭제(DELETE)와 같은 변경 작업을 처리하기 위해 사용 
 - API 호출과 같은 비동기 작업에 사용, 작업이 성공하면 데이터를 업데이트 실패하면 에러를 처리
-- `useMutation(비동기 함수)`의 형태로 사용
+- `useMutation(비동기 함수, 추가 옵션)`의 형태로 사용
 
 <!-- 코드 작성 예정 -->
+
+```js title="비동기 함수(post)"
+import axios from "axios";
+
+const createPost = async (newPost) => {
+    try {
+      const response = await axios.post('https://jsonplaceholder.typicode.com/posts', newPost);
+      return response.data;
+    } catch (error) {
+      throw new Error('Failed to create post');
+    }
+  };
+  
+export default createPost;
+```
+
+```js title="App.js"
+import React from 'react';
+import { useMutation } from 'react-query';
+import createPost from './Async';
+
+const App = () => {
+  const mutation = useMutation(createPost, {
+    onMutate: (data) => {
+      console.log("onMutate", data);
+    },
+    onError: (error, variable, context) => {
+      console.log("onError", error,variable,context);
+    },
+    onSuccess: (data, variables, context) => {
+      console.log("onSuccess", data,variables,context);
+    },
+    onSettled: () => {
+      console.log("onSettled");
+    }
+  });
+
+  const handleCreatePost = async () => {
+    const newPost = {
+      title: 'New Post',
+      body: 'This is the body of the new post.',
+      userId: 1
+    };
+
+    mutation.mutate(newPost);
+  };
+
+  return (
+    <div>
+      <button onClick={handleCreatePost} disabled={mutation.isLoading}>
+        Create Post
+      </button>
+      {mutation.isLoading && <p>Creating...</p>}
+      {mutation.isError && <p>Error: {mutation.error.message}</p>}
+    </div>
+  );
+};
+
+export default App;
+```
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/8c59c095-d40f-4d16-a48a-8592c687e935)
+
+
+:::note
+
+useMutation을 이용하여 비동기 함수(post)에 대해 처리 결과를 보여주는 코드이다.<br/>
+버튼을 클릭 시, hanldeCreatePost함수가 실행이 되며 내부에서 useMutation의 mutate메소드가 Argument값과 함께 실행이 된다.<br/>
+이를 통해, createPost 비동기 함수에게 값이 전달되며 실행이 되어 결과 값이 어떻게 반환되었는지 확인할 수 있다.<br/>
+
+
+**useMutation()의 추가 옵션**
+
+onMutate: mutate가 실행되었을 경우<br/>
+onSuccess: 비동기 함수의 처리가 성공적으로 수행했을 경우<br/>
+onError: 비동기 함수의 처리가 정상적으로 되지않을 경우<br/>
+onSettled: 비동기 함수의 성공/실패를 떠나 동작을 수행했을 경우<br/>
+
+[useMutation 속성 및 옵션 문서](https://tanstack.com/query/latest/docs/react/reference/useQuery)
+:::
 
 
 ## QueryCache
@@ -258,6 +338,9 @@ export default App;
 QueryCache와 같은 경우, 초기 Query의 영역을 지정할 때 함께 사용하는 함수이다.<br/>
 Query의 비동기함수가 성공적으로 실행될 경우 QueryCache안 onSuccess 속성이 실행이 되며,<br/>
 반대로 실패할 경우, onError 속성이 실행된다.<br/>
-결론적으로 Query들이 정상적으로 실행되었는지에 대해 검사하기 위해 사용되는 React-Query의 함수 중 하나다.<br/>
+결론적으로 QueryCache는 Query들이 정상적으로 실행되었는지에 대해 검사하기 위해 사용되는 React Query의 함수 중 하나다.<br/>
 
 :::
+
+<!-- ## react query를 이용한 무한스크롤 기능 -->
+<!-- 추후 작성 꼭 필요 사항은 아님 -->
