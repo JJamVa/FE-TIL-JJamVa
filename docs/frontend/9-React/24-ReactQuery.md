@@ -251,11 +251,10 @@ useMutation을 이용하여 비동기 함수(post)에 대해 처리 결과를 �
 
 
 **useMutation()의 추가 옵션**
-
-onMutate: mutate가 실행되었을 경우<br/>
-onSuccess: 비동기 함수의 처리가 성공적으로 수행했을 경우<br/>
-onError: 비동기 함수의 처리가 정상적으로 되지않을 경우<br/>
-onSettled: 비동기 함수의 성공/실패를 떠나 동작을 수행했을 경우<br/>
+- onMutate: mutate가 실행되었을 경우<br/>
+- onSuccess: 비동기 함수의 처리가 성공적으로 수행했을 경우<br/>
+- onError: 비동기 함수의 처리가 정상적으로 되지않을 경우<br/>
+- onSettled: 비동기 함수의 성공/실패를 떠나 동작을 수행했을 경우<br/>
 
 [useMutation 속성 및 옵션 문서](https://tanstack.com/query/latest/docs/react/reference/useQuery)
 :::
