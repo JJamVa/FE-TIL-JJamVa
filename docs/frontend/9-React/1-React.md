@@ -229,9 +229,11 @@ root.render(element(Greeting))을 통해 Greeting Component를 렌더링 한다.
 
 :::note
 
-`Header()`, `Main()`, `Footer()`, `Body()`에 **React 함수형 컴포넌트** 이다.<br/>
+`Header()`, `Main()`, `Footer()`, `Body()`전부 **React 함수형 컴포넌트** 이다.<br/>
 Body 함수에서는 컴포넌트를 호출하는 방법은 크게 3가지가 존재한다.<br/>
-`{함수()}`, `<함수/>`, `<함수><함수/>` 가 있다.
+1. `{함수()}`
+2. `<함수/>`, 
+3. `<함수><함수/>`
 
 :::
 
