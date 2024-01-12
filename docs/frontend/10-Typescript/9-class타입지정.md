@@ -3,24 +3,22 @@
 ## class 필드값 type 지정
 
 ```ts
+class Person {
+  name: string;
+  age: number;
 
-class Person{
-    name: string;
-    age: number;
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
 
-    constructor(name:string, age:number){
-        this.name= name;
-        this.age = age;
-    }
-
-    sayHello(){
-        console.log(`${this.name}님 안녕하세요!`)
-    }
+  sayHello() {
+    console.log(`${this.name}님 안녕하세요!`);
+  }
 }
 
 const human = new Person("JJamVa", 27);
 human.sayHello();
-
 ```
 
 :::note
@@ -35,23 +33,22 @@ human.sayHello();
 ## class 메소드(methods) type 지정
 
 ```ts
-class Car{
-    name: string;
-    speed: number;
+class Car {
+  name: string;
+  speed: number;
 
-    constructor(name:string, speed:number){
-        this.name= name;
-        this.speed = speed;
-    }
+  constructor(name: string, speed: number) {
+    this.name = name;
+    this.speed = speed;
+  }
 
-    maxSpeed(speed:number):void{
-        console.log(`최고 속력은 ${speed+50}km/h 입니다.`);
-    }
-
+  maxSpeed(speed: number): void {
+    console.log(`최고 속력은 ${speed + 50}km/h 입니다.`);
+  }
 }
 
 const car = new Car("산타페", 60);
-car.maxSpeed(car.speed);// 최고 속력은 110km/h 입니다.
+car.maxSpeed(car.speed); // 최고 속력은 110km/h 입니다.
 ```
 
 :::note

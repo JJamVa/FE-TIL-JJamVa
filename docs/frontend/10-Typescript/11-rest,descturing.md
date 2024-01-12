@@ -1,14 +1,15 @@
 # rest parameter, destructuring
 
 ## rest parameter 타입 지정
+
 - `rest parameter`는 함수 정의 시 parameter 중에서 **남은 인자들을 하나의 배열**로 처리
 
 ```ts
-function func(a:number,b:number,...c: (number | string)[]):void{
-    console.log(`나머지 원소는 ${c} 입니다.`);
+function func(a: number, b: number, ...c: (number | string)[]): void {
+  console.log(`나머지 원소는 ${c} 입니다.`);
 }
 
-func(1,2,3,4,5,'6',7,'8','9');
+func(1, 2, 3, 4, 5, "6", 7, "8", "9");
 ```
 
 :::note
@@ -20,22 +21,22 @@ rest parameter은 parameter들 중 제일 뒤에 있어야 사용이 가능하�
 :::
 
 ## destructuring
+
 - 객체나 배열을 해체하여 그 안의 값을 개별 변수에 할당하는 문법
 - 객체나 배열을 해체할 때, 타입스크립트는 변수의 타입을 추론하거나 명시
 
 ```ts title="배열 해제
-const numbers = [1,2,3,4,5];
+const numbers = [1, 2, 3, 4, 5];
 
-const [a,b] = [...numbers];
+const [a, b] = [...numbers];
 
-console.log(a);// 1
-console.log(b);// 2
+console.log(a); // 1
+console.log(b); // 2
 
-const [x,...y]:number[] = [...numbers];
+const [x, ...y]: number[] = [...numbers];
 
-console.log(x);// 1
-console.log(y);// [2,3,4,5]
-
+console.log(x); // 1
+console.log(y); // [2,3,4,5]
 ```
 
 :::caution
@@ -49,32 +50,33 @@ console.log(y);// [2,3,4,5]
 
 ```ts title="객체 해제"
 type O = {
-    name?:string;
-    age:number;
-    job:boolean;
-}
-
+  name?: string;
+  age: number;
+  job: boolean;
+};
 
 let obj: O = {
-    name:"JJamVa",
-    age: 27,
-    job:true
-}
+  name: "JJamVa",
+  age: 27,
+  job: true,
+};
 
 // 객체 구조분해 할당
-let {name, ...rest}  = obj;
+let { name, ...rest } = obj;
 
-console.log(name);// "JJamVa"
-console.log(rest);// {age: 27, job:true}
+console.log(name); // "JJamVa"
+console.log(rest); // {age: 27, job:true}
 
 //함수 parameter 구조분해 할당
-function info({name,age,job}: O){
-    console.log(`내 이름은 ${name}이며, 나이는 ${age}세, 직업을 ${job ? "가지고 있다" : "없습니다."}`)
+function info({ name, age, job }: O) {
+  console.log(
+    `내 이름은 ${name}이며, 나이는 ${age}세, 직업을 ${
+      job ? "가지고 있다" : "없습니다."
+    }`
+  );
 }
 
 info(obj);
-
-
 ```
 
 :::note
@@ -82,15 +84,14 @@ info(obj);
 위와 같은 코드가 destructuring이다.<br/>
 VSC와 같은 경우, ts파일을 컴파일하면 정상 실행은 되지만 에러표시가 발생한다.<br/>
 
-
 ```ts
 let obj: O = {
-    name:"JJamVa",
-    age: 27,
-    job:true
-}
+  name: "JJamVa",
+  age: 27,
+  job: true,
+};
 
-let {name, ...rest}  = obj;
+let { name, ...rest } = obj;
 ```
 
 TypeScript에서 name이라는 식별자가 키워드로 사용되고 있기 때문이다.<br/>
@@ -98,15 +99,15 @@ name은 JavaScript와 TypeScript에서 특별한 의미를 갖는 예약어로 �
 
 ```ts
 let obj: O = {
-    name:"JJamVa",
-    age: 27,
-    job:true
-}
+  name: "JJamVa",
+  age: 27,
+  job: true,
+};
 
-let {name: myName, ...rest}  = obj;
+let { name: myName, ...rest } = obj;
 
-console.log(myName);// "JJamVa"
-console.log(rest);// {age:27, job:true}
+console.log(myName); // "JJamVa"
+console.log(rest); // {age:27, job:true}
 ```
 
 위와같이 name에 대한 새로운 변수명을 생성하여 값을 할당받는 것도 하나의 방법이다.<br/>

@@ -1,11 +1,12 @@
 # tuple type
 
 ## tuple type이란?
-- 배열의 각 요소에 타입이 미리 정해진 배열 
+
+- 배열의 각 요소에 타입이 미리 정해진 배열
 - 고정된 크기를 가지며 각 요소의 타입이 서로 다르게 지정 가능
 
 ```ts
-let tuple: [number, string, null | undefined] = [1, "JJamVa",null];
+let tuple: [number, string, null | undefined] = [1, "JJamVa", null];
 ```
 
 :::info
@@ -13,6 +14,7 @@ let tuple: [number, string, null | undefined] = [1, "JJamVa",null];
 **`:타입[]`과 `:[타입]`의 차이점**
 
 - `:타입[]`
+
   - 해당 작성 타입으로만 이루워진 배열
   - 타입만 맞다면 배열의 길이에 상관없이 값 삽입 가능
 
@@ -25,11 +27,11 @@ let tuple: [number, string, null | undefined] = [1, "JJamVa",null];
 ## tuple type 인덱스 접근
 
 ```ts
-let tuple: [number, string, null | undefined] = [1, "JJamVa",null];
+let tuple: [number, string, null | undefined] = [1, "JJamVa", null];
 
 let value1: number = tuple[0];
 let value2: string = tuple[1];
-let value3: null|undefined = tuple[2];
+let value3: null | undefined = tuple[2];
 ```
 
 :::note
@@ -39,6 +41,7 @@ let value3: null|undefined = tuple[2];
 :::
 
 ## tuple의 옵션
+
 - 튜플을 생성 시, type alias를 통해 해당 요소의 타입을 지정
 - `?(undefined)`와 같은 옵션을 사용하여 선택적으로 요소 생성 가능
 
@@ -46,29 +49,26 @@ let value3: null|undefined = tuple[2];
 type Num = [number, number?, number?];
 
 let arr1: Num = [1];
-let arr2: Num = [1,2];
-let arr3: Num = [1,2,3];
-
+let arr2: Num = [1, 2];
+let arr3: Num = [1, 2, 3];
 ```
 
 ## rest parameter와 튜플
-  
+
 ```ts
-function func(...x:[string, string, number]):void{
-  x.map((e,i) => {
+function func(...x: [string, string, number]): void {
+  x.map((e, i) => {
     console.log(`${i + 1}번째 값은 ${e}입니다.`);
-  })
+  });
 }
 
-func("hello","world",15);
+func("hello", "world", 15);
 // 1번째 값은 hello입니다.
 // 2번째 값은 world입니다.
 // 3번째 값은 15입니다.
 
-func("hello","world",1, "JJamVa");//에러 발생
-  
+func("hello", "world", 1, "JJamVa"); //에러 발생
 ```
-
 
 :::note
 
@@ -77,23 +77,22 @@ func("hello","world",1, "JJamVa");//에러 발생
 혹은 tuple 옵션을 이용하여 문제를 해결할 수 있다.<br/>
 
 ```ts
-function func(...x:[string, string, number, string?]):void{
-  x.map((e,i) => {
+function func(...x: [string, string, number, string?]): void {
+  x.map((e, i) => {
     console.log(`${i + 1}번째 값은 ${e}입니다.`);
-  })
+  });
 }
 
-func("hello","world",15);
+func("hello", "world", 15);
 // 1번째 값은 hello입니다.
 // 2번째 값은 world입니다.
 // 3번째 값은 15입니다.
 
-func("hello","world",1, "JJamVa");
+func("hello", "world", 1, "JJamVa");
 // 1번째 값은 hello입니다.
 // 2번째 값은 world입니다.
 // 3번째 값은 15입니다.
 // 4번째 값은 JJamVa입니다.
-  
 ```
 
 tuple 옵션을 이용하여 문제를 해결할 수 있다.<br/>
@@ -102,17 +101,22 @@ tuple 옵션을 이용하여 문제를 해결할 수 있다.<br/>
 :::
 
 ## spread 연산자와 tuple
+
 - spread연산자를 이용해서 기존의 튜플을 확장
 
 ```ts
-let arr1: number[] = [1,2,3];
-let arr2: [number,number,number] = [4,5,6];
+let arr1: number[] = [1, 2, 3];
+let arr2: [number, number, number] = [4, 5, 6];
 
-let tuple1: [boolean, string, ...number[]] = [true, "JJamVa", ...arr1]
-let tuple2: [boolean, string, ...[number,number,number]] = [false, "Hong", ...arr2]
+let tuple1: [boolean, string, ...number[]] = [true, "JJamVa", ...arr1];
+let tuple2: [boolean, string, ...[number, number, number]] = [
+  false,
+  "Hong",
+  ...arr2,
+];
 
-console.log(tuple1)// [true, 'JJamVa', 1, 2, 3]
-console.log(tuple2)// [false, 'Hong', 4, 5, 6]
+console.log(tuple1); // [true, 'JJamVa', 1, 2, 3]
+console.log(tuple2); // [false, 'Hong', 4, 5, 6]
 ```
 
 :::caution
@@ -121,15 +125,15 @@ console.log(tuple2)// [false, 'Hong', 4, 5, 6]
 
 1. spread 문법을 이용 시, spread를 사용할 배열의 값에 대한 타입을 제대로 지정하지 않을 경우 오류가 발생
 2. TypeScript 4.0이상 버전에서는 [...튜플]을 사용 가능.(이전 3.x 버전일 경우 Array.from(튜플)로 사용)
-   
+
 ```ts
 // TypeScript 4.0 이상
 let tuple1: [number, string] = [1, "two"];
-let tuple2: [...[number, string]] = [...tuple1];// 가능
+let tuple2: [...[number, string]] = [...tuple1]; // 가능
 
-// TypeScript 3.x 
+// TypeScript 3.x
 let tuple1: [number, string] = [1, "two"];
-let tuple2: [number, string] = [...tuple1];// 에러 발생
+let tuple2: [number, string] = [...tuple1]; // 에러 발생
 ```
 
 :::

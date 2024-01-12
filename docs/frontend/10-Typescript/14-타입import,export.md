@@ -1,6 +1,7 @@
 # Type import와 export, namespace
 
 ## Type import와 export
+
 - `import`와 `export`는 변수, 함수, 클래스 등 가능하나 타입스크립트에서 type도 가능
 - [React import와 export관련 내용](../9-React/2-React프로젝트.md)
 
@@ -12,12 +13,12 @@ export type Age = (x:number) => string;
 ```
 
 ```ts title="app2.ts"
-import {Name, Age} from './app1.ts'
+import { Name, Age } from "./app1.ts";
 
 let myName: Name = "JJamVa";
 let myAge: Age = (x) => x.toString() + "살";
 
-console.log(myName, myAge)// JJamVa 27
+console.log(myName, myAge); // JJamVa 27
 ```
 
 :::note
@@ -28,13 +29,14 @@ console.log(myName, myAge)// JJamVa 27
 :::
 
 ## namespace
+
 - 코드를 구조화하고 모듈화하는 데 사용되는 기능
 - 전역 스코프에서 충돌을 방지하고 코드를 구조화하기 위해 사용
 
 ```ts title="app1.ts"
-namespace Space{
-    export type Name = string;
-    export type Age = (x:number) => string;
+namespace Space {
+  export type Name = string;
+  export type Age = (x: number) => string;
 }
 ```
 
@@ -52,15 +54,13 @@ let myAge: Space.Age = (x) => x.toString() + "살";
 위와 같이 namespace를 이용하면 객체 형식으로 데이터를 접근하기 때문에 **변수명 중복 선언에 있어서 유용**하다.<br/>
 최근에 namespace보다 `import * as 변수명 from 경로`를 더 많이 사용한다.<br/>
 
-
 ```ts title="app1.ts"
 export type Name = string;
-export type Age = (x:number) => string;
+export type Age = (x: number) => string;
 ```
 
-
 ```ts title="app2.ts"
-import * as T from './app1.ts';
+import * as T from "./app1.ts";
 
 let myName: T.Name = "JJamVa";
 let myAge: T.Age = (x) => x.toString() + "살";

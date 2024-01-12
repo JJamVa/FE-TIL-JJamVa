@@ -9,17 +9,17 @@
 
 :::note
 
-
 ```ts
-function greeting(x?:string):void{
-    if(typeof x === 'string') console.log(`${x}님 안녕하세요!`);
-    else if(typeof x === 'undefined') console.log(`잘못된 값을 입력하였습니다. ${x}`);
-    else console.log(`잘못된 값을 입력하였습니다. ${x}`);
+function greeting(x?: string): void {
+  if (typeof x === "string") console.log(`${x}님 안녕하세요!`);
+  else if (typeof x === "undefined")
+    console.log(`잘못된 값을 입력하였습니다. ${x}`);
+  else console.log(`잘못된 값을 입력하였습니다. ${x}`);
 }
 
-greeting("짬바");// 짬바님 안녕하세요!
-greeting(undefined);// 잘못된 값을 입력하였습니다. undefined
-greeting();// 잘못된 값을 입력하였습니다. undefined
+greeting("짬바"); // 짬바님 안녕하세요!
+greeting(undefined); // 잘못된 값을 입력하였습니다. undefined
+greeting(); // 잘못된 값을 입력하였습니다. undefined
 ```
 
 위의 코드를 보면 type이 `string`, `undefined`, `그 외`의 경우 총 3가지로 코드를 구성하였다.<br/>
@@ -29,21 +29,20 @@ greeting();// 잘못된 값을 입력하였습니다. undefined
 ```js
 let a = 1 && 2 && 3 && 4 && null; // a = null
 let b = 10 && true && undefined && false; // b = undefined
-let c = false && null && undefined;// c = false
+let c = false && null && undefined; // c = false
 ```
 
 && 연산자를 통해 **제일 먼저 falsy가 나오는 값**이 할당되는 것을 발견할 수 있다.<br/>
 
 ```ts
-function greeting(x?:string):void{
-    if(x && typeof x === 'string') console.log(`${x}님 안녕하세요!`);
-    console.log(`잘못된 값을 입력하였습니다. ${x}`)
+function greeting(x?: string): void {
+  if (x && typeof x === "string") console.log(`${x}님 안녕하세요!`);
+  console.log(`잘못된 값을 입력하였습니다. ${x}`);
 }
 
-greeting("짬바");// 짬바님 안녕하세요!
-greeting(undefined);// 잘못된 값을 입력하였습니다. undefined
-greeting();// 잘못된 값을 입력하였습니다. undefined
-
+greeting("짬바"); // 짬바님 안녕하세요!
+greeting(undefined); // 잘못된 값을 입력하였습니다. undefined
+greeting(); // 잘못된 값을 입력하였습니다. undefined
 ```
 
 조금 더 간결하게 코드를 작성할 수 있다.<br/>
@@ -58,32 +57,32 @@ greeting();// 잘못된 값을 입력하였습니다. undefined
 - in연산자를 통해 객체가 특정 속성을 가지고 있는지 여부를 확인
 
 ```ts
-interface Info{
-    name?:string;
+interface Info {
+  name?: string;
 }
 
-interface Age extends Info{
-    age:number;
+interface Age extends Info {
+  age: number;
 }
 
-interface Job extends Info{
-    job?:string;
+interface Job extends Info {
+  job?: string;
 }
 
 let myAge: Age = {
-    name: "JJamVa",
-    age: 27
-}
+  name: "JJamVa",
+  age: 27,
+};
 
 let myJob: Job = {
-    name: "Hong",
-    job:"FE"
-}
+  name: "Hong",
+  job: "FE",
+};
 
-function func(x:Age|Job):void{
-    if('name' in x) console.log(`${x.name}은 내이름이야!`);
-    if('age' in x) console.log(`${x.age}살은 내 나이야!`);
-    if('job' in x) console.log(`${x.job}은 내직업이야!`);
+function func(x: Age | Job): void {
+  if ("name" in x) console.log(`${x.name}은 내이름이야!`);
+  if ("age" in x) console.log(`${x.age}살은 내 나이야!`);
+  if ("job" in x) console.log(`${x.job}은 내직업이야!`);
 }
 
 func(myAge);
@@ -107,29 +106,27 @@ func(myJob);
 - 객체가 특정 클래스나 생성자 함수의 인스턴스인지를 확인하는 데 사용
 
 ```ts
-class Human{
-    name: string;
+class Human {
+  name: string;
 
-    constructor(name: string){
-        this.name = name;
-    }
+  constructor(name: string) {
+    this.name = name;
+  }
 }
 
-class Info extends Human{
-    greeting(): void{
-        console.log("안녕하세요");
-    }
+class Info extends Human {
+  greeting(): void {
+    console.log("안녕하세요");
+  }
 }
 
 let x = new Human("Hong");
 let y = new Info("JJamVa");
 
-console.log(x instanceof Human);//true
-console.log(x instanceof Info);//false
-console.log(y instanceof Info);//true
-console.log(y instanceof Human);//true
-
-
+console.log(x instanceof Human); //true
+console.log(x instanceof Info); //false
+console.log(y instanceof Info); //true
+console.log(y instanceof Human); //true
 ```
 
 :::note
