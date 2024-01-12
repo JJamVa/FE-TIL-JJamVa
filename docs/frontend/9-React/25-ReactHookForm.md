@@ -1,6 +1,7 @@
 # React Hook Form
 
 ## React Hook Form 이란?
+
 - React 애플리케이션에서 폼을 구축하고 관리하기 위한 간단하고 효율적인 라이브러리
 - 폼 상태 및 로직을 관리하며, 주로 유효성 검사(Validation)과 상태 관리에 중점
 
@@ -15,7 +16,7 @@
 
 :::
 
-## React Hook Form 중요 함수 및 태그
+## React Hook Form 중요 함수 및 Component
 
 - 함수
   - useForm
@@ -50,7 +51,9 @@ let {
 - control: 입력 필드를 제어하기 위한 객체. Controller Component에 전달하여 폼의 상태를 제어
 - handleSubmit: 폼이 제출될 때 호출되는 함수. 이 함수를 폼의 onSubmit 속성으로 전달하여 제출 이벤트를 처리.
 - formState: 폼의 상태에 대한 정보를 포함하는 객체. 주요 속성으로 isDirty, isValid, errors 등이 존재.
-  - isDirty
+  - isDirty: 사용자가 폼 필드 중 하나라도 수정했는지 여부를 확인
+  - isValid: 현재 폼이 유효한지 여부를 표현
+  - errors: 폼 필드의 유효성 검사 결과를 나타내는 객체
 - register: 입력 필드를 form에 등록하는 함수. 이 함수를 사용하여 입력 필드를 Controller에 연결.
 - setValue: 입력 필드의 값을 동적으로 변경하는 함수. 특정 입력 필드의 값을 업데이트할 때 사용.
 - getValues: 현재 폼의 모든 입력 필드의 값을 가져오는 함수.
@@ -62,3 +65,122 @@ let {
 
 :::
 
+:::info
+**Controller의 속성**
+
+```jsx
+<Controller
+  name=""
+  control=""
+  render={{
+    () => {}
+  }}
+  ...
+>
+```
+
+
+- **name(필수 속성)**
+  - 해당 필드의 고유한 이름
+  - 폼 데이터 객체의 속성으로 사용되며, useForm hook의 handleSubmit 함수를 통해 제출 시 해당 이름으로 데이터에 접근
+- **control(필수 속성)**
+  - useForm hook에서 반환되는 control 객체를 전달
+  - React Hook Form의 상태와 메서드를 제공하여 폼을 제어하는 데 사용
+- defaultValue
+  - 필드의 초기값을 설정
+  - 컴포넌트가 마운트될 때 폼 상태에 초기값이 반영
+- render
+  - 필드 컴포넌트를 렌더링하는 데 사용하는 함수 속성
+  - 이 함수에는 field 객체가 전달되며, 이 객체의 속성을 필드 컴포넌트에 전달하여 연결이 가능
+- rules
+  - 해당 필드의 유효성 검사 규칙을 정의
+  - 객체 형태로 규칙을 지정(required나 pattern, message의 규칙을 사용)
+    - required: 폼 요소가 반드시 채워져야 하는지 여부를 나타내는 데 사용
+    - pattern: 정규 표현식을 사용하여 입력값의 형식을 지정하는 데 사용
+- shouldUnregister
+  - 폼에서 언마운트 될 때 해당 필드를 등록 해제할지 여부를 결정
+  - 기본 값은 false이며, true로 설정하면 필드가 언마운트되면 자동으로 등록이 해제
+- ref
+  - 컴포넌트 내부에서 직접 참조할 필요가 있을 때 사용
+  - 필드 컴포넌트에 ref 속성을 통해 ref를 전달 가능
+
+:::
+
+## ReactHookForm 실습 코드
+
+```jsx
+import React from "react";
+import { useForm, Controller } from "react-hook-form";
+
+const App = () => {
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <label htmlFor="name">Name:</label>
+        <Controller
+          name="name"
+          control={control}
+          rules={{ required: "이름을 적어주세요." }}
+          render={({ field }) => <input {...field} placeholder="이름 작성" />}
+        />
+        {errors.name && <p>{errors.name.message}</p>}
+      </div>
+
+      <div>
+        <label htmlFor="email">Email:</label>
+        <Controller
+          name="email"
+          control={control}
+          rules={{
+            required: "이메일을 적어주세요.",
+            pattern: { value: /^\S+@\S+$/i, message: "유효하지 않은 이메일" },
+          }}
+          render={({ field }) => <input {...field} placeholder="이메일 작성" />}
+        />
+        {errors.email && <p>{errors.email.message}</p>}
+      </div>
+
+      <button type="submit">전송</button>
+    </form>
+  );
+};
+
+export default App;
+```
+
+:::note
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/85dfc33c-4f0c-4472-b5a0-8cd3f610fc26)
+
+위의 이미지는 초기 화면이다.<br/>
+크게 form태그를 형성하여 두개의 입력값과 전송 버튼이 있다.<br/>
+label을 통해 입력칸 앞에 `Name:`과 `Email:`을 작성하였다.<br/>
+또한 onSubmit을 통해 useForm의 onSubmit과 handleSubmit을 이용하여 제출이 되었을 경우 사용한다.<br/>
+이를 통해 Controller의 name속성과 입력된 value값을 객체 타입으로 확인이 가능하다.<br/>
+
+Controller 컴포넌트에 name속성을 label의 name속성과 일치시켰다.(꼭 일치 시킬 필요는 없지만 명시적이고 가독성을 위해 일치)<br/>
+control속성은 useForm의 control객체 값을 전달한다.<br/>
+이로 인해 폼 상태 관리 및 제어, 데이터 수집, 에러 처리 등 할 수 있게 연결한다.<br/>
+rules 속성의 required는 입력값을 필수로 받는다는 의미이다.<br/>
+또 rules의 속성 중 pattern이 있으며, value와 message가 있다.<br/>
+value는 정규표현식을 이용하여 입력값의 형태를 지정할 수 있으며,<br/>
+message는 해당 태그에 입력값이 value의 정규표현식이 해당되지 않을 경우에 표시된다.<br/>
+render와 같은 경우 field의 값을 이용하여 표현할 태그에게 속성을 전달해주는 함수이다.<br/>
+이 field값에는 `onChange`, `onBlur`, `value`, `name`, `ref`등의 속성이 있으며,<br/>
+이 속성을 input태그에게 전달하여 화면에 렌더를 해주는 역할을 한다.<br/>
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/b03134b7-5e9c-4bd2-9cf9-dd831bf6febd)
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/f762b09f-3ce7-43ef-b6da-a4ab43587b4f)
+
+:::
