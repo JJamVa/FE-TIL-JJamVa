@@ -336,34 +336,45 @@ Query의 비동기함수가 성공적으로 실행될 경우 QueryCache안 onSuc
 :::
 
 ## key값이 배열일 경우
+
 - 쿼리 동작과정은 일치하나 개별로 관리해야할 경우 사용
 - 편리한 유지보수 및 가독성을 위해 사용
 
 ```jsx title="비동기 함수"
-import axios from 'axios'
+import axios from "axios";
 
 const fetchUsers = async (page, pageSize) => {
-    const response = await axios.get(`https://jsonplaceholder.typicode.com/users`, {
+  const response = await axios.get(
+    `https://jsonplaceholder.typicode.com/users`,
+    {
       params: {
         _page: page,
         _limit: pageSize,
       },
-    });
-    return response.data;
+    }
+  );
+  return response.data;
 };
 
 export default fetchUsers;
 ```
 
-
 ```jsx title="App.js"
 import { useQuery } from "react-query";
-import React from "react";
+import React, { useState } from "react";
 import fetchUsers from "./Async";
 
 const App = () => {
-  const page = 1;
-  const pageSize = 10;
+  const [page, setPage] = useState(1);
+  const pageSize = 2;
+
+  function decrease() {
+    if (page > 1) setPage(page - 1);
+  }
+
+  function increase() {
+    if (page < 5) setPage(page + 1);
+  }
 
   const {
     data: users,
@@ -387,24 +398,214 @@ const App = () => {
           <li key={user.id}>{user.name}</li>
         ))}
       </ul>
+      <button onClick={decrease}>이전</button>
+      <button onClick={increase}>다음</button>
     </div>
   );
 };
 
 export default App;
-
 ```
 
-![image](https://github.com/JJamVa/JJamVa/assets/80045006/e83cb311-aa1b-4727-bd9f-fec7414d5d74)
-
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/3055d024-786a-42fa-8658-046624219805)
 
 :::note
 
 위의 코드는 useQuery의 key값이 배열인 경우에 대한 예시 코드이다.<br/>
-Query key가 배열일 경우나 다른 타입일 경우와 사실 사용 방법은 똑같다.<br/>
+Query key가 배열일 경우나 다른 타입일 경우 사용 방법은 같다.<br/>
 다만 배열을 이용하여 key값을 설정할 경우, **동적으로 key값을 저장**할 수 있다는 장점이 있다.<br/>
+이로 인해 비동기 함수에서 필요한 parameter값을 이용하여 동적으로 query key값에 데이터를 관리한다.<br/>
 
-
-
+또한, Query 내부의 함수는 화살표함수를 사용해야한다.<br/>
+Query key값이 배열일 경우, 매번 들어오는 key값의 데이터가 변경이 된다.<br/>
+변경된 key값에 대해 비동기 함수의 연산을 **안정성 및 일관성** 있게 마무리 해야함으로 화살표 함수를 사용해야한다.<br/>
 
 :::
+
+:::danger
+
+key값이 static(정적)할 경우에는 비동기 함수를 굳이 호출할 필요가 없다.<br/>
+매번 랜더링될 경우에 화살표 함수를 사용해야한다.
+
+:::
+
+## React Query의 Suspense모드
+
+- 데이터 로딩을 간단하게 처리
+- React에서 비동기 데이터 로딩을 더 쉽게 다루도록 해주는 기능
+
+<details>
+<summary>선택적 Query Suspense</summary>
+<div markdown="1">
+
+```jsx title="index.js"
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
+
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(
+  <QueryClientProvider client={queryClient}>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <App />
+    </React.Suspense>
+  </QueryClientProvider>
+);
+```
+
+```jsx title="비동기 함수"
+import axios from "axios";
+
+const fetchPosts = async () => {
+  const response = await axios.get(
+    "https://jsonplaceholder.typicode.com/posts"
+  );
+  return response.data;
+};
+
+export default fetchPosts;
+```
+
+```jsx title="선택적 suspense 코드"
+import React from "react";
+import { useQuery } from "react-query";
+import fetchPosts from "./Async";
+
+const App = () => {
+  const { data, isError, error } = useQuery("posts", fetchPosts, {
+    suspense: true,
+  });
+
+  if (isError) {
+    return <p>Error: {error.message}</p>;
+  }
+
+  return (
+    <div>
+      <h1>Post List</h1>
+      <ul>
+        {data.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default App;
+```
+
+:::note
+위의 index.js 코드에서 Suspense를 사용하기 위해 설정을 해야된다.<br/>
+Suspense를 사용하기 위해서는 **Suspense를 사용할 Component보다 상위에 존재**해야한다.<br/>
+`<React.Suspense fallback={<Loading에 표현할 Component/>}`를 최상위 Component로 설정을 하면 Suspense 사용 가능<br/>
+
+Suspense를 사용할 Query의 3번째 Argument인 옵션을 객체형태로 `{suspense:true}`로 작성하면 된다.<br/>
+그럼 Suspense를 등록한 Query가 비동기 통신 진행 상태(Pending)일 경우,<br/>
+`<React.Suspense>`속성의 **fallback속성에 대한 값이 화면에 출력**된다.<br/>
+
+이를 통해 공통으로 로딩 화면을 표현할 Query에 대해 간단히 표현이 가능하다.<br/>
+
+:::
+
+</div>
+</details>
+
+<details>
+<summary>모든 Query Suspense</summary>
+<div markdown="1">
+
+```jsx title="index.js"
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      suspense: true,
+    },
+  },
+});
+
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(
+  <QueryClientProvider client={queryClient}>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <App />
+    </React.Suspense>
+  </QueryClientProvider>
+);
+```
+
+```jsx title="비동기 함수"
+import axios from "axios";
+
+const fetchPosts = async () => {
+  const response = await axios.get(
+    "https://jsonplaceholder.typicode.com/posts"
+  );
+  return response.data;
+};
+
+export default fetchPosts;
+```
+
+```jsx
+import React from "react";
+import { useQuery } from "react-query";
+import fetchPosts from "./Async";
+
+const App = () => {
+  const { data, isError, error } = useQuery("posts", fetchPosts);
+
+  if (isError) {
+    return <p>Error: {error.message}</p>;
+  }
+
+  return (
+    <div>
+      <h1>Post List</h1>
+      <ul>
+        {data.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default App;
+```
+
+:::note
+Suspense를 사용하는 방법 중 다른 방법이다.<br/>
+위의 코드와 같은 경우 개별적으로 Query에 대해 옵션을 부여하지 않고,<br/>
+QueryClient의 옵션을 통해 **사용하는 모든 Query에 대해 Suspense를 옵션을 부여**하는 방법이다.<br/>
+
+사용법은 최상위 Component에 접근하여 QueryClient에게 옵션을 부여하면 된다.<br/>
+
+```jsx
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      suspense: true,
+    },
+  },
+});
+```
+
+이를 통해, 사용할 모든 Query들에게 Suspense를 부여한다.<br/>
+
+**모든 Query가 똑같은 로딩화면을 제공할 경우 매우 편리하다.**
+
+:::
+
+</div>
+</details>
