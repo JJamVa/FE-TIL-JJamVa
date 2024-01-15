@@ -300,7 +300,7 @@ export const fetchData = async () => {
 };
 ```
 
-```js title="app.js"
+```js title="App.js"
 import { useQuery } from "react-query";
 import { fetchData } from "./Async";
 
@@ -335,5 +335,76 @@ Query의 비동기함수가 성공적으로 실행될 경우 QueryCache안 onSuc
 
 :::
 
-<!-- ## react query를 이용한 무한스크롤 기능 -->
-<!-- 추후 작성 꼭 필요 사항은 아님 -->
+## key값이 배열일 경우
+- 쿼리 동작과정은 일치하나 개별로 관리해야할 경우 사용
+- 편리한 유지보수 및 가독성을 위해 사용
+
+```jsx title="비동기 함수"
+import axios from 'axios'
+
+const fetchUsers = async (page, pageSize) => {
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/users`, {
+      params: {
+        _page: page,
+        _limit: pageSize,
+      },
+    });
+    return response.data;
+};
+
+export default fetchUsers;
+```
+
+
+```jsx title="App.js"
+import { useQuery } from "react-query";
+import React from "react";
+import fetchUsers from "./Async";
+
+const App = () => {
+  const page = 1;
+  const pageSize = 10;
+
+  const {
+    data: users,
+    isLoading,
+    isError,
+  } = useQuery(["users", page, pageSize], () => fetchUsers(page, pageSize));
+
+  if (isLoading) {
+    return <div>로딩 중</div>;
+  }
+
+  if (isError) {
+    return <div>에러 발생</div>;
+  }
+
+  return (
+    <div>
+      <h1>Users List</h1>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default App;
+
+```
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/e83cb311-aa1b-4727-bd9f-fec7414d5d74)
+
+
+:::note
+
+위의 코드는 useQuery의 key값이 배열인 경우에 대한 예시 코드이다.<br/>
+Query key가 배열일 경우나 다른 타입일 경우와 사실 사용 방법은 똑같다.<br/>
+다만 배열을 이용하여 key값을 설정할 경우, **동적으로 key값을 저장**할 수 있다는 장점이 있다.<br/>
+
+
+
+
+:::
