@@ -506,7 +506,7 @@ Suspense를 사용하기 위해서는 **Suspense를 사용할 Component보다 �
 
 Suspense를 사용할 Query의 3번째 Argument인 옵션을 객체형태로 `{suspense:true}`로 작성하면 된다.<br/>
 그럼 Suspense를 등록한 Query가 비동기 통신 진행 상태(Pending)일 경우,<br/>
-`<React.Suspense>`속성의 **fallback속성에 대한 값이 화면에 출력**된다.<br/>
+`<React.Suspense>`속성의 **fallback속성에 표현할 Component 화면이 출력**된다.<br/>
 
 이를 통해 공통으로 로딩 화면을 표현할 Query에 대해 간단히 표현이 가능하다.<br/>
 
