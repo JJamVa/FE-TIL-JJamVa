@@ -28,7 +28,7 @@ React 버전 16.8 이상에서 Hooks를 사용하는 경우 `npm install mobx-re
   - 관찰 가능한 상태가 변경될 때 반응을 일으키는 메커니즘을 제공
   - 자동으로 UI를 업데이트, 로컬 스토리지에 데이터를 저장
 
-## MobX 구현
+## Class형 MobX 구현
 
 - MobX를 이용하여 간단한 TodoList를 구현
 
@@ -156,3 +156,135 @@ observer의 역할은 todoStore의 상태가 변경될 때마다 Component가 �
 이외에 TodoStore class에서 정의했던 메소드들은 일반 객체 타입의 메소드와 같이 사용하면 된다.<br/>
 
 :::
+
+## 함수형 MobX 구현
+
+- 위의 Class형 Mobx와 같이 TodoList를 함수형 MobX로 구현
+
+```js title="TodoStore.js"
+import { observable } from "mobx";
+
+const TodoStore = observable({
+  todos: [],
+  addTodo(todo) {
+    this.todos.push(todo);
+  },
+  completeTodo(id) {
+    this.todos[this.todos.findIndex((e) => e.id === id)]["completed"] = true;
+  },
+  get completedTodosCount() {
+    return this.todos.filter((todo) => todo.completed).length;
+  },
+});
+
+export default TodoStore;
+```
+
+```js title="App.js"
+import React, { useState } from "react";
+import { useObserver } from "mobx-react";
+import TodoStore from "./TodoStore";
+
+const App = () => {
+  const [newTodo, setNewTodo] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    TodoStore.addTodo({
+      id: Math.random(),
+      title: newTodo,
+      completed: false,
+    });
+    setNewTodo("");
+  };
+
+  return useObserver(() => (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={newTodo}
+          onChange={(e) => setNewTodo(e.target.value)}
+          placeholder="Add new todo"
+        />
+        <button type="submit">Todo List 추가</button>
+      </form>
+
+      <ul>
+        {TodoStore.todos &&
+          TodoStore.todos.map((todo) => (
+            <li
+              key={todo.id}
+              style={{
+                width: "20vw",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <span>{todo.title}</span>
+              <button
+                disabled={todo.completed}
+                onClick={() => TodoStore.completeTodo(todo.id)}
+              >
+                {todo.completed ? "완료" : "작업 중"}
+              </button>
+            </li>
+          ))}
+      </ul>
+
+      <div>완료한 TodosList 개수: {TodoStore.completedTodosCount}</div>
+    </div>
+  ));
+};
+
+export default App;
+```
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/d10e811c-2260-42e4-857f-a7242ca61eb5)
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/841b2e42-30f4-4083-8a89-5fdc0b565778)
+
+:::note
+
+TodoStore.js는 TodoList에 필요한 상태와 액션에 대해 정의한 코드이다.<br/>
+
+함수형의 Mobx와 같은 경우는 observable를 통해 객체의 상태(todos)와 액션(addTodo,completeTodo,completedTodosCount)을 정의해야된다.<br/>
+observable함수의 역할은 observable함수의 담은 상태와 액션을 직접 객체로 생성한다.<br/>
+
+---
+
+App.js에서 MobX에서 정의한 객체를 가져와 사용한다.<br/>
+Class형태의 MobX와 함수형 MobX의 App.js의 코드는 동일하다.<br/>
+다만 함수형 MobX의 App.js코드와 같은 경우, observer이 아닌 useObserver을 이용하여 구현하였지만 기능은 동일하다.<br/>
+
+---
+
+Class형태의 MobX와 함수형 MobX 둘다 사용은 가능하지만 
+
+:::
+
+:::tip
+**observer과 useObserver**<br/>
+
+`공통점`
+
+- MobX상태의 변화를 감지하여 Component를 자동 업데이트
+
+`차이점`<br/>
+
+**observer**
+
+- 사용할 Component 전체를 감싼다
+- 함수 Component와 Class Component에 사용 가능
+- Component 정의 외부에서 가능
+- **useObserver보다 observer을 권장(성능 최적화 및 코드 일관성)**
+
+**useObserver**
+
+- Component 내부의 Hook으로 사용
+- 함수형 Component에서만 사용 가능
+- Component 정의 내부에서 가능. (return 부분)
+
+:::
+
+<!-- 데코레이션 및 MobX의 다양한 함수 소개 내용 추가 -->
