@@ -263,7 +263,7 @@ Class형태의 MobX와 함수형 MobX 둘다 사용은 가능하지만
 
 :::
 
-:::tip
+:::info
 **observer과 useObserver**<br/>
 
 `공통점`
