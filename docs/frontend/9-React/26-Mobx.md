@@ -22,7 +22,7 @@
   - 관찰 가능한 상태가 변경될 때 반응을 일으키는 메커니즘을 제공
   - 자동으로 UI를 업데이트, 로컬 스토리지에 데이터를 저장
 
-## Class형 MobX 구현
+## 클래스형 MobX 구현
 
 - MobX를 이용하여 간단한 TodoList를 구현
 
@@ -153,7 +153,7 @@ observer의 역할은 todoStore의 상태가 변경될 때마다 Component가 �
 
 ## 함수형 MobX 구현
 
-- 위의 Class형 Mobx와 같이 TodoList를 함수형 MobX로 구현
+- 위의 클래스형 Mobx와 같이 TodoList를 함수형 MobX로 구현
 
 ```js title="TodoStore.js"
 import { observable } from "mobx";
@@ -248,7 +248,7 @@ observable함수의 역할은 observable함수의 담은 상태와 액션을 직
 ---
 
 App.js에서 MobX에서 정의한 객체를 가져와 사용한다.<br/>
-Class형태의 MobX와 함수형 MobX의 App.js의 코드는 동일하다.<br/>
+클래스형태의 MobX와 함수형 MobX의 App.js의 코드는 동일하다.<br/>
 다만 함수형 MobX의 App.js코드와 같은 경우, observer이 아닌 useObserver을 이용하여 구현하였지만 기능적인 부분은 동일하다.<br/>
 
 :::
@@ -279,7 +279,7 @@ Class형태의 MobX와 함수형 MobX의 App.js의 코드는 동일하다.<br/>
 
 <!-- 데코레이션 및 MobX의 다양한 함수 소개 내용 추가 -->
 
-## MobX 데코레이션(Decorators)
+<!-- ## MobX 데코레이션(Decorators)
 
 - 클래스와 클래스의 멤버(속성과 메서드)에 추가적인 선언적 구문을 제공하는 기능
 - 리액티브 프로그래밍 패턴을 클래스 기반 구조에 쉽게 적용
@@ -342,4 +342,6 @@ babel관련 파일이 없을 경우<br/>
 
 `tsconfig.json`파일에 위의 옵션을 작성<br/>
 
-:::
+::: -->
+
+
