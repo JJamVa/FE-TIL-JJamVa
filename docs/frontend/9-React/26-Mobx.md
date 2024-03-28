@@ -7,12 +7,6 @@
 - 최소한의 부분만 업데이트하여 성능 최적화
 - 해당 React 프로젝트 경로 터미널에 `npm install mobx mobx-react` 입력하여 설치
 
-:::tip
-
-React 버전 16.8 이상에서 Hooks를 사용하는 경우 `npm install mobx-react-lite`를 설치하면 된다.
-
-:::
-
 ## Mobx의 핵심 개념
 
 - **Observables**
@@ -255,11 +249,7 @@ observable함수의 역할은 observable함수의 담은 상태와 액션을 직
 
 App.js에서 MobX에서 정의한 객체를 가져와 사용한다.<br/>
 Class형태의 MobX와 함수형 MobX의 App.js의 코드는 동일하다.<br/>
-다만 함수형 MobX의 App.js코드와 같은 경우, observer이 아닌 useObserver을 이용하여 구현하였지만 기능은 동일하다.<br/>
-
----
-
-Class형태의 MobX와 함수형 MobX 둘다 사용은 가능하지만 
+다만 함수형 MobX의 App.js코드와 같은 경우, observer이 아닌 useObserver을 이용하여 구현하였지만 기능적인 부분은 동일하다.<br/>
 
 :::
 
@@ -288,3 +278,68 @@ Class형태의 MobX와 함수형 MobX 둘다 사용은 가능하지만
 :::
 
 <!-- 데코레이션 및 MobX의 다양한 함수 소개 내용 추가 -->
+
+## MobX 데코레이션(Decorators)
+
+- 클래스와 클래스의 멤버(속성과 메서드)에 추가적인 선언적 구문을 제공하는 기능
+- 리액티브 프로그래밍 패턴을 클래스 기반 구조에 쉽게 적용
+- MobX의 주요 기능들을 더 직관적으로 사용 가능
+
+### 주요 데코레이터(Decorators)
+
+- `@observable`:
+  - 클래스의 속성을 MobX의 리액티브 상태로 변경
+  - `@observable`로 표시된 속성이 변경을 자동 감지
+  - `@observable`에 의존하는 계산된 값이나 반응을 업데이트
+- `@computed`
+  - 계산된 값. 다른 상태에 기반한 값을 정의할 때 사용
+  - `@computed`로 표시된 getter는 의존하는 `@observable`상태가 변경될 때만 다시 계산
+  - 변경되지 않을 경우 이전 값을 그대로 사용(성능 최적화)
+- `@action`
+  - 상태를 변경하는 행동을 정의할 때 사용
+  - `@action`으로 표시된 메서드 내에서 이루어지는 상태 변경은 MobX에 의해 트랜잭션으로 처리(일관성 있는 상태 보장)
+  - 비동기 작업을 포함한 복잡한 상태 업데이트 로직에 사용
+- `@observer`
+  - `@observable`상태의 변경에 자동으로 반응
+  - 클래스 Component에는 `@observer`데코레이터를 직접 적용
+  - 함수형 Component에서는 `observer`함수를 사용하여 Component를 감싸준다.
+
+:::tip
+**MobX데코레이션 사용 전, 설정**
+
+**1. React(JavaScript) 사용하는 경우**<br/>
+터미널에 `npm install @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties --save-dev`을 입력<br/>
+`@babel/plugin-proposal-decorators`는 데코레이터를 사용할 수 있는 플러그인<br/>
+`@babel/plugin-proposal-class-properties`는 클래스 프로퍼티 플러그인<br/>
+
+```json
+{
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }]
+  ]
+}
+```
+
+설치 후, 루트 디렉토리의 `.babelrc`파일 혹은 `babel.config.json`파일에 위의 옵션을 선언.<br/>
+다만, **데코레이터 플러그인이 클래스 프로퍼티 플러그인 보다 먼저 선언**되어야한다.<br/>
+
+babel관련 파일이 없을 경우<br/>
+`npm install --save-dev @babel/core @babel/cli @babel/preset-env` 터미널에 입력<br/>
+설치 후, `.babelrc`파일 혹은 `babel.config.json`파일을 생성하여 작성하면 된다.<br/>
+
+**2. React(TypeScript) 사용하는 경우**
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": true
+  }
+}
+```
+
+`tsconfig.json`파일에 위의 옵션을 작성<br/>
+
+:::
