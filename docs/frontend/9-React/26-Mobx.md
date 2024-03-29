@@ -112,9 +112,7 @@ const App = observer(() => {
 export default App;
 ```
 
-![image](https://github.com/JJamVa/JJamVa/assets/80045006/d10e811c-2260-42e4-857f-a7242ca61eb5)
-
-![image](https://github.com/JJamVa/JJamVa/assets/80045006/841b2e42-30f4-4083-8a89-5fdc0b565778)
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/b06e55ca-9e52-46a7-bf85-de39e2d43608)
 
 :::note
 
@@ -234,9 +232,7 @@ const App = () => {
 export default App;
 ```
 
-![image](https://github.com/JJamVa/JJamVa/assets/80045006/d10e811c-2260-42e4-857f-a7242ca61eb5)
-
-![image](https://github.com/JJamVa/JJamVa/assets/80045006/841b2e42-30f4-4083-8a89-5fdc0b565778)
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/d3d888b6-daf6-48cb-9913-75b56d57be05)
 
 :::note
 
