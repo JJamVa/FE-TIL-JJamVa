@@ -32,7 +32,7 @@ root.render(
 :::note
 
 `queryClient` 변수는 QueryClient의 인스턴스를 생성하여 React Query의 상태와 관련 기능을 사용할 수 있도록 생성<br/>
-`<QueryClientProvider client={queryClient}>`를 통해 React Query를 사용할 수 있게 최상위 Component를 감쌓아준다.
+`<QueryClientProvider client={queryClient}>`를 통해 React Query를 사용할 수 있게 최상위 Component를 감싸준다.
 
 :::
 
@@ -86,13 +86,13 @@ export default App;
 :::note
 
 useQuery에 key와 fetchData비동기 함수를 객체 형태로 담아 query를 실행.<br/>
-구조 분해 할당으로 `{data, isLoading, error}`로 useQuery의 속성 값을 변수 생성<br/>
+구조 분해 할당으로 `{data, isLoading, error}`로 useQuery의 반환 값을 변수 생성<br/>
 
 ---
 
-`data`는 비동기 통신에 대한 결과값을 저장해준다. <br/>
-`isLoading`은 비동기 함수가 pending 상태일 경우를 의미한다.<br/>
-`error`는 비동기 함수가 실패했을 때의 상태를 의미한다.<br/>
+- `data`: 비동기 통신에 대한 결과값
+- `isLoading`: 비동기 함수가 pending 상태일 경우
+- `error`: 비동기 함수가 실패했을 경우
 
 :::
 
@@ -109,16 +109,31 @@ let {useQuery 결과값에 대한 속성} = useQuery({
 ```
 
 - 핵심 옵션
-  - queryKey: 쿼리를 식별하는 데 사용되는 키. 캐시에서 데이터를 찾을 때 사용
-  - queryFn: 데이터를 가져오는 비동기 함수
+  - **queryKey**: Query를 식별하는 데 사용되는 키. 캐시에서 데이터를 찾을 때 사용
+  - **queryFn**: 데이터를 가져오는 비동기 함수
   - gcTime: 가비지 컬렉션을 위한 시간 간격 조정. 기본값은 5분(1000 \* 60 \* 5)
   - staleTime: 데이터가 만료되어 다시 조회되기 전까지의 시간을 설정
   - enabled: 값이 true일 경우 동기적인 함수로 실행
 
-[useQuery 속성 및 옵션 문서](https://tanstack.com/query/latest/docs/react/reference/useQuery)
+[useQuery 속성 및 옵션 문서](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery)
 :::
 
-<!-- // gcTime과 staleTime에 대해 내일 작성 -->
+:::info
+**gcTime과 staleTime**
+
+- `gcTime(Garbage Collection Time)`
+
+  - cacheTime이라고도 부름
+  - 캐시에서 사용되지 않는(해당 Query unMount, inactive) Query 데이터가 메모리에서 제거될 때 까지의 시간
+  - gcTime은 staleTime과 관계없이, 비활성화된 상태 기준으로 캐시 데이터 삭제를 결정
+
+- `staleTime`
+  - stale은 **오래된**의 의미
+  - 이전 Query의 캐시가 존재하지만, 일정 시간동안 업데이트 되지 않는 시간
+  - staleTime 동안의 데이터는 `fresh`상태, staleTime이 초과될 경우 `stale`상태
+  - stale상태일 경우, 백그라운드에서 데이터를 새로고침. 캐시된 데이터는 즉시 확인
+
+:::
 
 ## useQueries
 
@@ -177,15 +192,13 @@ export default App;
 
 :::note
 
-useQueries 같은 경우, 여러개의 Query를 `queries`속성에 배열 형태로 정보를 저장해야된다.<br/>
+useQueries 같은 경우, 여러개의 Query를 `queries`속성에 배열로 정보를 저장해야된다.<br/>
 각 Query의 data에 접근하기 위해서 해당 query의 index로 접근하여 데이터를 호출하면 된다.<br/>
 
 만약 두개의 Query 중 하나가 실패, 하나가 성공할 경우, 성공한 데이터는 정상적으로 반환이 된다.<br/>
 React Query에서 모든 Query가 독립적으로 처리되기 때문에 서로에게 영향을 끼치지 않는다.<br/>
 
 :::
-
-<!-- 내일 부터 작성 -->
 
 ## useMutation
 
@@ -228,7 +241,7 @@ const App = () => {
     onSuccess: (data, variables, context) => {
       // data: 서버로부터 반환받은 새로 생성된 포스트 데이터
       // variables: createPost 함수에 전달된 인자, 즉 생성하려는 포스트 데이터
-      // context : 뮤테이션의 생명주기 동안 특정 상태를 전달하거나, 뮤테이션이 트리거되기 전의 상태
+      // context : 뮤테이션의 생명주기 동안 특정 상태를 전달하거나, mutation이 트리거되기 전의 상태
       console.log("onSuccess", data, variables, context);
     },
     onSettled: () => {
@@ -264,18 +277,18 @@ export default App;
 
 :::note
 
-useMutation을 이용하여 비동기 함수(post)에 대해 처리 결과를 보여주는 코드이다.<br/>
+useMutation을 이용하여 비동기 함수(post)의 결과를 보여주는 코드이다.<br/>
 버튼을 클릭 시, hanldeCreatePost함수가 실행이 되며 내부에서 useMutation의 mutate메소드가 Argument값과 함께 실행이 된다.<br/>
-이를 통해, createPost 비동기 함수에게 값이 전달되며 실행이 되어 결과 값이 어떻게 반환되었는지 확인할 수 있다.<br/>
+이를 통해, createPost 비동기 함수에게 값이 전달되며 실행이 되어, mutation의 결과 값이 어떻게 반환되었는지 확인할 수 있다.<br/>
 
 **useMutation()의 추가 옵션**
 
 - onMutate: mutation이 트리거가 되기 직전에 호출<br/>
 - onSuccess: 비동기 함수의 처리가 성공적으로 수행했을 경우<br/>
 - onError: 비동기 함수의 처리가 정상적으로 되지않을 경우<br/>
-- onSettled: 비동기 함수의 성공/실패를 떠나 동작을 수행한 후 실행<br/>
+- onSettled: 비동기 함수의 성공/실패와 상관없이 완료되면 실행<br/>
 
-[useMutation 속성 및 옵션 문서](https://tanstack.com/query/latest/docs/react/reference/useQuery)
+[useMutation 속성 및 옵션 문서](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation)
 :::
 
 ## QueryCache
@@ -353,15 +366,14 @@ export default App;
 :::note
 
 QueryCache와 같은 경우, 초기 Query의 영역을 지정할 때 함께 사용하는 함수이다.<br/>
-Query의 비동기함수가 성공적으로 실행될 경우 QueryCache안 onSuccess 속성이 실행이 되며,<br/>
-반대로 실패할 경우, onError 속성이 실행된다.<br/>
-결론적으로 QueryCache는 Query들이 정상적으로 실행되었는지에 대해 검사하기 위해 사용되는 React Query의 함수 중 하나다.<br/>
+Query가 성공적으로 실행될 경우 QueryCache안 onSuccess 속성이 실행이 되며, 실패할 경우, onError 속성이 실행된다.<br/>
+QueryCache는 Query들이 **전역적으로 실행 결과에 대한 확인 및 관리**하는 React Query의 객체이다.<br/>
 
 :::
 
-## key값이 동적값인 배열일 경우
+## 동적 Query key
 
-- 쿼리 동작과정은 일치하나 개별로 관리해야할 경우 사용
+- Query 동작과정은 일치하나 개별로 관리해야할 경우 사용
 - 편리한 유지보수 및 가독성을 위해 사용
 
 ```jsx title="비동기 함수"
@@ -438,27 +450,18 @@ export default App;
 
 :::note
 
-위의 코드는 useQuery의 key값이 동적값이 배열안에 들어간 경우에 대한 예시 코드이다.<br/>
-다만 배열을 이용하여 key값을 설정할 경우, **동적으로 key값을 저장**할 수 있다는 장점이 있다.<br/>
-이로 인해 비동기 함수에서 필요한 parameter값을 이용하여 동적으로 query key값에 데이터를 관리한다.<br/>
-
-또한, Query 내부의 함수는 화살표함수를 사용해야한다.<br/>
-Query key값이 배열일 경우, 매번 들어오는 key값의 데이터가 변경이 된다.<br/>
-변경된 key값에 대해 비동기 함수의 연산을 **안정성 및 일관성** 있게 마무리 해야함으로 화살표 함수를 사용해야한다.<br/>
-
-:::
-
-:::danger
-
-key값이 static(정적)일 경우에는 매번 비동기 함수를 실행할 필요가 없다.<br/>
-매번 랜더링될 경우에 화살표 함수를 사용해야한다.
+위의 코드는 Query의 key값이 동적인 경우에 대한 예시 코드이다.<br/>
+page와 pageSize를 인자로 받아, 페이지에 해당하는 사용자 목록을 가져온다.<br/>
+page혹은 pageSize값이 변할 때마다, 새로운 Query가 생성이 되며 독립적으로 캐시 관리를 한다.<br/>
+즉, key값이 동적일 경우에 같은 기능의 비동기 함수를 사용하더라도 **개별의 Query를 관리** 할 수 있으며,<br/>
+필요에 따라 특정 페이지의 Query에 대한 부가적인 동작(업데이트, 패치 등)을 구현 할 수 있다.<br/>
 
 :::
 
 ## React Query의 Suspense모드
 
-- 데이터 로딩을 간단하게 처리
-- React에서 비동기 데이터 로딩을 더 쉽게 다루도록 해주는 기능
+- 데이터 로딩을 전역적으로 간단하게 처리
+- React에서 비동기 데이터 로딩 화면을 더 쉽게 다루도록 해주는 기능
 
 <details>
 <summary>선택적 Query Suspense</summary>
@@ -532,11 +535,11 @@ export default App;
 Suspense를 사용하기 위해서는 **Suspense를 사용할 Component보다 상위에 존재**해야한다.<br/>
 `<React.Suspense fallback={<Loading에 표현할 Component/>}`를 최상위 Component로 설정을 하면 Suspense 사용 가능<br/>
 
-Suspense를 사용할 Query의 속성에 `{suspense:true}`로 작성하면 된다.<br/>
+Suspense를 사용할 Query의 속성에 `{suspense:true}`을 추가로 작성하면 된다.<br/>
 그럼 Suspense를 등록한 Query가 비동기 통신 진행 상태(Pending)일 경우,<br/>
 `<React.Suspense>`속성의 **fallback속성에 표현할 Component 화면이 출력**된다.<br/>
 
-이를 통해 공통으로 로딩 화면을 표현할 Query에 대해 사용이 가능하다.<br/>
+이를 통해 공통으로 로딩 화면을 표현할 Query에 사용 가능하다.<br/>
 
 :::
 
@@ -646,7 +649,7 @@ const queryClient = new QueryClient({
 - **무한 스크롤** 혹은 **페이지 네이션**을 구현할 때 사용
 - 사용자가 실제로 필요로 하는 데이터만 점진적으로 불러와 성능 개선
 
-:::tip
+:::caution
 **무한 스크롤에 사용 시, 고려 사항**<br/><br/>
 
 사용자가 스크롤하는 위치를 실시간으로 감지하고, 페이지 끝에 도달했을 때 추가적인 데이터를 불러와야 한다.<br/>
@@ -665,7 +668,7 @@ const queryClient = new QueryClient({
 :::
 
 <details>
-<summary>Intersection Observer API를 이용한 무한스크롤 구현</summary>
+<summary>IntersectionObserver API를 이용한 무한스크롤 구현</summary>
 <div markdown="1">
 
 ```jsx title="비동기 함수"
@@ -738,6 +741,64 @@ export default App;
 ```
 
 :::note
+위의 코드는 useInfiniteQuery를 이용해 스크롤이 최하단에 내려갈 경우, 새로운 데이터를 보여주는 코드이다.<br/>
+
+**useInfiniteQuery 옵션**
+
+- `getNextPageParam`:
+  - 불러온 데이터의 마지막 페이지를 기반으로 다음 페이지 데이터를 요청할 때 필요한 변수를 반환
+  - 다음 페이지 데이터 요청 시 queryFn에 전달
+
+**useInfiniteQuery 반환값**
+
+- `fetchNextPage`: 다음 페이지의 데이터를 명시적으로 불러오는 함수
+- `hasNextPage`: 더 불러올 페이지가 있는 확인하는 값(boolean). true일 경우 `fetchNextPage`를 호출
+- `isFetchingNextPage`: 다음 페이지가 패칭 중인지 나타내는 값(boolean)
+
+[useInfiniteQuery 속성 및 옵션 문서](https://tanstack.com/query/latest/docs/framework/react/reference/useInfiniteQuery)
+
+---
+
+IntersectionObserver를 이용해서 무한 스크롤을 구현하기 위해서는 스크롤 위치를 확인 해야한다.<br/>
+useRef를 이용해서 호출된 데이터의 마지막 요소에 대해 참조한다.<br/>
+
+```jsx
+const observer = useRef();
+```
+
+`IntersectionObserver` 인스턴스를 통해 페이지의 마지막 요소가 viewport에 들어올 때 실행될 콜백 함수를 정의한다<br/>
+`entries[0].isIntersecting`를 통해 viewport와 교차하는지 확인을 한다.<br/>
+교차가 확인이 될 경우, fetchNextPage함수가 실행된다.<br/>
+fetchNextPage가 실행되면 getNextPageParam도 실행되어,<br/>
+`lastPage(이전에 불러온 페이지 데이터)`와 `page(현재까지 불러온 모든 페이지의 배열)`를 인자를 연산 후,
+queryFn에 전달해 데이터를 불러오도록 요청한다.<br/>
+
+```jsx
+const observerInstance = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting) {
+    fetchNextPage();
+  }
+});
+```
+
+ref를 참조한 요소를 IntersectionObserver의 **관찰 대상으로 설정**한다.<br/>
+
+```jsx
+if (observer.current) {
+  observerInstance.observe(observer.current);
+}
+```
+
+useEffect가 unMount가 될 경우, clean-up함수를 통해 **관찰 대상을 해제**한다.<br/>
+Component가 사라진 후에도 **불필요한 작업이 계속되는 것을 방지**하기 위해 사용된다.<br/>
+
+```jsx
+return () => {
+  if (observer.current) {
+    observerInstance.unobserve(observer.current);
+  }
+};
+```
 
 :::
 
