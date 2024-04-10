@@ -115,7 +115,7 @@ let {useQuery 결과값에 대한 속성} = useQuery({
   - staleTime: 데이터가 만료되어 다시 조회되기 전까지의 시간을 설정
   - enabled: 값이 true일 경우 동기적인 함수로 실행
 
-[useQuery 속성 및 옵션 문서](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery)
+[useQuery 문서](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery)
 :::
 
 :::info
@@ -288,7 +288,7 @@ useMutation을 이용하여 비동기 함수(post)의 결과를 보여주는 코
 - onError: 비동기 함수의 처리가 정상적으로 되지않을 경우<br/>
 - onSettled: 비동기 함수의 성공/실패와 상관없이 완료되면 실행<br/>
 
-[useMutation 속성 및 옵션 문서](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation)
+[useMutation 문서](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation)
 :::
 
 ## QueryCache
@@ -643,6 +643,11 @@ const queryClient = new QueryClient({
 
 </div>
 </details>
+
+## Prefetching
+
+## invalidate
+
 
 ## useInfiniteQuery(무한 스크롤)
 
