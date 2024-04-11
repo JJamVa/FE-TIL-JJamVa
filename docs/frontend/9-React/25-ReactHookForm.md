@@ -34,9 +34,7 @@
 - Controller
   - 폼 피드의 상태 및 이벤트 처리하는데 도움
 
-:::tip
-
-**useForm 반환값**
+## useForm
 
 ```js
 const {
@@ -62,12 +60,13 @@ const {
 - formStateRef: formState 객체의 참조. 직접적으로 수정되지 않는 것이 좋으며, 주로 특정 효과나 로직에서 참조할 때 사용
 - trigger: 특정 입력 필드의 유효성 검사를 수동으로 트리거하는 함수. 특정 상황에서 사용자 정의 유효성 검사를 실행할 때 유용
 
+:::tip
+
 [useForm 문서](https://react-hook-form.com/docs/useform)
 
 :::
 
-:::tip
-**Controller의 속성**
+## Controller
 
 ```jsx
 <Controller
@@ -104,7 +103,28 @@ const {
   - 컴포넌트 내부에서 직접 참조할 필요가 있을 때 사용
   - 필드 컴포넌트에 ref 속성을 통해 ref를 전달 가능
 
+:::tip
+
+[Controller 문서](https://react-hook-form.com/docs/usecontroller/controller)
+
 :::
+
+## Controller vs register
+
+- **공통점**
+
+  - form관리 및 데이터 수집
+  - 모두 동일한 유효성 검사 규칙
+
+- **차이점**
+  - **Controller**
+    - 복잡한 Component나 외부 라이브러리에 적합(기본 요소에도 사용가능)
+    - register에 비해 코드 구현 난이도가 높음
+    - Component 내부에 ref 및 이벤트 핸들러를 편하게 관리(render props로 전달)
+  - **register**
+    - 주로 기본 HTML 입력 요소(`<input>`,`<textarea>`,`<select>`)에 사용
+    - Controller보다 적은 리렌더링이 발생
+    - 외부 라이브러리의 Component에 직접 사용시, ref전달 및 추가적인 props 전달이 어려움
 
 ## ReactHookForm 실습 코드
 
@@ -245,9 +265,9 @@ export default App;
 </div>
 ```
 
-이름을 입력하는 필드이다.<br/>
-Controller를 통해 입력 필드를 제어하기 위해 사용한다.<br/>
-Controller의 속성에 `name`, `control`, `rules`, `render`가 존재한다.<br/>
+이름을 입력하는 필드<br/>
+Controller를 통해 입력 필드를 제어하기 위해 사용<br/>
+Controller의 속성에 `name`, `control`, `rules`, `render` 등 존재한다.<br/>
 
 - name: 필드를 식별하기 위해 사용하는 이름
 - control: React Hook form의 제어 객체. form상태와 메서드에 접근 설정
@@ -256,7 +276,7 @@ Controller의 속성에 `name`, `control`, `rules`, `render`가 존재한다.<br
 
 Controller 내부에 render를 통해 input태그에 field값을 전달한다.<br/>
 이때의 field값에는 Controller에 작성되었던 속성값(name, control, rules)들을 **render prop로 전달**한다.<br/>
-즉, input태그에 hook form 기능을 적용하기 위해 사용된 코드이다.<br/>
+즉, input태그에 React Hook Form 기능을 적용하기 위해 사용된 코드이다.<br/>
 
 erros.name은 Controller에서 적용한 rules를 위배될 경우에 실행되는 코드이다.<br/>
 
@@ -294,14 +314,17 @@ const watchName = watch("name");
 }
 ```
 
-성별을 입력하는 필드다.<br/>
+성별을 입력하는 필드<br/>
 코드를 보면 useForm의 반환값 중 하나인 watch가 있다.<br/>
-watch의 기능은 필드의 값을 감시한다.<br/>
+watch의 기능은 **필드의 값을 감시**한다.<br/>
 즉, 위의 코드에서는 name필드를 감시하도록 설정하였다.<br/>
-
 name필드의 입력값이 3자리가 넘을 경우, 성별 입력이 가능한 필드가 보여지게 된다.<br/>
-Controller를 이용하지 않고, input태그에 직접적으로 register로 설정하였다.<br/>
 
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/38ee34e8-eaad-4ca6-a6da-193f1be9bf5a)
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/45d698d7-2a00-42d8-bacf-cedb17e30f02)
+
+Controller를 이용하지 않고, input태그에 직접적으로 register로 설정하였다.<br/>
 register는 말그대로 **등록하다**는 의미를 가진다.<br/>
 첫번째 인자값은 설정할 **필드명을 설정**한다.<br/>
 두번째 인자값은 **객체 형태로 작성**을 해야되며, 필드명의 **규칙을 설정**하면 된다.<br/>
@@ -347,16 +370,37 @@ const handleBirthChange = (event) => {
 </div>;
 ```
 
-생년월일을 입력하는 필드이다.<br/>
+생년월일을 입력하는 필드<br/>
 register를 이용하여 `입력값을 필수`로 받으며, `최소한의 길이(minLength)` 지정하는 속성도 사용하였다.<br/>
 입력값이 숫자로만 구성, 해당 입력값의 길이에 따라 `.`을 자동적으로 입력되게 하기 위해 handleBirthChange함수를 구현<br/>
 
 handleBirthChange함수를 살펴보면 현재 입력값을 받아와 정규표현식으로 문자열을 변경하고 있다.<br/>
 변경된 문자는 useForm의 반환값 중 하나인 setValue를 통해 변경을 한다.<br/>
-setValue의 첫번째 인자값은 변경할 필드명을 작성<br/>
-두번째 인자값은 변경할 필드명의 값을 작성<br/>
-세번째는 변경 사항을 적용할 때 추가 옵션을 객체 형태로 설정<br/>
+setValue의 첫번째 인자값은 **변경할 필드명**을 작성<br/>
+두번째 인자값은 **변경할 필드명의 값**을 작성<br/>
+세번째는 변경 사항을 적용할 때 **추가 옵션을 객체 형태로 설정**<br/>
 세번째 인자값에 shouldValidate 설정함으로써 값이 변경될 때마다 유효성을 자동으로 검사한다.<br/>
+
+```jsx title="input onChange"
+<input
+  placeholder="생일 ex) YYYY.MM.DD"
+  onChange={(e) => handleBirthChange(e)}
+  {...register("birth", {
+    required: "생일을 입력해주세요.",
+    minLength: { value: 10, message: "생일을 입력해주세요." },
+  })}
+/>
+```
+
+input태그의 onChange에 handleBirthChange함수를 적용하게 되면 동작을 제대로 하지않는다.<br/>
+해당 register를 출력을 해보면 밑의 출력 결과가 나온다.<br/>
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/dacd9221-ea31-4b83-ab9e-88e5f2a413f1)
+
+register객체 내부에 `name`, `onChange`, `onBlur`, `ref`가 있다.<br/>
+input의 onChange가 register의 onChange과 같은 속성명을 가지고 있기 때문에, 마지막에 지정된 값으로 적용된다.<br/>
+onChange의 동작을 제대로 하기 위해서는 **register 뒤에 onChange를 작성**<br/>
+또는 **register의 onChange에 작성**하면 정상적으로 동작하게 된다.<br/>
 
 ---
 
@@ -376,11 +420,10 @@ setValue의 첫번째 인자값은 변경할 필드명을 작성<br/>
 </div>
 ```
 
-이메일을 입력하는 필드이다.<br/>
+이메일을 입력하는 필드<br/>
 name 필드와 같이 Controller를 사용하여 구현하였다.<br/>
-차이점은 rules의 pattern이 추가가 되었다.<br/>
-pattern은 render를 통해 표현될 컴포넌트의 값이 해당 정규표현식의 조건과 부합한지 확인한다.<br/>
-조건이 부합하지 않을 경우, message를 통해 에러를 표출한다.<br/>
+pattern은 render를 통해 표현될 Component의 값이 해당 정규표현식의 조건과 부합한지 확인한다.<br/>
+조건이 부합하지 않을 경우, message를 통해 에러를 표시한다.<br/>
 
 ---
 
@@ -402,7 +445,7 @@ pattern은 render를 통해 표현될 컴포넌트의 값이 해당 정규표현
 </div>
 ```
 
-비밀번호를 입력하는 필드이다.<br/>
+비밀번호를 입력하는 필드<br/>
 register를 이용하여 다양한 조건을 걸어 구현하였다.<br/>
 
 ---
@@ -423,29 +466,24 @@ const onSubmit = (data) => {
 
 return (
   <form onSubmit={handleSubmit(onSubmit)}>
-    // 다양한 필드
+    // 필드
     <button type="submit">전송</button>
   </form>
 );
 ```
 
-모든 필드의 값을 입력했을 경우에 버튼을 눌러 데이터를 확인하는 코드이다.<br/>
-해당 버튼을 누를 경우, handleSubmit(onSubmit)이 발생한다.<br/>
-handleSubmit은 form 제출 이벤트를 처리하기 위한 React Hook Form의 함수이다.<br/>
-handleSubmit은 이벤트 헨들러가 실행되어 form데이터를 수집 및 보내줄 콜백 함수를 호출<br/>
+모든 필드의 값을 입력했을 경우에 버튼을 눌러 데이터를 확인하는 코드<br/>
+해당 버튼을 누를 경우, handleSubmit(onSubmit)이 실행된다.<br/>
+handleSubmit은 **form 제출 이벤트를 처리**하기 위한 React Hook Form의 함수이다.<br/>
+handleSubmit은 이벤트 핸들러가 실행되어 **form데이터를 수집 및 보내줄 콜백 함수를 호출**<br/>
 
 ![image](https://github.com/JJamVa/JJamVa/assets/80045006/9a49b97a-f861-4aa8-84b9-faea2b52932f)
 
 ![image](https://github.com/JJamVa/JJamVa/assets/80045006/4b6bea6a-1daf-4e5a-98b0-0a9745c402ef)
 
 onSubmit에 전달된 data라는 변수는 Hook form안에 데이터이다.<br/>
-출력 결과물을 보면 register 혹은 Controller 설정된 값이 key로 등록되어있고,입력값들은 value로 저장되어있다.<br/>
+register 혹은 Controller를 통해 설정된 필드 값은 key로 등록되어있고,입력값들은 value로 저장되어있다.<br/>
 출력 후, useForm의 반환값 중 하나인 reset을 이용하여 값들을 초기화한다.<br/>
-이때 초기화가 되는 값은 useForm안에 defaultValues로 지정된 값으로 초기화가 된다.<br/>
-
-:::
-
-:::info
-**Controller vs register**
+이때 초기화가 되는 값은 useForm의 매개변수로 설정된 defaultValues로 초기화가 된다.<br/>
 
 :::
