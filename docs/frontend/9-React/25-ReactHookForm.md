@@ -126,7 +126,7 @@ const {
     - Controller보다 적은 리렌더링이 발생
     - 외부 라이브러리의 Component에 직접 사용시, ref전달 및 추가적인 props 전달이 어려움
 
-## ReactHookForm 실습 코드
+## useForm 실습 코드
 
 ```jsx
 import React from "react";
@@ -243,6 +243,10 @@ const App = () => {
 
 export default App;
 ```
+
+<details>
+<summary>useForm 실습 코드 설명</summary>
+<div markdown="1">
 
 :::note
 
@@ -487,3 +491,6 @@ register 혹은 Controller를 통해 설정된 필드 값은 key로 등록되어
 이때 초기화가 되는 값은 useForm의 매개변수로 설정된 defaultValues로 초기화가 된다.<br/>
 
 :::
+
+</div>
+</details>

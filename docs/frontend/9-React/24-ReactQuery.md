@@ -39,7 +39,48 @@ root.render(
 ## useQuery
 
 - 데이터를 가져오는 비동기 작업(GET방식)을 관리하는 데 사용
-- `useQuery({queryKey: 쿼리 키, queryFn: 비동기 함수, Query 추가 옵션})`의 형태로 사용
+- `useQuery({queryKey: 쿼리 키, queryFn: 비동기 함수, 추가 옵션})`의 형태로 사용
+
+:::tip
+**useQuery의 함수 옵션**
+
+```js
+let {useQuery 결과값에 대한 속성} = useQuery({
+    queryKey,
+    queryFn,
+    gcTime
+    ...
+})
+```
+
+- 핵심 옵션
+  - **queryKey**: Query를 식별하는 데 사용되는 키. 캐시에서 데이터를 찾을 때 사용
+  - **queryFn**: 데이터를 가져오는 비동기 함수
+  - gcTime: 가비지 컬렉션을 위한 시간 간격 조정. 기본값은 5분(1000 \* 60 \* 5)
+  - staleTime: 데이터가 만료되어 다시 조회되기 전까지의 시간을 설정
+  - enabled: 값이 true일 경우 동기적인 함수로 실행
+
+[useQuery 문서](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery)
+:::
+
+:::info
+**gcTime과 staleTime**
+
+- `gcTime(Garbage Collection Time)`
+
+  - cacheTime이라고도 부름
+  - 캐시에서 사용되지 않는(해당 Query unMount, inactive) Query 데이터가 메모리에서 제거될 때 까지의 시간
+  - gcTime은 staleTime과 관계없이, 비활성화된 상태 기준으로 캐시 데이터 삭제를 결정
+
+- `staleTime`
+  - stale은 **오래된**의 의미
+  - 이전 Query의 캐시가 존재하지만, 일정 시간동안 업데이트 되지 않는 시간
+  - staleTime 동안의 데이터는 `fresh`상태, staleTime이 초과될 경우 `stale`상태
+  - stale상태일 경우, 백그라운드에서 데이터를 새로고침. 캐시된 데이터는 즉시 확인
+
+:::
+
+### 정적 Query Key
 
 ```js title="비동기 함수"
 import axios from "axios";
@@ -85,53 +126,96 @@ export default App;
 
 :::note
 
-useQuery에 key와 fetchData비동기 함수를 객체 형태로 담아 query를 실행.<br/>
-구조 분해 할당으로 `{data, isLoading, error}`로 useQuery의 반환 값을 변수 생성<br/>
+위의 코드는 useQuery를 이용하여 데이터를 표현하는 코드이다.<br/>
+`queryKey`에 **고유 query key값**을 설정, `queryFn`에 **데이터를 받아올 비동기 함수를 등록**한다.<br/>
 
----
-
-- `data`: 비동기 통신에 대한 결과값
-- `isLoading`: 비동기 함수가 pending 상태일 경우
-- `error`: 비동기 함수가 실패했을 경우
+데이터를 받아오는 단계(pending)에서 isLoading을 통해 로딩화면을 표현<br/>
+실패할 경우 error화면을 표현한다.<br/>
 
 :::
 
-:::tip
-**useQuery의 함수 옵션**
+### 동적 Query Key
 
-```js
-let {useQuery 결과값에 대한 속성} = useQuery({
-    queryKey,
-    queryFn,
-    gcTime
-    ...
-})
+- Query 동작과정은 일치하나 개별로 관리해야할 경우 사용
+- 편리한 유지보수 및 가독성을 위해 사용
+
+```jsx title="비동기 함수"
+import axios from "axios";
+
+const fetchUsers = async (page, pageSize) => {
+  const response = await axios.get(
+    `https://jsonplaceholder.typicode.com/users`,
+    {
+      params: {
+        _page: page,
+        _limit: pageSize,
+      },
+    }
+  );
+  return response.data;
+};
+
+export default fetchUsers;
 ```
 
-- 핵심 옵션
-  - **queryKey**: Query를 식별하는 데 사용되는 키. 캐시에서 데이터를 찾을 때 사용
-  - **queryFn**: 데이터를 가져오는 비동기 함수
-  - gcTime: 가비지 컬렉션을 위한 시간 간격 조정. 기본값은 5분(1000 \* 60 \* 5)
-  - staleTime: 데이터가 만료되어 다시 조회되기 전까지의 시간을 설정
-  - enabled: 값이 true일 경우 동기적인 함수로 실행
+```jsx title="App.js"
+import { useQuery } from "@tanstack/react-query";
+import React, { useState } from "react";
+import fetchUsers from "./Async";
 
-[useQuery 문서](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery)
-:::
+const App = () => {
+  const [page, setPage] = useState(1);
+  const pageSize = 2;
 
-:::info
-**gcTime과 staleTime**
+  function decrease() {
+    if (page > 1) setPage(page - 1);
+  }
 
-- `gcTime(Garbage Collection Time)`
+  function increase() {
+    if (page < 5) setPage(page + 1);
+  }
 
-  - cacheTime이라고도 부름
-  - 캐시에서 사용되지 않는(해당 Query unMount, inactive) Query 데이터가 메모리에서 제거될 때 까지의 시간
-  - gcTime은 staleTime과 관계없이, 비활성화된 상태 기준으로 캐시 데이터 삭제를 결정
+  const {
+    data: users,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["users", page, pageSize],
+    queryFn: () => fetchUsers(page, pageSize),
+  });
 
-- `staleTime`
-  - stale은 **오래된**의 의미
-  - 이전 Query의 캐시가 존재하지만, 일정 시간동안 업데이트 되지 않는 시간
-  - staleTime 동안의 데이터는 `fresh`상태, staleTime이 초과될 경우 `stale`상태
-  - stale상태일 경우, 백그라운드에서 데이터를 새로고침. 캐시된 데이터는 즉시 확인
+  if (isLoading) {
+    return <div>로딩 중</div>;
+  }
+
+  if (isError) {
+    return <div>에러 발생</div>;
+  }
+
+  return (
+    <div>
+      <h1>Users List</h1>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+      <button onClick={decrease}>이전</button>
+      <button onClick={increase}>다음</button>
+    </div>
+  );
+};
+
+export default App;
+```
+
+:::note
+
+위의 코드는 Query의 key값이 동적인 경우에 대한 예시 코드이다.<br/>
+page와 pageSize를 인자로 받아, 페이지에 해당하는 사용자 목록을 가져온다.<br/>
+page혹은 pageSize값이 변할 때마다, 새로운 Query가 생성이 되며 독립적으로 캐시 관리를 한다.<br/>
+즉, key값이 동적일 경우에 같은 기능의 비동기 함수를 사용하더라도 **개별의 Query를 관리** 할 수 있으며,<br/>
+필요에 따라 특정 페이지의 Query에 대한 부가적인 동작(업데이트, 패치 등)을 구현 할 수 있다.<br/>
 
 :::
 
@@ -371,93 +455,6 @@ QueryCache는 Query들이 **전역적으로 실행 결과에 대한 확인 및 �
 
 :::
 
-## 동적 Query key
-
-- Query 동작과정은 일치하나 개별로 관리해야할 경우 사용
-- 편리한 유지보수 및 가독성을 위해 사용
-
-```jsx title="비동기 함수"
-import axios from "axios";
-
-const fetchUsers = async (page, pageSize) => {
-  const response = await axios.get(
-    `https://jsonplaceholder.typicode.com/users`,
-    {
-      params: {
-        _page: page,
-        _limit: pageSize,
-      },
-    }
-  );
-  return response.data;
-};
-
-export default fetchUsers;
-```
-
-```jsx title="App.js"
-import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
-import fetchUsers from "./Async";
-
-const App = () => {
-  const [page, setPage] = useState(1);
-  const pageSize = 2;
-
-  function decrease() {
-    if (page > 1) setPage(page - 1);
-  }
-
-  function increase() {
-    if (page < 5) setPage(page + 1);
-  }
-
-  const {
-    data: users,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["users", page, pageSize],
-    queryFn: () => fetchUsers(page, pageSize),
-  });
-
-  if (isLoading) {
-    return <div>로딩 중</div>;
-  }
-
-  if (isError) {
-    return <div>에러 발생</div>;
-  }
-
-  return (
-    <div>
-      <h1>Users List</h1>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>{user.name}</li>
-        ))}
-      </ul>
-      <button onClick={decrease}>이전</button>
-      <button onClick={increase}>다음</button>
-    </div>
-  );
-};
-
-export default App;
-```
-
-![image](https://github.com/JJamVa/JJamVa/assets/80045006/3055d024-786a-42fa-8658-046624219805)
-
-:::note
-
-위의 코드는 Query의 key값이 동적인 경우에 대한 예시 코드이다.<br/>
-page와 pageSize를 인자로 받아, 페이지에 해당하는 사용자 목록을 가져온다.<br/>
-page혹은 pageSize값이 변할 때마다, 새로운 Query가 생성이 되며 독립적으로 캐시 관리를 한다.<br/>
-즉, key값이 동적일 경우에 같은 기능의 비동기 함수를 사용하더라도 **개별의 Query를 관리** 할 수 있으며,<br/>
-필요에 따라 특정 페이지의 Query에 대한 부가적인 동작(업데이트, 패치 등)을 구현 할 수 있다.<br/>
-
-:::
-
 ## React Query의 Suspense모드
 
 - 데이터 로딩을 전역적으로 간단하게 처리
@@ -644,10 +641,296 @@ const queryClient = new QueryClient({
 </div>
 </details>
 
-## Prefetching
+## PrefetchQuery
 
-## invalidate
+- 특정 쿼리의 데이터를 **미리 가져와 캐시에 저장**하는 역할
+- 사용자가 실제로 해당 데이터를 요구하기 전에 데이터를 미리 로드
 
+:::tip
+
+query 캐시의 데이터를 확인하기 위해 react query devtools를 사용<br/>
+해당 React 프로젝트 경로 터미널에 `npm install @tanstack/react-query-devtools` 입력하여 설치<br/>
+
+```jsx
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
+
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(
+  <QueryClientProvider client={queryClient}>
+    <App />
+    <ReactQueryDevtools initialIsOpen={true} />
+  </QueryClientProvider>
+);
+```
+
+위와 같이 ReactQueryDevtools 태그를 작성해서 사용하면 된다.<br/>
+
+:::
+
+<details>
+<summary>prefetchQuery 구현</summary>
+<div markdown="1">
+
+```jsx title="index.js"
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
+
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(
+  <QueryClientProvider client={queryClient}>
+    <App />
+    <ReactQueryDevtools initialIsOpen={true} />
+  </QueryClientProvider>
+);
+```
+
+```jsx title="비동기 함수"
+import axios from "axios";
+
+export const fetchPostsByPage = async (page) => {
+  const { data } = await axios.get(
+    `https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}`
+  );
+  return data;
+};
+```
+
+```jsx title="App.js"
+import React, { useState, useEffect } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { fetchPostsByPage } from "./Async";
+
+function App() {
+  const [page, setPage] = useState(1);
+  const queryClient = useQueryClient();
+
+  const {
+    data: posts,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["posts", page],
+    queryFn: () => fetchPostsByPage(page),
+    keepPreviousData: true, // 이전 페이지 데이터 유지
+    staleTime: 5000, // 캐시 데이터의 fresh 유지 시간
+  });
+
+  useEffect(() => {
+    const nextPage = page + 1;
+    queryClient.prefetchQuery({
+      queryKey: ["posts", nextPage],
+      queryFn: () => fetchPostsByPage(nextPage),
+    });
+  }, [page, queryClient]);
+
+  if (isLoading) return <div>로딩중...</div>;
+  if (isError) return <div>에러: {error.message}</div>;
+
+  return (
+    <div>
+      <button
+        onClick={() => setPage((old) => (old > 0 ? old - 1 : old))}
+        disabled={page === 1}
+      >
+        이전 페이지
+      </button>
+      <button onClick={() => setPage((old) => old + 1)} disabled={page === 10}>
+        다음 페이지
+      </button>
+      <div>
+        {posts &&
+          posts.map((post) => (
+            <div key={post.id}>
+              <h3>{post.title}</h3>
+            </div>
+          ))}
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
+
+:::note
+
+App.js에는 API를 통해 10개씩 데이터를 표현하는 코드다.<br/>
+
+```jsx
+useEffect(() => {
+  const nextPage = page + 1;
+  queryClient.prefetchQuery({
+    queryKey: ["posts", nextPage],
+    queryFn: () => fetchPostsByPage(nextPage),
+  });
+}, [page, queryClient]);
+```
+
+useEffect를 통해 page와 queryClient의 값이 바뀔때마다 **prefetchQuery를 실행**시킨다.<br/>
+useState의 page의 값에 1을 더해 다음 페이지에 대해 미리 query 데이터를 캐싱하는 작업이다.<br/>
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/c4725515-87dc-46ea-8e52-55715525f4ac)
+
+처음 마운트가 될 때, prefetchQuery를 통해 먼저 `["posts",2]`를 캐싱 한다.<br/>
+이후 `["posts",1]`을 캐싱하여, `["posts",1]`에 대한 데이터를 렌더링한다.<br/>
+react-query-devtools을 통해 `["posts",1]`와 `["posts",2]`가 캐싱된 것을 확인할 수 있다.<br/>
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/01045dec-7a11-4ced-9c22-f5d2b0f8b3ed)
+
+`다음 페이지`버튼을 누를 경우, `["posts",2]`에 대한 query 데이터를 가져온다.<br/>
+prefetchQuery를 통해 `["posts",2]`에 대한 데이터가 캐싱되었기 때문에 별도의 로딩화면 없이 데이터를 표현 가능하다.<br/>
+`["posts",2]`에 대한 페이지를 렌더링하기 전, `["posts",3]`에 대한 query를 prefetch를 한다.<br/>
+
+prefetchQuery를 통해 사용자의 기준에서 별도의 로딩화면 없이 데이터를 즉시 표현할 수 있다.<br/>
+
+:::
+
+</div>
+</details>
+
+## invalidateQueries
+
+- **캐시된 쿼리를 무효화**시키고, 필요에 따라 자동으로 새로운 데이터로 갱신
+- 데이터의 일관성을 유지하고, **최신 상태를 반영**하기 위해 사용
+
+<details>
+<summary>invalidateQueries 구현</summary>
+<div markdown="1">
+
+```jsx title="비동기 함수"
+import axios from "axios";
+
+export const fetchComments = async () => {
+  const { data } = await axios.get(
+    "https://jsonplaceholder.typicode.com/comments?_limit=5"
+  );
+  return data;
+};
+
+export const updateComment = async (commentId, newInfo) => {
+  const { data } = await axios.put(
+    `https://jsonplaceholder.typicode.com/comments/${commentId}`,
+    newInfo
+  );
+  return data;
+};
+```
+
+```jsx title="App.js"
+import React from "react";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { fetchComments, updateComment } from "./Async";
+
+function App() {
+  const queryClient = useQueryClient();
+  const {
+    data: comments,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["comments"],
+    queryFn: fetchComments,
+  });
+
+  const { mutate } = useMutation({
+    mutationFn: updateComment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["comments"] });
+    },
+  });
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (error) return <div>에러 발생: {error.message}</div>;
+
+  const handleUpdate = (comment) => {
+    mutate(comment.id, { ...comment, body: "Updated comment!" });
+  };
+
+  return (
+    <div>
+      <h1>Comments</h1>
+      {comments.map((comment) => (
+        <div key={comment.id}>
+          <h4>{comment.name}</h4>
+          <button onClick={() => handleUpdate(comment)}>댓글 업데이트</button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default App;
+```
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/3fab762c-b550-4352-938f-8a337db4563f)
+
+:::danger
+실제 API는 동작하지 않는다.
+:::
+
+:::note
+
+해당 API의 데이터 표현 및 수정을 하는 코드이다.<br/>
+useQuery를 통해 comments query를 캐싱한다.<br/>
+`댓글 업데이트` 버튼을 누를 경우, comment를 업데이트하는 mutation을 실행시킨다.<br/>
+
+```js
+const { mutate } = useMutation({
+  mutationFn: updateComment,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ["comments"] });
+  },
+});
+```
+
+mutation이 실행되어 성공할 경우, invalidateQueries가 실행된다.<br/>
+invalidateQueries에 입력된 query 키값의 **캐싱이 무효화**가 된다.<br/>
+이후, useQuery가 실행되어 새로운 데이터를 캐싱하며, 리렌더링이 발생한다.<br/>
+
+:::
+
+:::caution
+
+**invalidateQueries 사용 시, 주의 사항**
+
+query key가 `["comments"]`, `["comments",1]`, `["comments",{ type: 1}]`이 있다고 가정.<br/>
+
+```jsx
+queryClient.invalidateQueries({ queryKey: ["comments"] });
+```
+
+위의 코드와 같이 실행될 경우, `["comments"]`만 invalidate가 되는 것이 아니다.<br/>
+queryKey의 값 중 `["comments"]`가 포함된 모든 query들이 다 invalidate가 되어 캐시가 무효화가 된다.<br/>
+
+:::
+
+:::info
+**invalidateQueries 추가 옵션**
+
+- exact: **정확히 일치하는 query Key**만 무효화(기본값 false)
+- refetchActive: **활성화된 query**에 대해 데이터를 자동으로 다시 가져올지 여부를 결정(기본값 true)
+- refetchInactive: **비활성된 query**에 대해서도 데이터를 다시 가져올지 여부를 결정(기본값 false)
+- predicate: 특정 조건에 부합하는 쿼리만 무효화할 수 있는 함수를 제공. boolean 값을 반환
+- type: query 대상을 설정
+  - all: 비/활성화된 query
+  - active: 활성화된 query
+  - inactive: 비활성화된 query
+
+:::
+
+</div>
+</details>
 
 ## useInfiniteQuery(무한 스크롤)
 
