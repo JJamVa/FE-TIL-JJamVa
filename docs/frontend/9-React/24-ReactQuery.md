@@ -39,7 +39,7 @@ root.render(
 ## useQuery
 
 - 데이터를 가져오는 비동기 작업(GET방식)을 관리하는 데 사용
-- `useQuery({queryKey: 쿼리 키, queryFn: 비동기 함수, 추가 옵션})`의 형태로 사용
+- `useQuery({queryKey: query 키, queryFn: 비동기 함수, 추가 옵션})`의 형태로 사용
 
 :::tip
 **useQuery의 함수 옵션**
@@ -378,7 +378,7 @@ useMutation을 이용하여 비동기 함수(post)의 결과를 보여주는 코
 ## QueryCache
 
 - Query 결과를 저장하고 관리하는 역할
-- 다양한 설정을 통해 동작을 조절하고, 쿼리의 데이터를 효과적으로 관리
+- 다양한 설정을 통해 동작을 조절하고, query 데이터를 효과적으로 관리
 
 ```js title="QueryCache 코드"
 import React from "react";
@@ -643,7 +643,7 @@ const queryClient = new QueryClient({
 
 ## PrefetchQuery
 
-- 특정 쿼리의 데이터를 **미리 가져와 캐시에 저장**하는 역할
+- 특정 query 데이터를 **미리 가져와 캐시에 저장**하는 역할
 - 사용자가 실제로 해당 데이터를 요구하기 전에 데이터를 미리 로드
 
 :::tip
@@ -778,7 +778,7 @@ useEffect(() => {
 ```
 
 useEffect를 통해 page와 queryClient의 값이 바뀔때마다 **prefetchQuery를 실행**시킨다.<br/>
-useState의 page의 값에 1을 더해 다음 페이지에 대해 미리 query 데이터를 캐싱하는 작업이다.<br/>
+useState의 page의 상태값에 1을 더해 다음 페이지에 대해 미리 query 데이터를 캐싱하는 작업이다.<br/>
 
 ![image](https://github.com/JJamVa/JJamVa/assets/80045006/c4725515-87dc-46ea-8e52-55715525f4ac)
 
@@ -801,7 +801,7 @@ prefetchQuery를 통해 사용자의 기준에서 별도의 로딩화면 없이 
 
 ## invalidateQueries
 
-- **캐시된 쿼리를 무효화**시키고, 필요에 따라 자동으로 새로운 데이터로 갱신
+- **캐시된 query를 무효화**시키고, 필요에 따라 자동으로 새로운 데이터로 갱신
 - 데이터의 일관성을 유지하고, **최신 상태를 반영**하기 위해 사용
 
 <details>
@@ -921,7 +921,7 @@ queryKey의 값 중 `["comments"]`가 포함된 모든 query들이 다 invalidat
 - exact: **정확히 일치하는 query Key**만 무효화(기본값 false)
 - refetchActive: **활성화된 query**에 대해 데이터를 자동으로 다시 가져올지 여부를 결정(기본값 true)
 - refetchInactive: **비활성된 query**에 대해서도 데이터를 다시 가져올지 여부를 결정(기본값 false)
-- predicate: 특정 조건에 부합하는 쿼리만 무효화할 수 있는 함수를 제공. boolean 값을 반환
+- predicate: 특정 조건에 부합하는 query만 무효화할 수 있는 함수를 제공. boolean 값을 반환
 - type: query 대상을 설정
   - all: 비/활성화된 query
   - active: 활성화된 query
@@ -1058,7 +1058,7 @@ const observer = useRef();
 `entries[0].isIntersecting`를 통해 viewport와 교차하는지 확인을 한다.<br/>
 교차가 확인이 될 경우, fetchNextPage함수가 실행된다.<br/>
 fetchNextPage가 실행되면 getNextPageParam도 실행되어,<br/>
-`lastPage(이전에 불러온 페이지 데이터)`와 `page(현재까지 불러온 모든 페이지의 배열)`를 인자를 연산 후,
+`lastPage(이전에 불러온 페이지 데이터)`와 `page(현재까지 불러온 모든 페이지의 배열)`를 인자를 연산 후,<br/>
 queryFn에 전달해 데이터를 불러오도록 요청한다.<br/>
 
 ```jsx
