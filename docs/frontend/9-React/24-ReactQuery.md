@@ -139,6 +139,31 @@ export default App;
 - Query 동작과정은 일치하나 개별로 관리해야할 경우 사용
 - 편리한 유지보수 및 가독성을 위해 사용
 
+:::tip
+
+query 캐시의 데이터를 확인하기 위해 react query devtools를 사용<br/>
+해당 React 프로젝트 경로 터미널에 `npm install @tanstack/react-query-devtools` 입력하여 설치<br/>
+
+```jsx
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
+
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(
+  <QueryClientProvider client={queryClient}>
+    <App />
+    <ReactQueryDevtools initialIsOpen={true} />
+  </QueryClientProvider>
+);
+```
+
+위와 같이 ReactQueryDevtools 태그를 작성해서 사용하면 된다.<br/>
+
+:::
+
 ```jsx title="비동기 함수"
 import axios from "axios";
 
@@ -209,11 +234,16 @@ const App = () => {
 export default App;
 ```
 
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/7074d190-766d-4aec-80de-589c29dae0e2)
+
 :::note
 
 위의 코드는 Query의 key값이 동적인 경우에 대한 예시 코드이다.<br/>
 page와 pageSize를 인자로 받아, 페이지에 해당하는 사용자 목록을 가져온다.<br/>
 page혹은 pageSize값이 변할 때마다, 새로운 Query가 생성이 되며 독립적으로 캐시 관리를 한다.<br/>
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/1739bc2e-7ac7-4c53-a3d6-9bda1b84f30f)
+
 즉, key값이 동적일 경우에 같은 기능의 비동기 함수를 사용하더라도 **개별의 Query를 관리** 할 수 있으며,<br/>
 필요에 따라 특정 페이지의 Query에 대한 부가적인 동작(업데이트, 패치 등)을 구현 할 수 있다.<br/>
 
@@ -645,31 +675,6 @@ const queryClient = new QueryClient({
 
 - 특정 query 데이터를 **미리 가져와 캐시에 저장**하는 역할
 - 사용자가 실제로 해당 데이터를 요구하기 전에 데이터를 미리 로드
-
-:::tip
-
-query 캐시의 데이터를 확인하기 위해 react query devtools를 사용<br/>
-해당 React 프로젝트 경로 터미널에 `npm install @tanstack/react-query-devtools` 입력하여 설치<br/>
-
-```jsx
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-const queryClient = new QueryClient();
-
-const container = document.getElementById("root");
-const root = createRoot(container);
-root.render(
-  <QueryClientProvider client={queryClient}>
-    <App />
-    <ReactQueryDevtools initialIsOpen={true} />
-  </QueryClientProvider>
-);
-```
-
-위와 같이 ReactQueryDevtools 태그를 작성해서 사용하면 된다.<br/>
-
-:::
 
 <details>
 <summary>prefetchQuery 구현</summary>
