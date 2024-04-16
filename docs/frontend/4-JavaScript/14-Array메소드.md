@@ -397,6 +397,6 @@ cafe.includes("cake"); //true
 
 ```js
 const arr = [1, 2, 4, 5, 6, 1, 2];
-arr.reserve();
+arr.reverse();
 console.log(arr); //[2,1,6,5,4,2,1]
 ```
