@@ -2,10 +2,9 @@
 
 ## React프로젝트 생성
 
-1. Node.js 설치
-2. NPM 설치
-3. Vscode 생성해야할 위치에 들어간 후, 터미널에 `npx create-react-app 이름` 입력
-4. React프로젝트를 생성 후, 터미널에 `npm start` 입력하여 실행
+1. Node.js 설치(Node.js설치 시, npm도 자동으로 설치)
+2. 프로젝트를 생성할 경로에서 터미널에 `npx create-react-app 이름` 입력
+3. React프로젝트를 생성 후, 터미널에 `npm start` 입력하여 실행
 
 :::tip
 
