@@ -48,6 +48,7 @@ export default function DynamicPage({ params }) {
 :::note
 `http://localhost:3000/{path값}`주소로 접속 시, 어느 path값이 들어와도 `Dynamic {path값} Page`을 출력한다.<br/>
 아래 이미지와 같이 폴더명을 `[폴더명]`을 사용하게 되면 Next.js에서 동적 라우팅이 가능하다.<br/>
+즉, `폴더명`이 URL이 된다.<br/>
 
 ![image](https://github.com/JJamVa/JJamVa/assets/80045006/7a3d6e94-094d-41e9-8fec-5ac586f6ba8f)
 

@@ -34,7 +34,7 @@
 - App Router의 사용여부
 
   - Yes일 경우: App Router를 이용하여 app디렉토리 안에 페이지와 라우트를 정의.<br/>즉, **라우트 관련 설정을 한곳에서 관리**<br/>
-  - No일 경우: `pages/`디렉토리 기반의 라우팅을 사용. 각 페이지와 해당 경로는 **`pages/` 디렉토리의 파일 구조를 통해 자동으로 설정**<br/>
+  - No일 경우: `app/`디렉토리 기반의 라우팅을 사용. 각 페이지와 해당 경로는 **`app/` 디렉토리의 파일 구조를 통해 자동으로 설정**<br/>
 
 ### `Would you like to customize the default import alias (@/*)?`
 
