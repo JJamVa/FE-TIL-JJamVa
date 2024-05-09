@@ -99,16 +99,50 @@ info의 page.js에도 정적 metadata 변수를 생성하였다.<br/>
 
 ### 동적 Metadata 설정
 
-- 동적 라우팅 별로 해당되는 metadata를 생성
+- 웹 페이지의 콘텐츠나 사용자의 특정 요청에 따라 메타 정보를 변경해야 할 때 사용
+- Next.js에서 제공하는 generateMetadata함수를 이용하여 metadata를 동적 생성
 
-```js
+```js title="(src/)app/page.js"
+import Link from "next/link";
 
+export default function Home() {
+  return <Link href="/10">페이지 이동</Link>;
+}
 ```
 
+```js title="(src/)app/[slug]/page.js"
+export async function generateMetadata({ params }) {
+  const id = params.slug;
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/todos/${id}`
+  );
+  const todo = await response.json();
+
+  return {
+    title: `${todo.title} - ${todo.id}`,
+  };
+}
+
+export default function DynamicPage({ params }) {
+  return <>동적 페이지: {params.slug}</>;
+}
 ```
 
-```
+:::note
 
-```
+동적 라우팅에 해당 되는 path값으로 API 데이터의 제목을 metadata로 설정하는 코드이다.<br/>
+metadata를 만들 때, `metadata변수`를 이용하여 **정적 metadata만 만들 수 있다.**<br/>
+반면 `generateMetadata함수`를 이용하면 **정적 혹은 동적인 metadata를 만들 수 있다.**<br/>
+metadata변수를 생성 시에 사용되었던 속성들을 generateMeta함수의 반환값으로 작성하면 된다.<br/>
 
-```
+## 동적 라우팅 경로: `/1`
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/04f1cff3-ba28-446b-8430-f965bf589272)
+
+## 동적 라우팅 경로: `/10`
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/05f1d4a4-702b-4de4-8c0d-50178c663217)
+
+위와 같이 라우팅 경로가 다를 때마다 metadata가 달라진 것을 확인<br/>
+
+:::
