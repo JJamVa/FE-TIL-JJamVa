@@ -46,13 +46,6 @@ Next.js의 기본적으로 파일을 생성을 하게 되면 자동적으로 Ser
 - 동적 상호작용
 - React에서 사용하는 `useState`, `useEffect`와 같은 라이프사이클 훅을 사용 가능
 
-:::caution
-
-Server Component는 Client Component를 포함이 가능<br/>
-반면, **Client Component는 Server Component가 포함이 불가능**<br/>
-
-:::
-
 ### Client Component 코드
 
 ```js title="(src/)app/page.js"
@@ -80,13 +73,13 @@ export default function Home() {
 
 위의 코드는 React의 useState를 이용하여 버튼을 클릭 시, 값을 증가하게 하는 코드<br/>
 
-Next.js에서 기본적으로 파일을 생성하게 되어 사용할 경우 Server Component가 된다.<br/>
-Server Component로 사용될 경우, 페이지 내에서 특정 이벤트가 발생하였을 때 **동적 데이터 표현이 불가능**하다.<br/>
-이유는 서버에서 **미리 렌더링 되어 HTML 형태로 Client에게 전달**하기 때문이다.<br/>
-즉, 형태는 서버에서 제공을 해주지만 interaction이 필요한 부분은 Client에서 작업을 해야된다.<br/>
+Next.js에서 기본적으로 파일을 생성하게 되어 사용할 경우 기본적으로 Server Component로 생성 된다.<br/>
+Server Component로 사용될 경우, 페이지 내에서 특정 이벤트가 발생하였을 때 **동적 상호작용(interaction)이 어렵다.**.<br/>
+이유는 서버에서 **미리 렌더링 되어 HTML 형태로 Client에게 전달**하기 때문에 값을 변경하더라도 렌더링 되기 전까지 반영이 되지 않는다.<br/>
+즉, 형태는 서버에서 제공을 해주지만 상호작용이 필요한 부분은 Client Component에서 처리를 해야된다.<br/>
 
-동적인 작업을 하기 위해서는 'use client'를 통해 Client Component로 선언을 하면된다.<br/>
-이를 통해 서버에서 재렌더링을 할 필요없이 Client에서 동적인 작업 및 이벤트를 처리하면 된다.<br/>
+Client Component를 사용하기 위해서는 'use client'를 선언하면 된다.<br/>
+이를 통해 서버에서 렌더링 없이 Client에서 상호작용 및 이벤트를 처리하면 된다.<br/>
 
 :::
 
