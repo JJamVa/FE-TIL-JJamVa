@@ -51,6 +51,18 @@ export default function InfoPage() {
 
 :::note
 
+```
+src
+├── lib
+│   └── api.js
+└── app
+     │
+     ├── page.js (Home 페이지(Client Component))
+     ├── loading.js (loading 페이지)
+     └── info
+          └── page.js (info 페이지)
+```
+
 위의 코드는 Next.js에서 클라이언트 사이드 방식으로 데이터를 패치해오는 코드이며,<br/>
 React에서 사용되는 데이터를 가져오는 방법이다.<br/>
 
@@ -98,6 +110,18 @@ export default function InfoPage() {
 ```
 
 :::note
+
+```
+src
+├── lib
+│   └── api.js
+└── app
+     │
+     ├── page.js (Home 페이지(Server Component))
+     ├── loading.js (loading 페이지)
+     └── info
+          └── page.js (info 페이지)
+```
 
 클라이언트 사이드 Data Fetch 코드에서 Next.js에서 권장하는 Server Data Fetch로 변경한 코드<br/>
 
