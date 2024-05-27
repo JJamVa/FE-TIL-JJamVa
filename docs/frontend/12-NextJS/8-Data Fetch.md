@@ -56,7 +56,6 @@ src
 ├── lib
 │   └── api.js
 └── app
-     │
      ├── page.js (Home 페이지(Client Component))
      ├── loading.js (loading 페이지)
      └── info
