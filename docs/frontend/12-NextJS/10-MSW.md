@@ -292,7 +292,7 @@ async function respondWithMock(response) {
 
 :::note
 
-위의 코드는 MSW의 서비스 워커 스크립트 코드이다.<br/>
+위의 코드는 `npx msw init ./public --save`를 입력 후, 생성된 MSW의 서비스 워커 스크립트 코드이다.<br/>
 개발 및 테스트 환경에서 네트워크 요청을 가로채고 모의 응답을 제공하기 위해 사용<br/>
 
 **이벤트 핸들러**
@@ -307,7 +307,7 @@ async function respondWithMock(response) {
 - `handleRequest`:
   - 요청을 처리, 클라이언트와 통신하여 응답을 전송.
   - 모킹된 응답을 생성하거나 원본 요청을 전달.
-  - **반환값은 `Response객체`**
+  - **반환값은 Response객체**
 - `resolveMainClient`:
   - 요청을 보낸 주요 클라이언트를 확인
   - **반환값은 클라이언트 객체 혹은 undefined**
@@ -415,7 +415,7 @@ export const MswComponent = ({ children }) => {
   useEffect(() => {
     async function InitMSW() {
       if (process.env.NODE_ENV === "development") {
-        initMockAPI();
+        await initMockAPI();
       }
     }
     InitMSW();
@@ -426,5 +426,187 @@ export const MswComponent = ({ children }) => {
 ```
 
 :::note
+
+```
+src/
+├── _component
+│   └── mswComponent.js (MswComponent)
+├── app
+│   ├── layout.js (RootLayout)
+│   └── page.js (Home 페이지)
+└── mocks
+    ├── handlers.js (핸들러 정의)
+    ├── index.js (initMockAPI)
+    ├── server.js (MSW 서버 설정)
+    └── worker.js (MSW 워커 설정)
+
+```
+
+위의 코드는 MSW 테스트 코드이다.<br/>
+핵심적인 코드는 `mocks`폴더의 코드와 `_component`의 폴더이다.<br/>
+
+<details>
+<summary>handlers.js</summary>
+<div markdown="1">
+
+```js title="(src/)mocks/handlers.js"
+import { http, HttpResponse } from "msw";
+
+export const handlers = [
+  http.get("http://www.jjamva.com", () => {
+    console.log("test MSW!");
+    return HttpResponse.json({
+      name: "jjamVa",
+      age: 87,
+      message: "MSW 성공!",
+    });
+  }),
+];
+```
+
+MSW의 핸들러를 정의하는 코드<br/>
+handlers배열을 정의하고 배열 내에 특정 API요청을 가로채고 모의 응답을 반환한다.<br/>
+
+`http`객체는 HTTP 요청을 정의하기 위해 사용<br/>
+http 객체의 메소드(get,post,put,delete)를 이용하여 모의 핸들러를 설정하는데 사용<br/>
+
+`HttpResponse`객체는 모의 HTTP 응답을 생성하는데 사용<br/>
+HTTP 응답 상태, 헤더, 본문을 정의하여 모의 핸들러 반환값으로 사용이 가능<br/>
+
+</div>
+</details>
+
+<details>
+<summary>server.js와 worker.js</summary>
+<div markdown="1">
+
+```js title="(src/)mocks/server.js"
+import { setupServer } from "msw/node";
+import { handlers } from "./handlers";
+
+export const server = setupServer(...handlers);
+```
+
+Node.js 환경에서 MSW 서버를 설정하는 코드<br/>
+주로 **서버사이드 렌더링** 혹은 **테스트 환경**에서 사용<br/>
+`setupServer`함수를 통해 MSW서버를 설정<br/>
+
+```js title="(src/)mocks/worker.js"
+import { setupWorker } from "msw/browser";
+import { handlers } from "./handlers";
+
+export const worker = setupWorker(...handlers);
+```
+
+브라우저 환경에서 MSW 워커를 설정하는 코드<br/>
+주로 **클라이언트 사이드** 개발에서 사용<br/>
+`setupWorker`함수로 MSW워커를 설정<br/>
+
+server.js와 worker.js는 MSW를 사용하기 위해 handlers.js에 정의해놓은 모의 핸들러들을 적용한다.<br/>
+이후 각 환경(클라이언트 사이드, 서버 사이드)를 확인하여 MSW를 동작시키기 위해 준비를 하는 단계이다.<br/>
+
+</div>
+</details>
+
+<details>
+<summary>index.js</summary>
+<div markdown="1">
+
+```js
+const initMockAPI = async () => {
+  if (typeof window === "undefined") {
+    const { server } = await import("@/mocks/server");
+    server.listen();
+  } else {
+    const { worker } = await import("@/mocks/worker");
+    worker.start();
+  }
+};
+
+export default initMockAPI;
+```
+
+위의 코드는 MSW를 초기화 역할을 하는 함수이다.<br/>
+if문을 보면 window의 존재 여부에 따라 server 혹은 worker를 실행시킨다.<br/>
+즉, window가 **존재하지 않을 경우 서버 사이드(Node.js환경)**, **존재할 경우 클라이언트 사이드(브라우저 환경)**이다.<br/>
+**서버 사이드일 경우**엔 server.js를 호출하여 **MSW서버를 실행**, **클라이언트 사이드**일 경우 worker.js를 **MSW워커를 실행**한다.<br/>
+
+</div>
+</details>
+
+<details>
+<summary>MSW사용 영역 설정(mswComponent.js) 및 사용</summary>
+<div markdown="1">
+
+```js title="(src/)_component/mswComponent.js"
+"use client";
+
+import initMockAPI from "@/mocks";
+import { useEffect } from "react";
+
+export const MswComponent = ({ children }) => {
+  useEffect(() => {
+    async function InitMSW() {
+      if (process.env.NODE_ENV === "development") {
+        await initMockAPI();
+      }
+    }
+    InitMSW();
+  }, []);
+
+  return <>{children}</>;
+};
+```
+
+위의 코드는 MSW를 사용하기 위해 영역을 설정할 Component를 정의하는 코드<br/>
+useEffect를 통해 Mount가 될 때마다 MSW를 초기화한다.<br/>
+if문에 `process.env.NODE_ENV === "development"`는 개발 환경인지 여부를 확인하는 것이다.<br/>
+개발 환경이 확인되었다면, mocks폴더에서 정의한 index.js를 실행시켜 MSW를 초기화 한다.<br/>
+
+```js title="(src/)app/layout.js"
+import "./globals.css";
+import { MswComponent } from "@/_component/mswComponent";
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body style={{ width: "100vw", height: "100vh" }}>
+        <MswComponent />
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+MSW를 사용할 영역 경로의 layout.js에 mswComponent를 넣으면 된다.<br/>
+모든 영역에 사용할 경우, app경로의 layout.js에 넣으면 된다.<br/>
+
+```js title="(src/)app/page.js"
+"use client";
+
+export default function Home() {
+  const submit = async () => {
+    const data = await fetch("http://www.jjamva.com", {
+      method: "get",
+    }).then((res) => {
+      return res.json();
+    });
+
+    console.log(data);
+  };
+
+  return <button onClick={submit}>MSW 테스트</button>;
+}
+```
+
+MSW영역 설정까지 완료하였다면, fetch를 통해 API 데이터를 가져오는 것처럼 사용하면 된다.<br/>
+
+![image](https://github.com/JJamVa/JJamVa/assets/80045006/4efdfed7-1e72-425c-8dca-73567c39986a)
+
+`MSW 테스트`버튼을 눌렀을 경우, 위의 이미지와 같이 MSW가 잘 적용된 것을 확인할 수 있다.<br/>
+
+</div>
+</details>
 
 :::
