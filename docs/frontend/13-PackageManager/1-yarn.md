@@ -14,7 +14,7 @@
 
 ## yarn 설치법
 
-1. Node.js설치
+1. Node.js설치 및 React 프로젝트를 설치
 2. `npm install -g yarn`로 yarn을 전역으로 설치
 3. yarn이 설치되었는지 확인하기 위해 `yarn --version`으로 버전 확인
 
