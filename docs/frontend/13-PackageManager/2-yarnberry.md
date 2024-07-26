@@ -19,4 +19,27 @@
   - 개발자 경험을 위해 많은 CLI명령어 개선
   - 작업 공간 관리와 관련된 명령어가 강화
 
+:::info
+
+**yarn과 yarn berry 차이**
+
+- 구성 파일 변경
+  - `.yarnrc`에서 `.yarnrc.yml`로 변경(YAML 형식을 이용하여 가독성 및 편의성 개편)
+- node_modules제거
+  - PnP방식을 사용하기 때문에 `node_modules`폴더를 생성하지 않는다
+  - yarn 자체적인 방식으로 의존성을 관리 및 더 빠른 설치 속도 제공
+- 프로젝트 별 yarn 버전 관리
+  - 각 프로젝트마다 다른 yarn 버전을 사용
+- 워크스페이스 강화
+  - 여러 패키지를 하나의 레포지토리에서 관리 가능
+  - 패키지 간 의존성을 쉽게 설정
+
+:::
+
 ## yarn berry 설치 방법
+
+1. Node.js설치 및 React 프로젝트를 설치
+2. `npm install -g yarn`을 터미널에 입력하여 yarn 클래식을 설치
+3. `yarn set version berry`을 터미널에 입력하여 yarn에서 yarn berry로 버전을 업데이트
+4. 설치가 되었다면 `yarn --version`을 통해 yarn 버전이 2.x이상인지 확인
+5. `yarn install`을 통해 yarn 패키지들을 설치
