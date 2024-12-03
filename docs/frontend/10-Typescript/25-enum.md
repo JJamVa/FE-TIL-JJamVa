@@ -153,6 +153,15 @@ console.log(Info.favorite); // game
 - enum의 한 종류
 - const enum과 enum의 컴파일 결과가 다름
 - 프로젝트 최적화를 사용하는 목적
+- **Tree Shaking**을 지원하기 위한 최적화 방법 중 하나
+
+:::tip
+
+**Tree Shaking**이란?
+
+사용되지 않는 코드를 제거하여 번들 크기를 줄이는 최적화 기법<br/>
+
+:::
 
 ```js title="const enum 예시 코드"
 // ts코드
