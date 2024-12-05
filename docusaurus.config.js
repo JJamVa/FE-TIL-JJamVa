@@ -1,42 +1,47 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require("prism-react-renderer/themes/github");
+const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: `JJamVa's TIL`,
-  tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
-  url: 'https://jjamva.github.io',
-  baseUrl: '/FE-TIL-JJamVa/',
-  organizationName: 'jjamva',
-  projectName: 'FE-TIL-JJamVa',
-  deploymentBranch: 'gh-pages',
+  tagline: "Dinosaurs are cool",
+  favicon: "img/favicon.ico",
+  url: "https://jjamva.github.io",
+  baseUrl: "/FE-TIL-JJamVa/",
+  organizationName: "jjamva",
+  projectName: "FE-TIL-JJamVa",
+  deploymentBranch: "gh-pages",
   trailingSlash: false,
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
+  markdown: {
+    format: "detect",
+  },
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: "en",
+    locales: ["en"],
   },
   presets: [
     [
-      'classic',
+      "classic",
       {
         docs: {
-          path: 'docs',
-          routeBasePath: 'docs',
-          sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          path: "docs",
+          routeBasePath: "docs",
+          sidebarPath: require.resolve("./sidebars.js"),
+          editUrl:
+            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         },
         blog: {
           showReadingTime: true,
-          editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl:
+            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve("./src/css/custom.css"),
         },
       },
     ],
@@ -45,19 +50,19 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: '/img/Among_us.jpg',
+      image: "/img/Among_us.jpg",
       navbar: {
         title: `JJamVa FE TIL`,
         logo: {
-          alt: 'My Site Logo',
-          src: 'https://mblogthumb-phinf.pstatic.net/MjAyMDA5MTdfMTY4/MDAxNjAwMzE4MTUzMTg0.DqpZ3y6RlY2NSt4590JQO_AYm0gnqOZE04oFCxGIpBsg.8UF4uC-4jN-8HjTyTmsPAlpc0gDJHrnUmDsgAOCNnX4g.GIF.jangma2017/%EC%96%B4%EB%AA%BD%EC%96%B4%EC%8A%A4-gif-%EA%B1%B7%EA%B8%B0%EB%AA%A8%EC%85%982.gif?type=w800',
+          alt: "My Site Logo",
+          src: "https://mblogthumb-phinf.pstatic.net/MjAyMDA5MTdfMTY4/MDAxNjAwMzE4MTUzMTg0.DqpZ3y6RlY2NSt4590JQO_AYm0gnqOZE04oFCxGIpBsg.8UF4uC-4jN-8HjTyTmsPAlpc0gDJHrnUmDsgAOCNnX4g.GIF.jangma2017/%EC%96%B4%EB%AA%BD%EC%96%B4%EC%8A%A4-gif-%EA%B1%B7%EA%B8%B0%EB%AA%A8%EC%85%982.gif?type=w800",
         },
         items: [
           {
-            type: 'doc',
-            docId: 'frontend/intro',
-            position: 'left',
-            label: 'FE Content List',
+            type: "doc",
+            docId: "frontend/intro",
+            position: "left",
+            label: "FE Content List",
           },
           // {
           //   type: 'doc',
@@ -78,14 +83,14 @@ const config = {
           //       label: 'CS',
           //     },
           {
-            href: 'https://github.com/JJamVa',
-            label: 'GitHub',
-            position: 'right',
+            href: "https://github.com/JJamVa",
+            label: "GitHub",
+            position: "right",
           },
         ],
       },
       footer: {
-        style: 'dark',
+        style: "dark",
         links: [
           // {
           //   title: 'Docs',
@@ -101,7 +106,7 @@ const config = {
       },
       prism: {
         darkTheme: darkCodeTheme,
-        theme: lightCodeTheme
+        theme: lightCodeTheme,
       },
     }),
 };
