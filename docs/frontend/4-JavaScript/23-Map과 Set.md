@@ -9,6 +9,7 @@ let map = new Map(); //Map 생성
 ```
 
 :::info
+
 ### Map과 Object의 차이점
 
 1. Object의 key는 **문자열 타입**으로만 지정, Map의 key는 **객체, 배열, 문자열 혹은 유효한 식별자(Number, Boolean 등)** 가능
@@ -156,7 +157,7 @@ console.log(map.entries()); // {true => false, false => true, {"1",2} => '1,2'}
 - 객체 안의 값은 중복을 허용하지 않는다.
 
 ```js
-let set = new Set();//Set 생성
+let set = new Set(); //Set 생성
 ```
 
 ## Set 메소드

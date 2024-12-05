@@ -524,15 +524,15 @@ class UserStorage {
       let response_data = await fetch("users.json");
       if (!response_data.ok)
         throw new Error("HTTP Status Error :", response.status);
-      let data = await response_data.json();//Promise 객체를 Json타입으로 변환
+      let data = await response_data.json(); //Promise 객체를 Json타입으로 변환
       const result = await data.user.find(
         (item) => item.userName === userName && item.password === password
       );
-      if (!result) throw new Error("유저가 존재하지 않습니다.");//undefined가 나올경우 예외처리
+      if (!result) throw new Error("유저가 존재하지 않습니다."); //undefined가 나올경우 예외처리
       return result.userName;
     } catch (error) {
       console.error("User Not Found " + error);
-      throw error;// 에러를 출력 후, 예외처리
+      throw error; // 에러를 출력 후, 예외처리
     }
   }
 
@@ -541,15 +541,15 @@ class UserStorage {
       let response_data = await fetch("greetings.json");
       if (!response_data.ok)
         throw new Error("HTTP Status ERROR :", response_data.status);
-      let data = await response_data.json();//Promise 객체를 Json타입으로 변환
+      let data = await response_data.json(); //Promise 객체를 Json타입으로 변환
       const result = await data.greetings.find(
         (item) => item.userName === user
       );
-      if (!result) throw new Error("유저의 인사말이 없습니다.");//undefined가 나올경우 예외처리
+      if (!result) throw new Error("유저의 인사말이 없습니다."); //undefined가 나올경우 예외처리
       return result.greetings;
     } catch (error) {
       console.error("User's Greeting Not Found ", error);
-      throw error;// 에러를 출력 후, 예외처리
+      throw error; // 에러를 출력 후, 예외처리
     }
   }
 }
@@ -566,7 +566,7 @@ async function userGreeting() {
     alert(`${user}님 ${greetings}`);
   } catch (error) {
     console.error("Error", error);
-    throw error;// 에러를 출력 후, 예외처리
+    throw error; // 에러를 출력 후, 예외처리
   }
 }
 userGreeting();

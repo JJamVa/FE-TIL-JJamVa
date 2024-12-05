@@ -100,6 +100,7 @@ console.log(typeof json); //string
 ```
 
 :::tip
+
 ### **JSON을 이용하여 깊은 복사**
 
 ```js

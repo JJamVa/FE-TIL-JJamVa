@@ -9,6 +9,7 @@ function sum(x, y) {
 ```
 
 ## 함수 표현식
+
 ```js
 let sum = function (x, y) {
   return x + y;

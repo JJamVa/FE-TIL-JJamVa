@@ -14,6 +14,7 @@ console.log(10 ** 2); //100 제곱을 의미한다.
 ```
 
 :::tip
+
 부동소수점 연산
 
 ```js
@@ -62,13 +63,14 @@ console.log(a); //3
 |  형태   |                특징                |
 | :-----: | :--------------------------------: |
 |  > , <  | 두수의 크기를 비교한다.(초과,미만) |
-| >= , =< | 두수의 크기를 비교한다.(이상,이하) |
+| <= , >= | 두수의 크기를 비교한다.(이상,이하) |
 |   ==    |       값이 같은지 비교한다.        |
 |   ===   |       값이 같은지 비교한다.        |
 |   !=    |       값이 다른지 비교한다.        |
 |   !==   |       값이 다른지 비교한다.        |
 
 :::caution
+
 `==` 과 `===`의 차이점은 뭘까?
 
 ```js
@@ -87,22 +89,33 @@ console.log(1 === 1); //true
 :::
 
 ## 숫자를 표현하는 기법(`Infinity` & `NaN`)
+
 - `Infinity`: 무한대를 의미.
 - `NaN`: Not a Number의 줄임말이다.
 
 ```js
-console.log(1/0)// Infinity가 출력된다. 결과가 나올수 없는 값
-console.log(2e10)// 20000000000
-console.log(9999e10000 === Infinity)// true
-console.log("aa"*2)//NaN
+console.log(1 / 0); // Infinity가 출력된다. 결과가 나올수 없는 값
+console.log(2e10); // 20000000000
+console.log(9999e10000 === Infinity); // true
+console.log("aa" * 2); //NaN
 ```
 
 :::danger
+
+**NaN은 자신과 같지 않다?**
+
+NaN을 서로 비교하면 어떤 값이 나올까?
+
 ```js
-console.log(NaN === NaN)
-// 이것은 어떤 결과가 나올까?
+console.log(NaN === NaN);
 ```
+
 정답은 `false`이다.<br/>
-여러가지를 찾아보았지만, 대부분의 **JS설계 오류**라는 이유가 많다.
+이 동작은 JavaScript의 설계 문제가 아니라, **IEEE 754 부동소수점 표준**에 따른 것이다.<br/>
+만약 `NaN`을 비교하기 위해서는 `Number.isNaN()`을 사용하면 된다.<br/>
+
+```js
+console.log(Number.isNaN(NaN)); // true
+```
 
 :::

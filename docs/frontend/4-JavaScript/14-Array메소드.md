@@ -145,8 +145,6 @@ console.log(cafe);
 - 배열 내 요소를 오름차순으로 정렬(default)하는데 이 과정에서 **요소를 문자열로 취급해 재정렬**.
 - 배열이 반환되지만 복사본이 만들어지는 것이 아니라 배열 자체가 변경.
 
-
-
 ```js
 let data = [1, 11, 2, 111, 22];
 data.sort((a, b) => a - b); //오름차순 [1,2,11,22,111]
@@ -202,8 +200,7 @@ a.sort((a, b) => a - b);
 // ["c", "bbb", "aaaaa", "abc", "bca"]
 ```
 
-
-문자열로 구성된 배열에서 `sort((a,b) => a - b)기능이 동작되지 않는다.<br/>
+문자열로 구성된 배열에서 `sort((a,b) => a - b)`기능이 동작되지 않는다.<br/>
 왜 동작이 되지 않을까?<br/>
 
 이유는 숫자의 연산과 같은 경우 반환값이 `음수`, `양수`, `0`으로 사용.<br/>
@@ -226,7 +223,7 @@ a.sort((a, b) => {
     //false의 값은 0을 의미
   }
 });
-console.log(a)
+console.log(a);
 // ['aaaaa', 'abc', 'bbb', 'bca', 'c']
 ```
 
@@ -237,16 +234,17 @@ console.log(a)
 
 :::tip
 `localeCompare()` 메소드 사용
+
 - 문자열을 비교하여 순서를 정할 때 사용하는 메소드
 
 ```js
 var a = ["c", "bbb", "aaaaa", "abc", "bca"];
 a.sort((a, b) => a.localeCompare(b));
-console.log(a)
+console.log(a);
 // ['aaaaa', 'abc', 'bbb', 'bca', 'c']
 
 a.sort((a, b) => b.localeCompare(a));
-console.log(a)
+console.log(a);
 // ['c', 'bca', 'bbb', 'abc', 'aaaaa']
 ```
 
