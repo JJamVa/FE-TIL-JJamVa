@@ -5,7 +5,6 @@
  */
 
 /* You can override the default Infima variables here. */
-@import "patches.css";
 
 :root {
   --ifm-color-primary: #8389e0;
@@ -160,12 +159,6 @@ table {
   padding-top: 1rem !important;
 }
 
-.dropdown > .navbar__link:after,
-.menu__link--sublist:after {
-  content: "expand_more";
-  font-family: "Material Icons";
-  font-size: 1.25rem;
-}
 
 .markdown {
   margin: 2rem 3rem;
