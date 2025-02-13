@@ -65,26 +65,14 @@ const config = {
             type: "doc",
             docId: "frontend/intro",
             position: "left",
-            label: "FE Content List",
+            label: "Front-End",
           },
           // {
-          //   type: 'doc',
-          //   docId: 'frontend/intro',
-          //   position: 'left',
-          //   label: 'CS',
+          //   type: "doc",
+          //   docId: "backend/intro",
+          //   position: "left",
+          //   label: "Back-End",
           // },
-          //  {
-          //       type: 'doc',
-          //       docId: 'frontend/introduction', // 'frontend/intro'를 'frontend/introduction'으로 변경하세요.
-          //       position: 'left',
-          //       label: 'Frontend',
-          //     },
-          //     {
-          //       type: 'doc',
-          //       docId: 'cs/introduction', // 'frontend/intro'를 'cs/introduction'으로 변경하세요.
-          //       position: 'left',
-          //       label: 'CS',
-          //     },
           {
             href: "https://github.com/JJamVa",
             label: "GitHub",
