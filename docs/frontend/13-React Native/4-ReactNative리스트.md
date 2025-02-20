@@ -1,0 +1,220 @@
+# React Native 리스트 & 스크롤
+
+## ScrollView
+
+- `ScrollView`는 화면보다 콘텐츠가 클 경우 스크롤이 가능하도록 해주는 컨테이너
+- View와 비슷하지만, 내부 콘텐츠가 화면을 넘어갈 경우 자동으로 스크롤을 지원
+- 세로 및 가로 스크롤 모두 가능
+- `FlatList`와 달리 모든 자식 요소를 한 번에 렌더링하기 때문에, 많은 데이터가 있을 경우 성능 문제가 발생할 수 있음
+
+```tsx title="App.tsx"
+import { ScrollView, Text, SafeAreaView } from "react-native";
+
+export default function App() {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{ padding: 20 }}>
+        {Array.from({ length: 30 }).map((_, index) => (
+          <Text key={index} style={{ fontSize: 18, marginVertical: 10 }}>
+            {index + 1}번째: Item
+          </Text>
+        ))}
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/82b90785-f1db-4216-a070-ce870b9684e2)
+
+:::note
+
+ScrollView를 이용하여 위아래 스크롤에 대한 View를 만들었다.<br/>
+만약 좌우 스크롤을 원하는 경우, ScrollView의 속성 중 <br/>
+`horizontal`과 `contentContainerStyle`속성에 `flexDirection: "row"`를 적용하면 된다.<br/>
+
+```tsx title="스크롤 좌우 버전"
+import { ScrollView, Text, SafeAreaView } from "react-native";
+
+export default function App() {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView
+        horizontal
+        contentContainerStyle={{ flexDirection: "row", padding: 20 }}
+      >
+        {Array.from({ length: 30 }).map((_, index) => (
+          <Text key={index} style={{ fontSize: 18, marginVertical: 10 }}>
+            {index + 1}번째: Item
+          </Text>
+        ))}
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/327e6b7d-e5c6-429f-9075-3aac7a0acb67)
+
+:::
+
+### ScrollView 속성 정리
+
+|              속성명              |             타입             | 기본값  |                     설명                      |
+| :------------------------------: | :--------------------------: | :-----: | :-------------------------------------------: |
+|           `horizontal`           |          `boolean`           | `false` |       `true`일 경우 가로 스크롤 활성화        |
+|     `contentContainerStyle`      |           `object`           |         |            내부 콘텐츠 스타일 지정            |
+|         `scrollEnabled`          |          `boolean`           | `true`  |               스크롤 가능 여부                |
+|   `keyboardShouldPersistTaps`    | `never \| always \| handled` | `never` |  키보드가 열린 상태에서 탭 이벤트 처리 방식   |
+|  `showsVerticalScrollIndicator`  |          `boolean`           | `true`  |            세로 스크롤바 표시 여부            |
+| `showsHorizontalScrollIndicator` |          `boolean`           | `true`  |            가로 스크롤바 표시 여부            |
+|            `bounces`             |          `boolean`           | `true`  | iOS에서 스크롤 끝에서 튕기는 효과 활성화 여부 |
+|         `overScrollMode`         |  `auto \| always \| never`   | `auto`  |       Android에서 오버스크롤 효과 설정        |
+|         `pagingEnabled`          |          `boolean`           | `false` |          스크롤을 페이지 단위로 이동          |
+|      `nestedScrollEnabled`       |          `boolean`           | `false` |    안드로이드에서 중첩된 스크롤 허용 여부     |
+|            `onScroll`            |      `(event) => void`       |         |              스크롤 이벤트 감지               |
+|      `onMomentumScrollEnd`       |      `(event) => void`       |         |        스크롤 애니메이션 종료 시 호출         |
+|       `onScrollBeginDrag`        |      `(event) => void`       |         |       사용자가 스크롤을 시작할 때 호출        |
+|        `onScrollEndDrag`         |      `(event) => void`       |         |        사용자가 스크롤을 멈출 때 호출         |
+
+## FlatList
+
+- FlatList는 긴 목록의 데이터를 효율적으로 렌더링하는 React Native 컴포넌트
+- ScrollView와 다르게 필요한 아이템만 렌더링하여 성능 최적화
+- 내부적으로 **가상화 리스트(Virtualized List)** 를 사용하여 불필요한 렌더링을 방지
+
+```tsx title="App.tsx"
+import React from "react";
+import { FlatList, Text, View, SafeAreaView } from "react-native";
+
+export default function App() {
+  const DATA = Array.from({ length: 20 }).map((_, index) => ({
+    id: index.toString(),
+    title: `Item ${index + 1}`,
+  }));
+
+  return (
+    <SafeAreaView style={{ flex: 1, padding: 20 }}>
+      <FlatList
+        data={DATA}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View
+            style={{ padding: 15, borderBottomWidth: 1, borderColor: "#ddd" }}
+          >
+            <Text style={{ fontSize: 18 }}>{item.title}</Text>
+          </View>
+        )}
+        ListHeaderComponent={<Text>목록 시작!</Text>}
+        ListFooterComponent={<Text>목록 끝!</Text>}
+      />
+    </SafeAreaView>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/b1ffd7ad-799d-4425-b3e5-1687f4c815ba)
+
+:::note
+
+FlatList에 `data`에 표현할 배열값을 넣은 후,<br/>
+`keyExtractor`을 이용하여 해당 배열의 고유하게 식별할 수 있도록 id값 혹은 문자를 반환한다.<br/>
+`renderItem`을 이용하여 해당 배열의 값으로 렌더링할 컴포넌트를 작성한다.<br/>
+`ListHeaderComponent`, `ListFooterComponent`를 이용하여 FlatList의 가장 위와 아래에 표현할 컴포넌트를 넣을 수 있다.<br/>
+
+:::
+
+### FlatList 속성 정리
+
+|         속성명          |                     타입                     |               기본값                |                    설명                    |
+| :---------------------: | :------------------------------------------: | :---------------------------------: | :----------------------------------------: |
+|         `data`          |                 `Array<any>`                 |                `[]`                 |            렌더링할 데이터 배열            |
+|      `renderItem`       |      `({ item, index }) => JSX.Element`      |                                     |       개별 아이템을 렌더링하는 함수        |
+|     `keyExtractor`      |          `(item, index) => string`           | `(item, index) => index.toString()` |          각 아이템의 고유 키 설정          |
+|      `numColumns`       |                   `number`                   |                 `1`                 |      여러 개의 열로 표시할 경우 사용       |
+|      `horizontal`       |                  `boolean`                   |               `false`               |              가로 스크롤 여부              |
+| `contentContainerStyle` |                   `object`                   |                                     |              내부 스타일 지정              |
+|  `ListHeaderComponent`  |                `JSX.Element`                 |                                     |       리스트 상단에 추가할 컴포넌트        |
+|  `ListFooterComponent`  |                `JSX.Element`                 |                                     |       리스트 하단에 추가할 컴포넌트        |
+|  `ListEmptyComponent`   |                `JSX.Element`                 |                                     |     데이터가 없을 경우 표시할 컴포넌트     |
+|     `getItemLayout`     | `(data, index) => { length, offset, index }` |                                     |      아이템의 높이가 일정할 때 최적화      |
+|     `onEndReached`      |                 `() => void`                 |                                     | 리스트 끝에 도달했을 때 호출 (무한 스크롤) |
+| `onEndReachedThreshold` |                   `number`                   |                `0.1`                |   리스트 끝에서 이벤트 호출 트리거 (0~1)   |
+|      `refreshing`       |                  `boolean`                   |               `false`               |             새로고침 상태 여부             |
+|       `onRefresh`       |                 `() => void`                 |                                     |         당겨서 새로고침 기능 실행          |
+
+## SectionList
+
+- SectionList는 섹션이 있는 목록을 렌더링하는 React Native 컴포넌트
+- FlatList와 비슷하지만, 데이터가 섹션별로 그룹화되어 있음
+- data 대신 sections 속성을 사용하며, 각 섹션에는 title(헤더)과 data(목록) 필드가 필요함
+
+```tsx title="App.tsx"
+import { SectionList, Text, View, SafeAreaView } from "react-native";
+
+export default function App() {
+  const SECTIONS = [
+    {
+      title: "과일",
+      data: ["사과", "바나나", "오렌지"],
+    },
+    {
+      title: "야채",
+      data: ["당근", "브로콜리", "시금치"],
+    },
+  ];
+
+  return (
+    <SafeAreaView style={{ flex: 1, padding: 20 }}>
+      <SectionList
+        sections={SECTIONS}
+        keyExtractor={(item, index) => item + index}
+        renderItem={({ item }) => (
+          <View
+            style={{ padding: 10, borderBottomWidth: 1, borderColor: "#ddd" }}
+          >
+            <Text style={{ fontSize: 18 }}>{item}</Text>
+          </View>
+        )}
+        renderSectionHeader={({ section: { title } }) => (
+          <View style={{ backgroundColor: "#f0f0f0", padding: 10 }}>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>{title}</Text>
+          </View>
+        )}
+      />
+    </SafeAreaView>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/4e12ff37-fdd4-4a9d-af43-3a28a2b1dca0)
+
+:::note
+
+SectionList에는 data란 속성 대신 `sections`라는 속성을 사용<br/>
+`sections`속성에는 목록에 사용할 header의 값과 내부 item값을 표현하여 값을 넣는다.<br/>
+`keyExtractor`과 `renderItem`은 FlatList와 같이 사용하면 된다.<br/>
+
+반면, SectionList에는 각 목록마다 하위 아이템들을 표현해야된다.<br/>
+각 Section마다 표현해야할 아이템의 header 부분을 `renderSectionHeader`라는 속성을 통해,<br/>
+header를 표현할 컴포넌트를 렌더링 한다.<br/>
+
+:::
+
+### SectionList 속성 정리
+
+|            속성명             |                  타입                   |               기본값                |                    설명                    |
+| :---------------------------: | :-------------------------------------: | :---------------------------------: | :----------------------------------------: |
+|          `sections`           | `Array<{ title: string; data: any[] }>` |                `[]`                 |         목록을 그룹화할 섹션 배열          |
+|         `renderItem`          |   `({ item, index }) => JSX.Element`    |                                     |     각 섹션의 아이템을 렌더링하는 함수     |
+|     `renderSectionHeader`     |     `({ section }) => JSX.Element`      |                                     |      각 섹션의 헤더를 렌더링하는 함수      |
+|     `renderSectionFooter`     |     `({ section }) => JSX.Element`      |                                     |      각 섹션의 푸터를 렌더링하는 함수      |
+|        `keyExtractor`         |        `(item, index) => string`        | `(item, index) => index.toString()` |          각 아이템의 고유 키 설정          |
+| `stickySectionHeadersEnabled` |                `boolean`                |               `true`                |         섹션 헤더를 고정할지 여부          |
+|   `ItemSeparatorComponent`    |              `JSX.Element`              |                                     |       아이템 사이의 구분선 컴포넌트        |
+|     `ListHeaderComponent`     |              `JSX.Element`              |                                     |          전체 리스트의 헤더 추가           |
+|     `ListFooterComponent`     |              `JSX.Element`              |                                     |          전체 리스트의 푸터 추가           |
+|        `onEndReached`         |              `() => void`               |                                     | 리스트 끝에 도달했을 때 호출 (무한 스크롤) |
+|    `onEndReachedThreshold`    |                `number`                 |                `0.1`                |   리스트 끝에서 이벤트 호출 트리거 (0~1)   |
+|         `refreshing`          |                `boolean`                |               `false`               |             새로고침 상태 여부             |
+|          `onRefresh`          |              `() => void`               |                                     |         당겨서 새로고침 기능 실행          |

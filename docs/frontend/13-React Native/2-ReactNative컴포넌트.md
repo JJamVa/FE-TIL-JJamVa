@@ -57,6 +57,21 @@ React Native에서 Text안 글들을 띄워쓰기 위해서는 `{"\n"}`을 사�
 
 :::
 
+### Text 속성 정리
+
+|         속성명         |                 타입                  |  기본값  |                        설명                        |
+| :--------------------: | :-----------------------------------: | :------: | :------------------------------------------------: |
+|        `style`         |               `object`                |          |                텍스트의 스타일 지정                |
+|    `numberOfLines`     |               `number`                |          |         최대 줄 수 제한 (초과 시 말줄임표)         |
+|    `ellipsizeMode`     | `"head"` `"middle"` `"tail"` `"clip"` | `"tail"` |                 말줄임표 위치 설정                 |
+|   `allowFontScaling`   |               `boolean`               |  `true`  |         사용자의 글꼴 크기 조절 허용 여부          |
+|      `selectable`      |               `boolean`               | `false`  |               텍스트 선택 가능 여부                |
+|       `onPress`        |             `() => void`              |          |             텍스트 클릭 시 실행할 함수             |
+|     `onLongPress`      |             `() => void`              |          |          텍스트 길게 누를 때 실행할 함수           |
+| `adjustsFontSizeToFit` |               `boolean`               | `false`  |            텍스트 크기를 자동으로 조정             |
+|   `minimumFontScale`   |               `number`                |          | `adjustsFontSizeToFit` 사용 시 최소 글꼴 크기 설정 |
+| `suppressHighlighting` |               `boolean`               | `false`  |           IOS에서 터치 시 강조 표시 방지           |
+
 ## SafeAreaView
 
 - iOS 및 Android에서 UI가 시스템 UI 요소와 겹치지 않도록 보호하는 컨테이너 컴포넌트
@@ -194,11 +209,39 @@ TextInput의 값을 바꾸기 위해서는 `useState`, TextInput의 `onChnageTex
 
 :::
 
+### TextInput 속성 정리
+
+|         속성명         |                          타입                           |   기본값    |                        설명                        |
+| :--------------------: | :-----------------------------------------------------: | :---------: | :------------------------------------------------: |
+|        `value`         |                        `string`                         |    `""`     |               현재 입력된 텍스트 값                |
+|     `placeholder`      |                        `string`                         |    `""`     |             입력 전 표시할 힌트 텍스트             |
+| `placeholderTextColor` |                        `string`                         |   `gray`    |             `placeholder` 텍스트 색상              |
+|     `onChangeText`     |                `(text: string) => void`                 |             |         입력 값이 변경될 때 호출되는 함수          |
+|   `secureTextEntry`    |                        `boolean`                        |   `false`   |        비밀번호 입력 시 `true` 설정 ex) ●●●        |
+|     `keyboardType`     | `"default"` `"numeric"` `"email-address"` `"phone-pad"` | `"default"` |                  키보드 타입 설정                  |
+|    `returnKeyType`     |      `"done"` `"go"` `"next"` `"search"` `"send"`       |  `"done"`   |                엔터 키의 동작 지정                 |
+|      `maxLength`       |                        `number`                         | `undefined` |          입력할 수 있는 최대 문자 수 제한          |
+|      `multiline`       |                        `boolean`                        |   `false`   |               여러 줄 입력 가능 여부               |
+|    `numberOfLines`     |                        `number`                         |     `1`     |        `multiline={true}`일 때 표시할 줄 수        |
+|       `editable`       |                        `boolean`                        |   `true`    |            `false`일 경우 입력 비활성화            |
+|      `autoFocus`       |                        `boolean`                        |   `false`   |        화면이 열릴 때 자동으로 포커스 설정         |
+|     `autoCorrect`      |                        `boolean`                        |   `true`    |             자동 수정 기능 활성화 여부             |
+|  `selectTextOnFocus`   |                        `boolean`                        |   `false`   |      포커스를 얻었을 때 기존 텍스트 자동 선택      |
+|   `clearTextOnFocus`   |                        `boolean`                        |   `false`   |    포커스를 얻으면 기존 텍스트 자동 삭제 (IOS)     |
+|    `selectionColor`    |                        `string`                         |   `blue`    |                선택된 텍스트의 색상                |
+|     `caretHidden`      |                        `boolean`                        |   `false`   |                 커서를 숨길지 여부                 |
+|      `textAlign`       |        `"auto" \| "left" \| "right" \| "center"`        |  `"auto"`   |                  텍스트 정렬 방향                  |
+|   `onSubmitEditing`    |                      `() => void`                       |             | 키보드에서 엔터(완료) 버튼을 눌렀을 때 실행할 함수 |
+|     `blurOnSubmit`     |                        `boolean`                        |   `true`    |      엔터 입력 시 키보드가 자동으로 닫힘 여부      |
+|       `onFocus`        |                      `() => void`                       |             |     `TextInput`이 포커스를 받을 때 실행할 함수     |
+|        `onBlur`        |                      `() => void`                       |             |    `TextInput`이 포커스를 잃었을 때 실행할 함수    |
+
 ## Image
 
 - 이미지를 표시하는 컴포넌트
 - uri를 이용한 네트워크 이미지 로드 및 로컬 이미지 지원
 - `resizeMode`를 사용하여 이미지 크기 조절 가능
+- **네트워크(API통신을 통한 이미지 호출) 및 로컬 이미지** 지원
 
 ```tsx title="App.tsx"
 import { Image, View } from "react-native";
@@ -280,8 +323,7 @@ React Native의 TypeScript버전은 이미지 확장자가 존재하지 않기 �
 
 - 이미지를 배경으로 설정할 때 사용하는 컴포넌트
 - Image와 다르게 `children`을 포함 가능
-- `resizeMode`를 사용하여 이미지 크기 조절 가능
-- **네트워크(API통신을 통한 이미지 호출) 및 로컬 이미지** 지원
+- Image와 같이 `resizeMode`를 사용하여 이미지 크기 조절 가능
 
 ```tsx title="App.tsx"
 import { ImageBackground, SafeAreaView, Text } from "react-native";
@@ -317,317 +359,482 @@ Image에서 작성된 속성과 동일하게 사용할 수 있다.<br/>
 
 :::
 
-## ScrollView
+## TouchableWithoutFeedback
 
-- `ScrollView`는 화면보다 콘텐츠가 클 경우 스크롤이 가능하도록 해주는 컨테이너
-- View와 비슷하지만, 내부 콘텐츠가 화면을 넘어갈 경우 자동으로 스크롤을 지원
-- 세로 및 가로 스크롤 모두 가능
-- `FlatList`와 달리 모든 자식 요소를 한 번에 렌더링하기 때문에, 많은 데이터가 있을 경우 성능 문제가 발생할 수 있음
+- 터치 이벤트를 감지하지만, 기본적인 피드백(애니메이션 효과 등)은 제공하지 않는 컴포넌트
+- **키보드 숨기기**, **모달 외부 클릭 감지** 등에 유용하게 사용
 
 ```tsx title="App.tsx"
-import { ScrollView, Text, SafeAreaView } from "react-native";
+import {
+  View,
+  Image,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+} from "react-native";
 
 export default function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={{ padding: 20 }}>
-        {Array.from({ length: 30 }).map((_, index) => (
-          <Text key={index} style={{ fontSize: 18, marginVertical: 10 }}>
-            {index + 1}번째: Item
-          </Text>
-        ))}
-      </ScrollView>
+      <TouchableWithoutFeedback
+        onPress={() => console.log("이미지 외부 클릭!")}
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <TouchableWithoutFeedback onPress={() => console.log("이미지 클릭!")}>
+            <Image
+              source={require("./assets/cat.jpg")}
+              style={{ width: "50%", height: "50%" }}
+            />
+          </TouchableWithoutFeedback>
+        </View>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 }
 ```
 
-![Image](https://github.com/user-attachments/assets/82b90785-f1db-4216-a070-ce870b9684e2)
+![Image](https://github.com/user-attachments/assets/c51b2bb1-006a-4ef9-884e-af04856f166b)
 
 :::note
 
-ScrollView를 이용하여 위아래 스크롤에 대한 View를 만들었다.<br/>
-만약 좌우 스크롤을 원하는 경우, ScrollView의 속성 중 <br/>
-`horizontal`과 `contentContainerStyle`속성에 `flexDirection: "row"`를 적용하면 된다.<br/>
+이미지를 클릭할 경우, `이미지 클릭!`이 출력,<br/>
+이미지 밖을 클릭할 경우, `이미지 외부 클릭!`이 출력된다.<br/>
 
-```tsx title="스크롤 좌우 버전"
-import { ScrollView, Text, SafeAreaView } from "react-native";
+`TouchableWithoutFeedback`을 이용하여 이벤트를 처리할 영역마다 감싸주면 된다.<br/>
+
+:::
+
+:::info
+
+```tsx title="App.tsx"
+import { useState } from "react";
+import {
+  View,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+  TextInput,
+  Keyboard,
+  Text,
+} from "react-native";
 
 export default function App() {
+  const [text, setText] = useState<string>("");
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView
-        horizontal
-        contentContainerStyle={{ flexDirection: "row", padding: 20 }}
-      >
-        {Array.from({ length: 30 }).map((_, index) => (
-          <Text key={index} style={{ fontSize: 18, marginVertical: 10 }}>
-            {index + 1}번째: Item
-          </Text>
-        ))}
-      </ScrollView>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 10,
+          }}
+        >
+          <TouchableWithoutFeedback>
+            <TextInput
+              placeholder="값 입력"
+              onChangeText={(e) => setText(e)}
+              style={{
+                width: "50%",
+                borderWidth: 2,
+                borderColor: "#3498db",
+                borderRadius: 8,
+              }}
+            />
+          </TouchableWithoutFeedback>
+          <Text>{text}</Text>
+        </View>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 }
 ```
 
-![Image](https://github.com/user-attachments/assets/327e6b7d-e5c6-429f-9075-3aac7a0acb67)
+![Image](https://github.com/user-attachments/assets/2f2a8371-94a5-4396-be0c-78191590af01)
+
+TextInput을 제외한 나머지 영역을 TouchableWithoutFeedback으로 감싼 후,<br/>
+onPress에 `Keyboard.dismiss`를 설정하면,<br/>
+사용자가 TextInput 외부를 터치할 때 키보드가 자동으로 닫힌다.
+
+단, TouchableWithoutFeedback으로 감싸더라도 내부 요소(TextInput)가<br/>
+터치 이벤트를 계속 받을 수 있도록 accessible={false} 를 추가하는 것이 좋다.<br/>
 
 :::
 
-### ScrollView 속성 정리
+### TouchableWithoutFeedback 속성 정리
 
-|              속성명              |             타입             | 기본값  |                     설명                      |
-| :------------------------------: | :--------------------------: | :-----: | :-------------------------------------------: |
-|           `horizontal`           |          `boolean`           | `false` |       `true`일 경우 가로 스크롤 활성화        |
-|     `contentContainerStyle`      |           `object`           |         |            내부 콘텐츠 스타일 지정            |
-|         `scrollEnabled`          |          `boolean`           | `true`  |               스크롤 가능 여부                |
-|   `keyboardShouldPersistTaps`    | `never \| always \| handled` | `never` |  키보드가 열린 상태에서 탭 이벤트 처리 방식   |
-|  `showsVerticalScrollIndicator`  |          `boolean`           | `true`  |            세로 스크롤바 표시 여부            |
-| `showsHorizontalScrollIndicator` |          `boolean`           | `true`  |            가로 스크롤바 표시 여부            |
-|            `bounces`             |          `boolean`           | `true`  | iOS에서 스크롤 끝에서 튕기는 효과 활성화 여부 |
-|         `overScrollMode`         |  `auto \| always \| never`   | `auto`  |       Android에서 오버스크롤 효과 설정        |
-|         `pagingEnabled`          |          `boolean`           | `false` |          스크롤을 페이지 단위로 이동          |
-|      `nestedScrollEnabled`       |          `boolean`           | `false` |    안드로이드에서 중첩된 스크롤 허용 여부     |
-|            `onScroll`            |      `(event) => void`       |         |              스크롤 이벤트 감지               |
-|      `onMomentumScrollEnd`       |      `(event) => void`       |         |        스크롤 애니메이션 종료 시 호출         |
-|       `onScrollBeginDrag`        |      `(event) => void`       |         |       사용자가 스크롤을 시작할 때 호출        |
-|        `onScrollEndDrag`         |      `(event) => void`       |         |        사용자가 스크롤을 멈출 때 호출         |
-
-## FlatList
-
-- FlatList는 긴 목록의 데이터를 효율적으로 렌더링하는 React Native 컴포넌트
-- ScrollView와 다르게 필요한 아이템만 렌더링하여 성능 최적화
-- 내부적으로 **가상화 리스트(Virtualized List)** 를 사용하여 불필요한 렌더링을 방지
-
-```tsx title="App.tsx"
-import React from "react";
-import { FlatList, Text, View, SafeAreaView } from "react-native";
-
-export default function App() {
-  const DATA = Array.from({ length: 20 }).map((_, index) => ({
-    id: index.toString(),
-    title: `Item ${index + 1}`,
-  }));
-
-  return (
-    <SafeAreaView style={{ flex: 1, padding: 20 }}>
-      <FlatList
-        data={DATA}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View
-            style={{ padding: 15, borderBottomWidth: 1, borderColor: "#ddd" }}
-          >
-            <Text style={{ fontSize: 18 }}>{item.title}</Text>
-          </View>
-        )}
-        ListHeaderComponent={<Text>목록 시작!</Text>}
-        ListFooterComponent={<Text>목록 끝!</Text>}
-      />
-    </SafeAreaView>
-  );
-}
-```
-
-![Image](https://github.com/user-attachments/assets/b1ffd7ad-799d-4425-b3e5-1687f4c815ba)
-
-:::note
-
-FlatList에 `data`에 표현할 배열값을 넣은 후,<br/>
-`keyExtractor`을 이용하여 해당 배열의 고유하게 식별할 수 있도록 id값 혹은 문자를 반환한다.<br/>
-`renderItem`을 이용하여 해당 배열의 값으로 렌더링할 컴포넌트를 작성한다.<br/>
-`ListHeaderComponent`, `ListFooterComponent`를 이용하여 FlatList의 가장 위와 아래에 표현할 컴포넌트를 넣을 수 있다.<br/>
-
-:::
-
-### FlatList 속성 정리
-
-|         속성명          |                     타입                     |               기본값                |                    설명                    |
-| :---------------------: | :------------------------------------------: | :---------------------------------: | :----------------------------------------: |
-|         `data`          |                 `Array<any>`                 |                `[]`                 |            렌더링할 데이터 배열            |
-|      `renderItem`       |      `({ item, index }) => JSX.Element`      |                                     |       개별 아이템을 렌더링하는 함수        |
-|     `keyExtractor`      |          `(item, index) => string`           | `(item, index) => index.toString()` |          각 아이템의 고유 키 설정          |
-|      `numColumns`       |                   `number`                   |                 `1`                 |      여러 개의 열로 표시할 경우 사용       |
-|      `horizontal`       |                  `boolean`                   |               `false`               |              가로 스크롤 여부              |
-| `contentContainerStyle` |                   `object`                   |                                     |              내부 스타일 지정              |
-|  `ListHeaderComponent`  |                `JSX.Element`                 |                                     |       리스트 상단에 추가할 컴포넌트        |
-|  `ListFooterComponent`  |                `JSX.Element`                 |                                     |       리스트 하단에 추가할 컴포넌트        |
-|  `ListEmptyComponent`   |                `JSX.Element`                 |                                     |     데이터가 없을 경우 표시할 컴포넌트     |
-|     `getItemLayout`     | `(data, index) => { length, offset, index }` |                                     |      아이템의 높이가 일정할 때 최적화      |
-|     `onEndReached`      |                 `() => void`                 |                                     | 리스트 끝에 도달했을 때 호출 (무한 스크롤) |
-| `onEndReachedThreshold` |                   `number`                   |                `0.1`                |   리스트 끝에서 이벤트 호출 트리거 (0~1)   |
-|      `refreshing`       |                  `boolean`                   |               `false`               |             새로고침 상태 여부             |
-|       `onRefresh`       |                 `() => void`                 |                                     |         당겨서 새로고침 기능 실행          |
-
-## SectionList
-
-- SectionList는 섹션이 있는 목록을 렌더링하는 React Native 컴포넌트
-- FlatList와 비슷하지만, 데이터가 섹션별로 그룹화되어 있음
-- data 대신 sections 속성을 사용하며, 각 섹션에는 title(헤더)과 data(목록) 필드가 필요함
-
-```tsx title="App.tsx"
-import { SectionList, Text, View, SafeAreaView } from "react-native";
-
-export default function App() {
-  const SECTIONS = [
-    {
-      title: "과일",
-      data: ["사과", "바나나", "오렌지"],
-    },
-    {
-      title: "야채",
-      data: ["당근", "브로콜리", "시금치"],
-    },
-  ];
-
-  return (
-    <SafeAreaView style={{ flex: 1, padding: 20 }}>
-      <SectionList
-        sections={SECTIONS}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({ item }) => (
-          <View
-            style={{ padding: 10, borderBottomWidth: 1, borderColor: "#ddd" }}
-          >
-            <Text style={{ fontSize: 18 }}>{item}</Text>
-          </View>
-        )}
-        renderSectionHeader={({ section: { title } }) => (
-          <View style={{ backgroundColor: "#f0f0f0", padding: 10 }}>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>{title}</Text>
-          </View>
-        )}
-      />
-    </SafeAreaView>
-  );
-}
-```
-
-![Image](https://github.com/user-attachments/assets/4e12ff37-fdd4-4a9d-af43-3a28a2b1dca0)
-
-:::note
-
-SectionList에는 data란 속성 대신 `sections`라는 속성을 사용<br/>
-`sections`속성에는 목록에 사용할 header의 값과 내부 item값을 표현하여 값을 넣는다.<br/>
-`keyExtractor`과 `renderItem`은 FlatList와 같이 사용하면 된다.<br/>
-반면, SectionList에는 각 목록마다 하위 아이템들을 표현해야된다.<br/>
-각 Section마다 표현해야할 아이템의 header 부분을 `renderSectionHeader`라는 속성을 통해,<br/>
-header를 표현할 컴포넌트를 렌더링 한다.<br/>
-
-:::
-
-### SectionList 속성 정리
-
-|            속성명             |                  타입                   |               기본값                |                    설명                    |
-| :---------------------------: | :-------------------------------------: | :---------------------------------: | :----------------------------------------: |
-|          `sections`           | `Array<{ title: string; data: any[] }>` |                `[]`                 |         목록을 그룹화할 섹션 배열          |
-|         `renderItem`          |   `({ item, index }) => JSX.Element`    |                                     |     각 섹션의 아이템을 렌더링하는 함수     |
-|     `renderSectionHeader`     |     `({ section }) => JSX.Element`      |                                     |      각 섹션의 헤더를 렌더링하는 함수      |
-|     `renderSectionFooter`     |     `({ section }) => JSX.Element`      |                                     |      각 섹션의 푸터를 렌더링하는 함수      |
-|        `keyExtractor`         |        `(item, index) => string`        | `(item, index) => index.toString()` |          각 아이템의 고유 키 설정          |
-| `stickySectionHeadersEnabled` |                `boolean`                |               `true`                |         섹션 헤더를 고정할지 여부          |
-|   `ItemSeparatorComponent`    |              `JSX.Element`              |                                     |       아이템 사이의 구분선 컴포넌트        |
-|     `ListHeaderComponent`     |              `JSX.Element`              |                                     |          전체 리스트의 헤더 추가           |
-|     `ListFooterComponent`     |              `JSX.Element`              |                                     |          전체 리스트의 푸터 추가           |
-|        `onEndReached`         |              `() => void`               |                                     | 리스트 끝에 도달했을 때 호출 (무한 스크롤) |
-|    `onEndReachedThreshold`    |                `number`                 |                `0.1`                |   리스트 끝에서 이벤트 호출 트리거 (0~1)   |
-|         `refreshing`          |                `boolean`                |               `false`               |             새로고침 상태 여부             |
-|          `onRefresh`          |              `() => void`               |                                     |         당겨서 새로고침 기능 실행          |
-
-## Button
-
-- Button은 React Native에서 기본 제공하는 클릭 가능한 버튼 컴포넌트
-- 터치 이벤트를 감지하고 사용자 입력을 처리할 수 있음
-
-```tsx title="App.tsx"
-import { useState } from "react";
-import { Button, SafeAreaView, Text } from "react-native";
-
-export default function App() {
-  const [state, setState] = useState<boolean>(false);
-
-  return (
-    <SafeAreaView
-      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-    >
-      <Button
-        title={state ? "누르세요!" : "눌렀음!"}
-        onPress={() => setState(!state)}
-      />
-      <Text>{state ? "Hello World!" : ""}</Text>
-    </SafeAreaView>
-  );
-}
-```
-
-![Image](https://github.com/user-attachments/assets/6775ff26-43ed-49ef-80db-37626cadf682)
-
-:::note
-
-Button은 onPress속성을 통해 눌렀을 때, 어떤 이벤트를 처리할 지 함수를 작성하면 된다.<br/>
-
-:::
-
-## TouchableOpacity
-
-- TouchableOpacity는 React Native에서 터치 이벤트를 감지할 수 있는 컴포넌트
-- 버튼을 클릭할 때 투명도가 변경되어 사용자가 터치했음을 시각적으로 제공
-- Button 컴포넌트보다 스타일링이 자유롭고, 다양한 UI 요소를 감쌀 수 있음
-
-```tsx title="App.tsx"
-import { useState } from "react";
-import { Text, TouchableOpacity, SafeAreaView } from "react-native";
-
-export default function App() {
-  const [count, setCount] = useState<number>(0);
-
-  return (
-    <SafeAreaView
-      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-    >
-      <TouchableOpacity
-        style={{ backgroundColor: "#3498db", padding: 15, borderRadius: 10 }}
-        onPress={() => setCount(count + 1)}
-        delayPressOut={3000}
-      >
-        <Text style={{ color: "white", fontSize: 18 }}>누르세요!</Text>
-      </TouchableOpacity>
-      <Text>누른 횟수 : {count}</Text>
-    </SafeAreaView>
-  );
-}
-```
-
-![Image](https://github.com/user-attachments/assets/fed15155-b70b-48ff-a5ed-5ba7b1a2fea9)
-
-:::note
-
-TouchableOpacity는 Button과 달리 TouchableOpacity 버튼안 직접 child 컴포넌트를 작성할 수 있다.<br/>
-즉, **Button보다 스타일링 및 기능이 확장된 컴포넌트**이다.<br/>
-
-`delayPressOut`을 이용하여 터치가 끝난 후, 3000ms(3초) 후에 다시 버튼이 활성화 된 것을 볼 수 있다.<br/>
-
-:::
-
-### TouchableOpacity 속성 정리
-
-|     속성명      |     타입     | 기본값  |                        설명                        |
-| :-------------: | :----------: | :-----: | :------------------------------------------------: |
-|    `onPress`    | `() => void` |         |                터치 시 실행할 함수                 |
-| `activeOpacity` |   `number`   |  `0.2`  |           터치 시 투명도 (0~1 사이의 값)           |
-|   `disabled`    |  `boolean`   | `false` |                 버튼 비활성화 여부                 |
-|  `onLongPress`  | `() => void` |         |             길게 눌렀을 때 실행할 함수             |
-| `delayPressIn`  |   `number`   |         | 터치 시작 후 `onPress` 이벤트까지의 지연 시간 (ms) |
-| `delayPressOut` |   `number`   |         |       터치 해제 후 애니메이션 지속 시간 (ms)       |
-|     `style`     |   `object`   |         |                    스타일 적용                     |
-
-## TouchableHighlight
-
-## Pressable
+|           속성명            |               타입               |   기본값    |                                     설명                                      |
+| :-------------------------: | :------------------------------: | :---------: | :---------------------------------------------------------------------------: |
+|          `onPress`          |           `() => void`           |             |                        터치 이벤트 발생 시 실행할 함수                        |
+|        `accessible`         |            `boolean`             |   `true`    | `false`로 설정하면 내부 요소가 접근성 요소로 인식되지 않음 (이벤트 방해 방지) |
+|         `disabled`          |            `boolean`             |   `false`   |                      `true`이면 터치 이벤트가 비활성화됨                      |
+|          `hitSlop`          |  `{ top, left, bottom, right }`  | `undefined` |                     터치 영역을 확장하거나 축소할 수 있음                     |
+|         `onPressIn`         |           `() => void`           |             |                        터치가 시작될 때 실행되는 함수                         |
+|        `onPressOut`         |           `() => void`           |             |                        터치가 끝났을 때 실행되는 함수                         |
+| `keyboardShouldPersistTaps` | `"always"` `"handled"` `"never"` |  `"never"`  |                         터치 시 키보드 유지 여부 설정                         |
 
 ## Modal
 
+- React Native에서 화면 위에 새로운 뷰를 띄우는 컴포넌트
+- 팝업, 다이얼로그, 알림창 등을 만들 때 사용
+
+```tsx title="App.tsx"
+import { useState } from "react";
+import {
+  Modal,
+  View,
+  Image,
+  Button,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+} from "react-native";
+
+export default function App() {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  return (
+    <SafeAreaView
+      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+    >
+      <Button title="모달 열기" onPress={() => setModalVisible(true)} />
+      <Modal visible={modalVisible} animationType="slide" transparent={true}>
+        <TouchableWithoutFeedback
+          onPress={() => setModalVisible(!modalVisible)}
+        >
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "rgba(0,0,0,0.5)",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <TouchableWithoutFeedback>
+              <Image
+                source={require("./assets/cat.jpg")}
+                style={{ width: "50%", height: "50%" }}
+              />
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+    </SafeAreaView>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/b604bab9-a4de-4bce-acf8-f80148522955)
+
+:::note
+
+Modal의 `열림/닫힘`을 관리하기 위해 `useState`를 사용한다.<br/>
+Modal은 React Native의 **최상의 뷰에서 동작하는 독립적인 컴포넌트**이기 때문에<br/>
+Button과 같은 위치에 코드를 작성해도 동작에 문제가 없다.<br/>
+
+Modal이 열린 후, Image영역 외의 배경을 클릭하면 Modal이 닫히도록 `TouchableWithoutFeedback`을 사용하였다.<br/>
+이때, TouchableWithoutFeedback을 중첩하여 이미지 클릭 시에는 닫히지 않도록 처리했다.
+
+:::
+
+### Modal 속성 정리
+
+|       속성명        |                             타입                              |    기본값    |                      설명                      |
+| :-----------------: | :-----------------------------------------------------------: | :----------: | :--------------------------------------------: |
+|      `visible`      |                           `boolean`                           |   `false`    |                 모달 표시 여부                 |
+|   `animationType`   |                  `"none"` `"slide"` `"fade"`                  |    `none`    |         모달이 열릴 때 애니메이션 효과         |
+|    `transparent`    |                           `boolean`                           |   `false`    |           모달 배경을 투명하게 설정            |
+|  `onRequestClose`   |                         `() => void`                          |              | 안드로이드에서 뒤로 가기 버튼을 눌렀을 때 실행 |
+| `presentationStyle` | `"fullScreen"` `"pageSheet"` `"formSheet"` `"overFullScreen"` | `fullScreen` |            iOS에서 모달 스타일 지정            |
+
 ## ActivityIndicator
 
+- 로딩 상태를 표시하는 기본적인 UI 컴포넌트
+- **실제 로딩을 표현하는 것이 아닌 시각적인 피드백만 제공**
+
+```tsx title="App.tsx"
+import { useState } from "react";
+import { ActivityIndicator, View, Button } from "react-native";
+
+export default function App() {
+  const [loading, setLoading] = useState(false);
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 20,
+      }}
+    >
+      <View style={{ flexDirection: "row", gap: 20 }}>
+        <Button title="로딩 시작" onPress={() => setLoading(true)} />
+        <Button title="로딩 종료" onPress={() => setLoading(false)} />
+      </View>
+      {loading && <ActivityIndicator size={100} color="pink" />}
+    </View>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/266b03d8-2f36-4365-9d80-875353fd2b7d)
+
+:::note
+
+위의 실행 화면과 같이 사용자에게 로딩 중임을 시각적으로 전달한다.<br/>
+따라서, 데이터 로딩을 표현해야할 경우 `useState` 등을 활용하여 로딩 상태를 관리하면서 표시해야 한다.<br/>
+
+:::
+
+### ActivityIndicator 속성 정리
+
+|       속성명       | 타입                              | 기본값    | 설명                                 |
+| :----------------: | --------------------------------- | --------- | ------------------------------------ |
+|    `animating`     | `boolean`                         | `true`    | `true`일 경우 애니메이션 활성화      |
+|       `size`       | `"small"` `"large"` 혹은 `number` | `"small"` | 인디케이터 크기 설정                 |
+|      `color`       | `string`                          | `gray`    | 인디케이터 색상 지정                 |
+| `hidesWhenStopped` | `boolean`                         | `true`    | `animating=false`일 때 자동으로 숨김 |
+
 ## Animated
+
+- React Native에서 애니메이션을 구현하는 핵심 API
+
+```tsx title="App.tsx"
+import { useEffect, useRef, useState } from "react";
+import { Animated, Text, SafeAreaView, Button, View } from "react-native";
+
+export default function App() {
+  const [state, setState] = useState<boolean>(false);
+  const fade = useRef(new Animated.Value(0)).current;
+  const slide = useRef(new Animated.Value(100)).current;
+
+  useEffect(() => {
+    fade.setValue(0);
+    slide.setValue(100);
+
+    Animated.timing(fade, {
+      toValue: 1,
+      duration: 2000,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(slide, {
+      toValue: 0,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, [state]);
+
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 30,
+      }}
+    >
+      <View>
+        <Button title="에니메이션 실행" onPress={() => setState(!state)} />
+      </View>
+      <Animated.View style={{ opacity: fade }}>
+        <Text style={{ fontSize: 20 }}>Fade In</Text>
+      </Animated.View>
+      <Animated.View style={{ transform: [{ translateY: slide }] }}>
+        <Text style={{ fontSize: 20 }}>Slide Up</Text>
+      </Animated.View>
+    </SafeAreaView>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/c5756da7-0b26-4f83-8190-90278f482765)
+
+:::note
+
+fade, slide는 useRef를 통해 `Animated.value` 객체를 생성하고 각 애니메이션을 위한 초기값을 설정한다.<br/>
+useEffect를 통해 각 애니메이션을 어떻게 표현할지 정의한다.<br/>
+
+```tsx
+Animated.timing(Animated.value로 생성된 객체, {
+  // 애니메이션에 대한 정의
+  toValue: 변화시킬 최종 값,
+  duration: 변화 시간(ms),
+  useNativeDriver: 네이티브 드라이버 사용 여부(true),
+}).start(); // 애니메이션 시작
+```
+
+각 속성에 대한 정의를 하였으면, 해당 컴포넌트에 ref값을 넣는다.<br/>
+
+```tsx
+// 예시
+<Animated.View style={{ opacity: fade }}>
+<Animated.View style={{ transform: [{ translateY: slide }] }}>
+```
+
+:::
+
+### Animated 속성 정리
+
+#### Animated.Value 속성
+
+|       속성명       |            타입             |     기본값     |                   설명                    |
+| :----------------: | :-------------------------: | :------------: | :---------------------------------------: |
+|  `Animated.Value`  |          `number`           |      `0`       |          애니메이션 값 초기 설정          |
+| `Animated.ValueXY` | `{ x: number, y: number }`  | `{x: 0, y: 0}` |           2D 애니메이션 값 설정           |
+|     `setValue`     |      `(value: number)`      |                |         애니메이션 값을 즉시 변경         |
+|   `addListener`    |        `(callback)`         |                |    값이 변경될 때마다 실행할 콜백 추가    |
+|   `interpolate`    | `(inputRange, outputRange)` |                | 값의 범위를 변환 (예: `0~1` → `0~360deg`) |
+
+#### Animated API (애니메이션 실행 메서드)
+
+|       속성명        |                           설명                            |
+| :-----------------: | :-------------------------------------------------------: |
+|  `Animated.timing`  | 일정 시간 동안 값이 변경되는 애니메이션 (선형 애니메이션) |
+|  `Animated.spring`  |          스프링 효과를 사용하여 자연스럽게 변화           |
+|  `Animated.decay`   |         초기 속도를 설정하고 점점 느려지면서 정지         |
+| `Animated.sequence` |          여러 개의 애니메이션을 순차적으로 실행           |
+| `Animated.parallel` |            여러 개의 애니메이션을 동시에 실행             |
+|   `Animated.loop`   |                  애니메이션을 무한 반복                   |
+
+#### Animated.timing 속성
+
+|      속성명       |   타입    |           기본값            |                         설명                          |
+| :---------------: | :-------: | :-------------------------: | :---------------------------------------------------: |
+|     `toValue`     | `number`  |                             |              애니메이션이 도달할 최종 값              |
+|    `duration`     | `number`  |            `500`            |               애니메이션 지속 시간(ms)                |
+| `useNativeDriver` | `boolean` |           `false`           | `true` 설정 시 네이티브 스레드에서 실행 (성능 최적화) |
+|      `delay`      | `number`  |             `0`             |           애니메이션 시작 전 대기 시간(ms)            |
+|     `easing`      | `Easing`  | `Easing.inOut(Easing.ease)` |               애니메이션 속도 곡선 조절               |
+
+#### Animated.View 적용 가능한 스타일 속성
+
+|            속성명             |                    설명                     |
+| :---------------------------: | :-----------------------------------------: |
+|           `opacity`           | 투명도 조절 (`0 = 완전 투명`, `1 = 불투명`) |
+| `transform: [{ translateX }]` |                X축으로 이동                 |
+| `transform: [{ translateY }]` |                Y축으로 이동                 |
+|   `transform: [{ scale }]`    |               크기 확대/축소                |
+|   `transform: [{ rotate }]`   |           회전 (`0deg ~ 360deg`)            |
+
+## Switch
+
+- (On/Off)를 전환할 수 있는 토글 버튼
+
+```tsx title="App.tsx"
+import { useState } from "react";
+import { Switch, Text, SafeAreaView } from "react-native";
+
+export default function App() {
+  const [isEnabled, setIsEnabled] = useState<boolean>(false);
+
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: isEnabled ? "black" : "white",
+        marginTop: 30,
+      }}
+    >
+      <Text style={{ color: isEnabled ? "white" : "black" }}>
+        스위치 상태: {isEnabled ? "ON" : "OFF"}
+      </Text>
+      <Switch
+        value={isEnabled}
+        onValueChange={() => setIsEnabled(!isEnabled)}
+        trackColor={{ false: "#767577", true: "#81b0ff" }}
+        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+      />
+    </SafeAreaView>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/704c8c8f-b068-4e37-b5d8-e1ff11909d20)
+
+:::note
+
+Switch의 value속성에 현재 상태를 포함한 boolean값을 전달 한다.<br/>
+`onValueChange`를 통해 토글 버튼을 눌렀을 때, 값을 어떻게 변화시킬지에 대한 함수를 넣는다.<br/>
+`trackColor`에 `true`와 `false`일 경우 토글아이콘의 배경에 대한 색상을 정의한다.<br/>
+`thumbColor`에는 토글의 버튼에 대한 색상을 정의한다.<br/>
+
+:::
+
+### Switch 속성 정리
+
+|        속성명         |               타입                | 기본값  |               설명                |
+| :-------------------: | :-------------------------------: | :-----: | :-------------------------------: |
+|        `value`        |             `boolean`             | `false` |        현재 Switch의 상태         |
+|    `onValueChange`    |    `(value: boolean) => void`     |         |    상태 변경 시 호출되는 함수     |
+|      `disabled`       |             `boolean`             | `false` |    `true`로 설정하면 비활성화     |
+|     `trackColor`      | `{ false: string, true: string }` |  `{}`   |       스위치 배경 색상 설정       |
+|     `thumbColor`      |             `string`              |  `""`   |    버튼(동그란 부분) 색상 설정    |
+| `ios_backgroundColor` |             `string`              |  `""`   | iOS에서 비활성화된 배경 색상 설정 |
+
+## Slider
+
+- 사용자가 드래그하여 값을 조정할 수 있는 입력 컨트롤
+- `음량 조절`, `밝기 조절` 등 연속적인 값 조절이 필요한 경우에 사용
+
+```bash
+// slider 설치
+npm install @react-native-community/slider
+```
+
+```tsx title="App.tsx"
+import Slider from "@react-native-community/slider";
+import React, { useState } from "react";
+import { Text, SafeAreaView } from "react-native";
+
+export default function App() {
+  const [sliderValue, setSliderValue] = useState(50);
+
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 50,
+      }}
+    >
+      <Text style={{ fontSize: 30 }}>슬라이더 값: {sliderValue}</Text>
+      <Slider
+        style={{ width: 200, height: 50 }}
+        minimumValue={0}
+        maximumValue={100}
+        step={5}
+        value={sliderValue}
+        onValueChange={(e) => setSliderValue(e)}
+        minimumTrackTintColor="blue"
+        maximumTrackTintColor="gray"
+        thumbTintColor="skyblue"
+      />
+    </SafeAreaView>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/4b32cef2-d572-4c97-86b9-10910279759a)
+
+### Slider 속성 정리
+
+|         속성명          |           타입            | 기본값  |                   설명                    |
+| :---------------------: | :-----------------------: | :-----: | :---------------------------------------: |
+|         `value`         |         `number`          |         |              현재 Slider 값               |
+|     `onValueChange`     | `(value: number) => void` |         |       값이 변경될 때 호출되는 함수        |
+|     `minimumValue`      |         `number`          |   `0`   |                  최소 값                  |
+|     `maximumValue`      |         `number`          |   `1`   |                  최대 값                  |
+|         `step`          |         `number`          |         | 값이 증가하는 단위 (예: `1`이면 1씩 증가) |
+| `minimumTrackTintColor` |         `string`          | `blue`  |             진행된 부분 색상              |
+| `maximumTrackTintColor` |         `string`          | `gray`  |          진행되지 않은 부분 색상          |
+|    `thumbTintColor`     |         `string`          | `white` |            슬라이더 핸들 색상             |
+|       `disabled`        |         `boolean`         | `false` |    `true`로 설정하면 슬라이더 비활성화    |
