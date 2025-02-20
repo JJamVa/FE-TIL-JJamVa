@@ -1,4 +1,4 @@
-# React Native 리스트 & 스크롤
+# React Native List & Scroll
 
 ## ScrollView
 

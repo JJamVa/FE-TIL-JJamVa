@@ -1,4 +1,4 @@
-# React Native Button
+# React Native Button Components
 
 ## Button
 
@@ -194,3 +194,120 @@ export default function App() {
 |     **Pressable**      |   세밀한 터치 이벤트가 필요할 때    | `onPressIn`, `onPressOut` 등 **세밀한 이벤트 처리 가능** |
 
 :::
+
+## Switch
+
+- (On/Off)를 전환할 수 있는 토글 버튼
+
+```tsx title="App.tsx"
+import { useState } from "react";
+import { Switch, Text, SafeAreaView } from "react-native";
+
+export default function App() {
+  const [isEnabled, setIsEnabled] = useState<boolean>(false);
+
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: isEnabled ? "black" : "white",
+        marginTop: 30,
+      }}
+    >
+      <Text style={{ color: isEnabled ? "white" : "black" }}>
+        스위치 상태: {isEnabled ? "ON" : "OFF"}
+      </Text>
+      <Switch
+        value={isEnabled}
+        onValueChange={() => setIsEnabled(!isEnabled)}
+        trackColor={{ false: "#767577", true: "#81b0ff" }}
+        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+      />
+    </SafeAreaView>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/704c8c8f-b068-4e37-b5d8-e1ff11909d20)
+
+:::note
+
+Switch의 value속성에 현재 상태를 포함한 boolean값을 전달 한다.<br/>
+`onValueChange`를 통해 토글 버튼을 눌렀을 때, 값을 어떻게 변화시킬지에 대한 함수를 넣는다.<br/>
+`trackColor`에 `true`와 `false`일 경우 토글아이콘의 배경에 대한 색상을 정의한다.<br/>
+`thumbColor`에는 토글의 버튼에 대한 색상을 정의한다.<br/>
+
+:::
+
+### Switch 속성 정리
+
+|        속성명         |               타입                | 기본값  |               설명                |
+| :-------------------: | :-------------------------------: | :-----: | :-------------------------------: |
+|        `value`        |             `boolean`             | `false` |        현재 Switch의 상태         |
+|    `onValueChange`    |    `(value: boolean) => void`     |         |    상태 변경 시 호출되는 함수     |
+|      `disabled`       |             `boolean`             | `false` |    `true`로 설정하면 비활성화     |
+|     `trackColor`      | `{ false: string, true: string }` |  `{}`   |       스위치 배경 색상 설정       |
+|     `thumbColor`      |             `string`              |  `""`   |    버튼(동그란 부분) 색상 설정    |
+| `ios_backgroundColor` |             `string`              |  `""`   | iOS에서 비활성화된 배경 색상 설정 |
+
+## Slider
+
+- 사용자가 드래그하여 값을 조정할 수 있는 입력 컨트롤
+- `음량 조절`, `밝기 조절` 등 연속적인 값 조절이 필요한 경우에 사용
+
+```bash
+// slider 설치
+npm install @react-native-community/slider
+```
+
+```tsx title="App.tsx"
+import Slider from "@react-native-community/slider";
+import React, { useState } from "react";
+import { Text, SafeAreaView } from "react-native";
+
+export default function App() {
+  const [sliderValue, setSliderValue] = useState(50);
+
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 50,
+      }}
+    >
+      <Text style={{ fontSize: 30 }}>슬라이더 값: {sliderValue}</Text>
+      <Slider
+        style={{ width: 200, height: 50 }}
+        minimumValue={0}
+        maximumValue={100}
+        step={5}
+        value={sliderValue}
+        onValueChange={(e) => setSliderValue(e)}
+        minimumTrackTintColor="blue"
+        maximumTrackTintColor="gray"
+        thumbTintColor="skyblue"
+      />
+    </SafeAreaView>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/4b32cef2-d572-4c97-86b9-10910279759a)
+
+### Slider 속성 정리
+
+|         속성명          |           타입            | 기본값  |                   설명                    |
+| :---------------------: | :-----------------------: | :-----: | :---------------------------------------: |
+|         `value`         |         `number`          |         |              현재 Slider 값               |
+|     `onValueChange`     | `(value: number) => void` |         |       값이 변경될 때 호출되는 함수        |
+|     `minimumValue`      |         `number`          |   `0`   |                  최소 값                  |
+|     `maximumValue`      |         `number`          |   `1`   |                  최대 값                  |
+|         `step`          |         `number`          |         | 값이 증가하는 단위 (예: `1`이면 1씩 증가) |
+| `minimumTrackTintColor` |         `string`          | `blue`  |             진행된 부분 색상              |
+| `maximumTrackTintColor` |         `string`          | `gray`  |          진행되지 않은 부분 색상          |
+|    `thumbTintColor`     |         `string`          | `white` |            슬라이더 핸들 색상             |
+|       `disabled`        |         `boolean`         | `false` |    `true`로 설정하면 슬라이더 비활성화    |

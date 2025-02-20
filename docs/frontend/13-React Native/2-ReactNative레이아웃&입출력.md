@@ -1,0 +1,237 @@
+# React Native Layout & input/output Components
+
+## View
+
+- React의 div태그와 비슷한 역할을 하는 컨테이너 컴포넌트
+- 여러 개의 요소를 감싸고 스타일을 적용할 때 사용
+- 스타일 적용 시 **flexbox 레이아웃**을 지원
+
+```jsx title="App.tsx"
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+
+export default function App() {
+  return (
+    <View style={{ flex: 1, backgroundColor: "red" }}>
+      <View style={{ width: 200, height: 200, backgroundColor: "blue" }}>
+        <View style={{ width: 100, height: 100, backgroundColor: "orange" }} />
+      </View>
+    </View>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/a9015b63-691f-4aef-9da3-be3e68ad0faf)
+
+:::note
+
+React Native의 View를 이용하여 전체 화면을 표현하기 위해서는 style에 `flex: 1`을 이용하면 된다.<br/>
+React Native의 기본 루트 컨테이너인 `ReactRootView`가 `flex`이기 때문에 적용 가능.<br/>
+
+:::
+
+## Text
+
+- 텍스트를 표시하는 컴포넌트
+- View 내부에서 사용 가능하며, 여러 줄로 작성 가능
+
+```tsx title="App.tsx"
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+
+export default function App() {
+  return (
+    <View style={{ flex: 1 }}>
+      <Text style={{ fontSize: 20, color: "blue" }}>React Native Text</Text>
+      <Text>가나다라마바사 {"\n"} 아자차카타파하</Text>
+    </View>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/3e32582a-6115-4d28-a7aa-f5899125e148)
+
+:::note
+
+React Native에서 Text안 글들을 띄워쓰기 위해서는 `{"\n"}`을 사용하면 된다.<br/>
+
+:::
+
+### Text 속성 정리
+
+|         속성명         |                 타입                  |  기본값  |                        설명                        |
+| :--------------------: | :-----------------------------------: | :------: | :------------------------------------------------: |
+|        `style`         |               `object`                |          |                텍스트의 스타일 지정                |
+|    `numberOfLines`     |               `number`                |          |         최대 줄 수 제한 (초과 시 말줄임표)         |
+|    `ellipsizeMode`     | `"head"` `"middle"` `"tail"` `"clip"` | `"tail"` |                 말줄임표 위치 설정                 |
+|   `allowFontScaling`   |               `boolean`               |  `true`  |         사용자의 글꼴 크기 조절 허용 여부          |
+|      `selectable`      |               `boolean`               | `false`  |               텍스트 선택 가능 여부                |
+|       `onPress`        |             `() => void`              |          |             텍스트 클릭 시 실행할 함수             |
+|     `onLongPress`      |             `() => void`              |          |          텍스트 길게 누를 때 실행할 함수           |
+| `adjustsFontSizeToFit` |               `boolean`               | `false`  |            텍스트 크기를 자동으로 조정             |
+|   `minimumFontScale`   |               `number`                |          | `adjustsFontSizeToFit` 사용 시 최소 글꼴 크기 설정 |
+| `suppressHighlighting` |               `boolean`               | `false`  |           IOS에서 터치 시 강조 표시 방지           |
+
+## SafeAreaView
+
+- iOS 및 Android에서 UI가 시스템 UI 요소와 겹치지 않도록 보호하는 컨테이너 컴포넌트
+
+```tsx
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView, Text, View } from "react-native";
+
+export default function App() {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
+        <Text style={{ fontSize: 20, color: "blue" }}>React Native Text</Text>
+        <Text>가나다라마바사 {"\n"} 아자차카타파하</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+```
+
+:::note
+
+위의 **Text**에 사용한 예시 코드를 보면 Component가 Toolbar와 겹치는 현상이 발생<br/>
+이를 해결하기 위해 `<SafeAreaView>`를 이용하여 해결.<br/>
+
+:::
+
+:::caution
+
+- paddingTop으로 해결하면 되는 것이 아닌가?
+
+일부 기기에서는 paddingTop을 추가하는 방식으로 해결할 수도 있다.<br/>
+그러나 모든 기기(iOS, Android)마다 상태 바의 크기가 다르기 때문에, 일관된 UI를 보장하기 어려움.<br/>
+
+iOS: <SafeAreaView>를 사용하면 자동으로 안전한 영역을 감지하여 UI가 겹치지 않도록 처리됨.
+Android: SafeAreaView만으로는 완전히 해결되지 않을 수 있으므로, `StatusBar.currentHeight`를 활용하여 `paddingTop`을 추가해야 함.
+
+```tsx
+import { SafeAreaView, View, Text, Platform, StatusBar } from "react-native";
+
+export default function App() {
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+      }}
+    >
+      <Text>Toolbar와 겹치지 않는 UI</Text>
+    </SafeAreaView>
+  );
+}
+```
+
+Android에서 `<SafeAreaView>`를 사용해도 겹칠 경우,<br/>
+`StatusBar.currentHeight`를 이용하여 코드를 작성하면 해결된다.<br/>
+
+:::
+
+## StatusBar
+
+- 상태 바(Status Bar)의 스타일을 변경하거나 숨기는 역할을 하는 기본 제공 컴포넌트
+- 시간, 배터리, 네트워크 상태 등의 정보를 표시하는 영역
+
+```tsx
+import { StatusBar, SafeAreaView, View, Text } from "react-native";
+
+export default function App() {
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+      }}
+    >
+      <StatusBar backgroundColor="red" />
+      <View style={{ flex: 1 }}>
+        <Text>Hello World!</Text>
+        <Text>Hello World!</Text>
+        <Text>Hello World!</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/608e520f-3f0d-4da9-b067-d7dc7d877d34)
+
+### StatusBar 속성 정리
+
+|               속성                |                    설명                     |                           기본값                           |
+| :-------------------------------: | :-----------------------------------------: | :--------------------------------------------------------: |
+|         `backgroundColor`         |           상태 바의 배경색을 변경           |                  기기의 기본 상태 바 색상                  |
+|            `barStyle`             |         상태 바 아이콘 색상을 변경          | `IOS`: default (검정)<br/> `Android`: light-content (흰색) |
+|             `hidden`              |   상태 바를 숨김 (`true`로 설정하면 숨김)   |                 `false` (기본적으로 보임)                  |
+|           `translucent`           | 상태 바를 투명하게 설정 (배경이 반투명해짐) |                          `false`                           |
+| `networkActivityIndicatorVisible` |     네트워크 활동 표시 (iOS에서만 지원)     |                          `false`                           |
+
+## TextInput
+
+- 사용자 입력을 받는 텍스트 필드
+- `onChangeText`를 사용하여 입력 값을 처리
+
+```tsx title="App.tsx"
+import { useState } from "react";
+import { SafeAreaView, Text, TextInput, View, StatusBar } from "react-native";
+
+export default function App() {
+  const [text, setText] = useState<string>("");
+
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+      }}
+    >
+      <StatusBar />
+      <View style={{ flex: 1 }}>
+        <TextInput
+          placeholder="값을 입력하세요"
+          onChangeText={(value) => setText(value)}
+          style={{ color: "red" }}
+        />
+        <Text style={{ color: "blue" }}>{text}</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+```
+
+![Image](https://github.com/user-attachments/assets/7813869a-86e4-4f26-abc9-a5ddce8c84a0)
+
+:::note
+
+TextInput의 값을 바꾸기 위해서는 `useState`, TextInput의 `onChnageText`를 이용하면 된다.<br/>
+
+:::
+
+### TextInput 속성 정리
+
+|         속성명         |                          타입                           |   기본값    |                        설명                        |
+| :--------------------: | :-----------------------------------------------------: | :---------: | :------------------------------------------------: |
+|        `value`         |                        `string`                         |    `""`     |               현재 입력된 텍스트 값                |
+|     `placeholder`      |                        `string`                         |    `""`     |             입력 전 표시할 힌트 텍스트             |
+| `placeholderTextColor` |                        `string`                         |   `gray`    |             `placeholder` 텍스트 색상              |
+|     `onChangeText`     |                `(text: string) => void`                 |             |         입력 값이 변경될 때 호출되는 함수          |
+|   `secureTextEntry`    |                        `boolean`                        |   `false`   |        비밀번호 입력 시 `true` 설정 ex) ●●●        |
+|     `keyboardType`     | `"default"` `"numeric"` `"email-address"` `"phone-pad"` | `"default"` |                  키보드 타입 설정                  |
+|    `returnKeyType`     |      `"done"` `"go"` `"next"` `"search"` `"send"`       |  `"done"`   |                엔터 키의 동작 지정                 |
+|      `maxLength`       |                        `number`                         | `undefined` |          입력할 수 있는 최대 문자 수 제한          |
+|      `multiline`       |                        `boolean`                        |   `false`   |               여러 줄 입력 가능 여부               |
+|    `numberOfLines`     |                        `number`                         |     `1`     |        `multiline={true}`일 때 표시할 줄 수        |
+|       `editable`       |                        `boolean`                        |   `true`    |            `false`일 경우 입력 비활성화            |
+|      `autoFocus`       |                        `boolean`                        |   `false`   |        화면이 열릴 때 자동으로 포커스 설정         |
+|     `autoCorrect`      |                        `boolean`                        |   `true`    |             자동 수정 기능 활성화 여부             |
+|  `selectTextOnFocus`   |                        `boolean`                        |   `false`   |      포커스를 얻었을 때 기존 텍스트 자동 선택      |
+|   `clearTextOnFocus`   |                        `boolean`                        |   `false`   |    포커스를 얻으면 기존 텍스트 자동 삭제 (IOS)     |
+|    `selectionColor`    |                        `string`                         |   `blue`    |                선택된 텍스트의 색상                |
+|     `caretHidden`      |                        `boolean`                        |   `false`   |                 커서를 숨길지 여부                 |
+|      `textAlign`       |        `"auto" \| "left" \| "right" \| "center"`        |  `"auto"`   |                  텍스트 정렬 방향                  |
+|   `onSubmitEditing`    |                      `() => void`                       |             | 키보드에서 엔터(완료) 버튼을 눌렀을 때 실행할 함수 |
+|     `blurOnSubmit`     |                        `boolean`                        |   `true`    |      엔터 입력 시 키보드가 자동으로 닫힘 여부      |
+|       `onFocus`        |                      `() => void`                       |             |     `TextInput`이 포커스를 받을 때 실행할 함수     |
+|        `onBlur`        |                      `() => void`                       |             |    `TextInput`이 포커스를 잃었을 때 실행할 함수    |
