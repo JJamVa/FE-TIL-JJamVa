@@ -14,7 +14,7 @@ const config = {
   organizationName: "jjamva",
   projectName: "FE-TIL-JJamVa",
   deploymentBranch: "gh-pages",
-  trailingSlash: false,
+  trailingSlash: true,
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   markdown: {
