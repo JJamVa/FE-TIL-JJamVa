@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-frontend/NextJS/NextJs" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.6.3">
+<title data-rh="true">Next.js | JJamVa&#x27;s TIL</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://jjamva.github.io/FE-TIL-JJamVa/img/Among_us.jpg"><meta data-rh="true" name="twitter:image" content="https://jjamva.github.io/FE-TIL-JJamVa/img/Among_us.jpg"><meta data-rh="true" property="og:url" content="https://jjamva.github.io/FE-TIL-JJamVa/docs/frontend/NextJS/NextJs/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Next.js | JJamVa&#x27;s TIL"><meta data-rh="true" name="description" content="Next.js란?"><meta data-rh="true" property="og:description" content="Next.js란?"><link data-rh="true" rel="icon" href="/FE-TIL-JJamVa/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://jjamva.github.io/FE-TIL-JJamVa/docs/frontend/NextJS/NextJs/"><link data-rh="true" rel="alternate" href="https://jjamva.github.io/FE-TIL-JJamVa/docs/frontend/NextJS/NextJs/" hreflang="en"><link data-rh="true" rel="alternate" href="https://jjamva.github.io/FE-TIL-JJamVa/docs/frontend/NextJS/NextJs/" hreflang="x-default"><link rel="stylesheet" href="/FE-TIL-JJamVa/assets/css/styles.606d0e34.css">
+<script src="/FE-TIL-JJamVa/assets/js/runtime~main.be220dd1.js" defer="defer"></script>
+<script src="/FE-TIL-JJamVa/assets/js/main.d60817e9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"dark")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_bpby" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/FE-TIL-JJamVa/"><div class="navbar__logo"><img src="https://mblogthumb-phinf.pstatic.net/MjAyMDA5MTdfMTY4/MDAxNjAwMzE4MTUzMTg0.DqpZ3y6RlY2NSt4590JQO_AYm0gnqOZE04oFCxGIpBsg.8UF4uC-4jN-8HjTyTmsPAlpc0gDJHrnUmDsgAOCNnX4g.GIF.jangma2017/%EC%96%B4%EB%AA%BD%EC%96%B4%EC%8A%A4-gif-%EA%B1%B7%EA%B8%B0%EB%AA%A8%EC%85%982.gif?type=w800" alt="My Site Logo" class="themedComponent_YuPN themedComponent--light_L5lj"><img src="https://mblogthumb-phinf.pstatic.net/MjAyMDA5MTdfMTY4/MDAxNjAwMzE4MTUzMTg0.DqpZ3y6RlY2NSt4590JQO_AYm0gnqOZE04oFCxGIpBsg.8UF4uC-4jN-8HjTyTmsPAlpc0gDJHrnUmDsgAOCNnX4g.GIF.jangma2017/%EC%96%B4%EB%AA%BD%EC%96%B4%EC%8A%A4-gif-%EA%B1%B7%EA%B8%B0%EB%AA%A8%EC%85%982.gif?type=w800" alt="My Site Logo" class="themedComponent_YuPN themedComponent--dark_EsBf"></div><b class="navbar__title text--truncate">JJamVa FE TIL</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/FE-TIL-JJamVa/docs/frontend/intro/">Front-End</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/JJamVa" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_oTJh"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_fpDy colorModeToggle_Ek_W"><button class="clean-btn toggleButton_q_gw toggleButtonDisabled_Xlcz" type="button" disabled="" title="Switch between dark and light mode (currently dark mode)" aria-label="Switch between dark and light mode (currently dark mode)" aria-live="polite" aria-pressed="true"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_RZzl"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_jrek"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_bPNu"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_uVU4"><div class="docsWrapper_Sivu"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_dh8f" type="button"></button><div class="docRoot_m0iR"><aside class="theme-doc-sidebar-container docSidebarContainer_Ermv"><div class="sidebarViewport_Xs5J"><div class="sidebar_QBNA"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_2UZ6"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/FE-TIL-JJamVa/docs/frontend/intro/">Introduce</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/FE-TIL-JJamVa/docs/frontend/Git, VSC, Figma 정리/Git/">Git, VSC, Figma 정리</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/FE-TIL-JJamVa/docs/frontend/HTML/HTML 개념/">HTML</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/FE-TIL-JJamVa/docs/frontend/CSS/CSS 개념/">CSS</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/FE-TIL-JJamVa/docs/frontend/JavaScript/JavaScript개념/">JavaScript</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/FE-TIL-JJamVa/docs/frontend/JQuery/JQuery/">JQuery</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/FE-TIL-JJamVa/docs/frontend/Tailwind/Tailwind/">Tailwind</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/FE-TIL-JJamVa/docs/frontend/Bootstrap/bootstrap/">Bootstrap</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/FE-TIL-JJamVa/docs/frontend/Sass/Sass/">Sass</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/FE-TIL-JJamVa/docs/frontend/React/React/">React</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/FE-TIL-JJamVa/docs/frontend/Typescript/Typescript/">Typescript</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/FE-TIL-JJamVa/docs/frontend/Algorithm/stack&amp;queue/">Algorithm</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/FE-TIL-JJamVa/docs/frontend/NextJS/NextJs/">NextJS</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/FE-TIL-JJamVa/docs/frontend/NextJS/NextJs/">Next.js</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/FE-TIL-JJamVa/docs/frontend/NextJS/NextJs프로젝트/">Next.js 생성</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/FE-TIL-JJamVa/docs/frontend/NextJS/Metadata/">Metadata</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/FE-TIL-JJamVa/docs/frontend/NextJS/NextJs라우팅/">Next.js 라우팅</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/FE-TIL-JJamVa/docs/frontend/NextJS/페이지예외처리/">Next.js 페이지 예외 처리</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/FE-TIL-JJamVa/docs/frontend/NextJS/이미지/">Nextjs 이미지</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/FE-TIL-JJamVa/docs/frontend/NextJS/Server,Client Component/">Server, Client Component</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/FE-TIL-JJamVa/docs/frontend/NextJS/Data Fetch/">Data Fetch</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/FE-TIL-JJamVa/docs/frontend/NextJS/라우팅 심화/">라우팅 심화</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/FE-TIL-JJamVa/docs/frontend/NextJS/MSW/">Mock Service Workder(MSW)</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/FE-TIL-JJamVa/docs/frontend/NextJS/middleware/">Middleware</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/FE-TIL-JJamVa/docs/frontend/NextJS/Route Handlers/">Route Handlers</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/FE-TIL-JJamVa/docs/frontend/NextJS/jest/">Jest(테스트 코드)</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/FE-TIL-JJamVa/docs/frontend/React Native/ReactNative/">React Native</a></div></li></ul></nav><button type="button" title="Collapse sidebar" aria-label="Collapse sidebar" class="button button--secondary button--outline collapseSidebarButton_k_It"><svg width="20" height="20" aria-hidden="true" class="collapseSidebarButtonIcon_qLBK"><g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g></svg></button></div></div></aside><main class="docMainContainer_RXPW"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_PH5l"><div class="docItemContainer_ncY5"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_t7GX" aria-label="Breadcrumbs"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/FE-TIL-JJamVa/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_XSG7"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">NextJS</span><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">Next.js</span><meta itemprop="position" content="2"></li></ul></nav><div class="tocCollapsible_WfAg theme-doc-toc-mobile tocMobile_i8BS"><button type="button" class="clean-btn tocCollapsibleButton_ueZr">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Next.js</h1></header>
+<h2 class="anchor anchorWithStickyNavbar_Jg8Z" id="nextjs란">Next.js란?<a href="#nextjs란" class="hash-link" aria-label="Direct link to Next.js란?" title="Direct link to Next.js란?">​</a></h2>
+<ul>
+<li>서버 사이드 렌더링(SSR)과 정적 사이트 생성(SSG)을 지원하는 <strong>React 프레임워크</strong>의 일종</li>
+<li>Vercel에서 개발되었으며, 동적 웹 애플리케이션을 구축하기 위해 최적화된 성능과 개발자 경험을 제공</li>
+<li>JS와 React의 강력한 기능을 활용하여 SEO 최적화, 빠른 페이지 로딩 속도, 뛰어난 사용자 경험을 가능</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_Jg8Z" id="nextjs의-특징">Next.js의 특징<a href="#nextjs의-특징" class="hash-link" aria-label="Direct link to Next.js의 특징" title="Direct link to Next.js의 특징">​</a></h2>
+<ul>
+<li>서버 사이드 렌더링(SSR): 초기 페이지 로드 시 서버에서 HTML을 생성하여 전송함으로써
+빠른 페이지 로드 속도와 SEO 최적화를 제공</li>
+<li>정적 사이트 렌더링(SSG): 빌드 타임에 HTML을 생성하여 배포함으로써 빠른 로딩 속도와 안정성을 보장</li>
+<li>파일 기반 라우팅 시스템: 파일과 폴더 구조를 사용해 라우트를 자동으로 설정</li>
+<li>API 라우트: API 엔드포인트를 쉽게 생성할 수 있도록 지원하여 백엔드 로직을 같은 프로젝트 내에서 관리 가능</li>
+<li>내장 최적화: 자동 이미지 최적화, 코드 스플리팅, 빌드 최적화 등이 기본으로 제공</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_Jg8Z" id="react와-nextjs-비교">React와 Next.js 비교<a href="#react와-nextjs-비교" class="hash-link" aria-label="Direct link to React와 Next.js 비교" title="Direct link to React와 Next.js 비교">​</a></h2>
+<ul>
+<li>
+<p><strong>공통점</strong></p>
+<ul>
+<li><code>React 기반</code>: React Component, JSX, 상태 관리 등 React의 핵심 개념을 사용</li>
+<li>SPA(Single Page Application) 지원: SPA 개바을 지원하며, 사용자 인터페이스의 빠른 상호작용과 동적인 데이터 변경 처리가 가능</li>
+</ul>
+</li>
+<li>
+<p><strong>차이점</strong></p>
+<ul>
+<li>
+<p><strong>React</strong></p>
+<ul>
+<li><code>라이브러리</code>: UI 라이브러리, Component를 만들어 UI를 구성하는데 중점을 둔다.</li>
+<li><code>CSR(Client Side Rendering)</code>: 클라이언트 측에서 주로 렌더링을 처리</li>
+<li><code>직접 데이터 패치</code>: 데이터 패칭은 개발의 구현에 따라 달라지며, Component의 생명주기 메소드나 Hook들로 사용하여 처리</li>
+<li><code>직접 라우팅 관리</code>: React 자체에 라우팅 기능이 내장되어 있지 않으며 React Router 라이브러리를 이용하여 라우팅 관리</li>
+</ul>
+</li>
+<li>
+<p><strong>Next.js</strong></p>
+<ul>
+<li><code>프레임워크</code>: React 위에 구축된 프레임워크, 어플리케이션 아키텍처에 많은 구조와 기능을 기본으로 제공</li>
+<li><code>SSR(Server Side Rendering), SSG(Static Side Rendering)</code>: SSR,SSG를 기본 제공. 페이지가 서버에서 미리 렌더링되어 클라이언트에게 전송</li>
+<li><code>데이터 패치 API 제공</code>: 페이지 수준에서 데이터 요구 사항을 정의할 수 있는 API를 제공</li>
+<li><code>파일 시스템 기반   라우팅 제공</code>: JS파일을 <code>pages</code> 디렉토리에 넣음으로써 자동으로 라우터가 설정</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="theme-admonition theme-admonition-info admonition_wLDT alert alert--info"><div class="admonitionHeading_arIv"><span class="admonitionIcon_suUD"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_kDMx"><p><strong>클라이언트 사이드 렌더링이란?</strong><br>
+Client Side Rendering, CSR이라고 줄여 부름.<br>
+웹 애플리케이션의 HTML, JavaScript, CSS 등 모든 정적 자원을 클라이언트의 브라우저에 한 번에 로드한 후,<br>
+사용자의 상호작용에 따라 JavaScript를 이용해 동적으로 화면을 렌더링하는 방식<br>
+즉, 서버에서 완성된 페이지를 받는 것이 아니라, 어플리케이션 로직이 클라이언트 측에서 실행되면서<br>
+필요한 데이터만 비동기적으로 요청하고 받아 페이지를 갱신합니다.<br></p><ul>
+<li><code>장점</code>
+<ul>
+<li>리치 인터렉션: 동적인 사용자 인터페이스와 복잡한 사용자 경험을 구현할 수 있어, SPA에 적합</li>
+<li>네트워크 트래픽 감소: 초기 로딩 이후에는 필요한 데이터만 서버에서 요청</li>
+</ul>
+</li>
+<li><code>단점</code>
+<ul>
+<li>초기 로딩 지연: 모든 스크립트와 리소스를 초기에 다운로드. 이로 인해 로딩시간이 길어질 수 있다.</li>
+<li>SEO 문제: 웹 크롤러가 동적으로 렌더링된 내용을 제대로 파악하기 어려워 검색 엔진 최적화에 어려움이 발생</li>
+</ul>
+</li>
+</ul><hr><p><strong>서버 사이드 렌더링이란?</strong><br>
+<code>Server Side Rendering</code>, <code>SSR</code>이라고 줄여 부름.<br>
+클라이언트의 요청에  따라 서버에서 페이지의 <strong>초기 HTML을 생성하고, 그 결과를 클라이언트에 전송</strong>하는 기법<br>
+사용자가 웹사이트에 접속할 때마다 서버는 해당 요청에 맞는 데이터를 가져와 완성된 페이지를 HTML 형태로 클라이언트에게 전달.<br>
+서버에서 페이지를 미리 렌더링 함으로써, 클라이언트는 서버로부터 받은 HTML을 즉시 렌더링할 수 있어 초기 로딩 시간을 단축.<br></p><ul>
+<li>
+<p><code>장점</code></p>
+<ul>
+<li>SEO 최적화: 검색 엔진이 페이지 내용을 쉽게 인덱싱 가능</li>
+<li>빠른 초기 로딩: 사용자에게 초기 페이지 로드 시 빠른 사용자 경험 제공</li>
+<li>전체 페이지 캐싱: 서버에서 전체 페이지를 캐싱하여 빠르게 제공</li>
+</ul>
+</li>
+<li>
+<p><code>단점</code></p>
+<ul>
+<li>서버 부하: 각 요청에 대해 페이지를 새로 렌더링해야 함으로 서버 부하가 생길 수 있다.</li>
+<li>TTFB(Time to First Byte)지연: 페이지를 서버에서 처리하고 클라이언트로 전송하는 시간 때문에<br>
+지연이 발생할 수 있다.</li>
+</ul>
+</li>
+</ul><hr><p><strong>정적 사이드 렌더링이란?</strong><br>
+<code>Static Site Generation</code>, <code>SSG</code>이라고 줄여 부름.<br>
+정적 사이트 생성은 빌드 타임에 <strong>모든 페이지를 미리 HTML로 변환하고,사용자의 요청에 따라 사전에 생성된 정적 페이지를 제공</strong>하는 방법<br>
+<strong>동적 데이터가 필요하지 않거나 변경되지 않는 웹사이트에 적합</strong><br>
+컨텐츠가 변하지 않으면 서버나 클라이언트 사이드에서 추가 작업을 수행할 필요가 없다.<br></p><ul>
+<li>
+<p>장점</p>
+<ul>
+<li>높은 성능: 정적 파일들은 CDN을 통해 빠르게 전달되므로 로딩 속도가 매우 빠르다.<br>
+<code>CDN</code>은 전 세계에 분산된 네트워크를 통해 사용자에게 빠르게 제공하는 시스템<br></li>
+<li>보안성 향상: 서버 사이드 코드가 없기 때문에 보안에 대한 위험도가 감소</li>
+<li>확장성: 정적 파일들을 여러 서버나 지역에 분산하여 쉽게 확장 가능</li>
+</ul>
+</li>
+<li>
+<p>단점</p>
+<ul>
+<li>동적 기능 제한: 사용자의 입력이나 상호작용에 따른 실시간 기능 구현이 어려움</li>
+<li>빌드 시간: 페이지가 많을 수록 빌드하는데 시간이 걸릴 수 있다.</li>
+</ul>
+</li>
+</ul></div></div></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/FE-TIL-JJamVa/docs/frontend/Algorithm/tree/"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Tree</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/FE-TIL-JJamVa/docs/frontend/NextJS/NextJs프로젝트/"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Next.js 생성</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_hsMB thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#nextjs란" class="table-of-contents__link toc-highlight">Next.js란?</a></li><li><a href="#nextjs의-특징" class="table-of-contents__link toc-highlight">Next.js의 특징</a></li><li><a href="#react와-nextjs-비교" class="table-of-contents__link toc-highlight">React와 Next.js 비교</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 JJamVa, Built with Docusaurus. </div></div></div></footer></div>
+</body>
+</html>
