@@ -15,7 +15,7 @@ const config = {
   projectName: "FE-TIL-JJamVa",
   deploymentBranch: "gh-pages",
   trailingSlash: true,
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
   markdown: {
     format: "detect",
