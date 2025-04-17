@@ -32,8 +32,6 @@ const config = {
           path: "docs",
           routeBasePath: "docs",
           sidebarPath: require.resolve("./sidebars.js"),
-          // editUrl:
-          //   "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         },
         blog: {
           showReadingTime: true,
@@ -67,12 +65,18 @@ const config = {
             position: "left",
             label: "Front-End",
           },
-          // {
-          //   type: "doc",
-          //   docId: "backend/intro",
-          //   position: "left",
-          //   label: "Back-End",
-          // },
+          {
+            type: "doc",
+            docId: "algorithm/intro",
+            position: "left",
+            label: "Algorithm",
+          },
+          {
+            type: "doc",
+            docId: "tools/intro",
+            position: "left",
+            label: "Tools",
+          },
           {
             href: "https://github.com/JJamVa",
             label: "GitHub",
