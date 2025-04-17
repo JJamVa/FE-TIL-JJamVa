@@ -1,9 +1,12 @@
 # Tools
 
-```
-Tools 정리
+:::note
 
-```
+- [Figma](https://www.figma.com/)
+- [Git (Git SCM)](https://git-scm.com/)
+- [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
+
+:::
 
 <!-- 마크다운 참고 블로그 사이트 https://khw11044.github.io/blog/blog-etc/2020-12-21-markdown-tutorial/ -->
 
