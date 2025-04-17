@@ -1,4 +1,4 @@
-# VSCODE 단축키 및 Snippet 설정
+# VSCODE
 
 ## 1. VScode사용법 및 단축키 (Window 기준)
 

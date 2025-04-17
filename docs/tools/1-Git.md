@@ -1,4 +1,4 @@
-# Git개념 및 사용법
+# Git
 
 ## 1. Git과 GitHub
 
